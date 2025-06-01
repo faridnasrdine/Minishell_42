@@ -3,14 +3,12 @@
 int is_valid(char *av)
 {
 	int i;
-	int f;
 
 	i = 0;
 	if(!av || av[0] == '\0')
 		return 0;
 	if(av[0] == '-')
 	{
-		f = 1;
 		i++;
 	}
 	if(av[0] == '+')

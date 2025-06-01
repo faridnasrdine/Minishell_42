@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <termios.h>
+#include <sys/wait.h>
 #include "libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -62,40 +63,52 @@ typedef struct s_list
 typedef struct s_cmd_exec
 {
     char **argv;   // arguments for the command
-    char *path;
-    int hd_fd;
+    char *path;    // full path to executable
+    int hd_fd;     // heredoc file descriptor
 }   t_cmd_exec;
 
 typedef struct s_data
 {
+    t_list *cmd_list;       // parsed command list
     t_cmd_exec *cmd_exec;   // array of commands to execute
-    int			og_fd[2];   // original stdin/out (to restore after redirections)
-
+    char **envp;            // environment variables
+    int og_fd[2];           // original stdin/out (to restore after redirections)
+    int exit_status;        // last command exit status
 }   t_data;
 
 
+// Function prototypes
 t_list *paring_cmd(char *cmd);
 int is_meta(char str);
 int ft_lstadd_back(t_list **lst, t_list *new);
 void ft_lstclear(t_list **lst);
-int					ft_lstsize(t_list *lst);
+int ft_lstsize(t_list *lst);
 char *checking_dolar(char *str);
 char *ft_strjoin_free(char *s1, char *s2);
 char *skip_qouts(char *str);
-t_list *fill_node(char *content,t_token_type t_type);
+t_list *fill_node(char *content, t_token_type t_type);
 int checking_close_qoutes(char *str);
 int checking_cmd(t_list **list);
 t_cmd_exec *create_cmd_exec(t_list *cmd_list);
+void free_cmd_exec(t_cmd_exec *cmd_exec);
 
-//////////////////////////////////////////////////////===>test
+// Test functions
 const char *token_type_to_string(t_token_type type);
-//////////////////////////////////////////////////////////
+
+// Execution functions
 int execute_builtin(t_cmd_exec *cmd);
-int signal_exec(t_data *data);
+int execute_command(t_data *data);
+char *find_command_path(char *cmd, char **envp);
+int is_builtin(char *cmd);
+
+// Utility functions
 int cnt_string(char **str);
-char	*ft_getenv(char *var);
+char *ft_getenv(char *var);
+
+// Built-in commands
 int cd_cmd(char **av);
-int pwd_cmd();
+int pwd_cmd(void);
 int exit_cmd(char **av);
 int unset_cmd(char **av);
+int print_echo(char **av);
 #endif

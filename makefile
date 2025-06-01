@@ -13,6 +13,7 @@
 NAME = minishell
 SRC = main.c utils.c pars.c cheking_lexer.c test_function.c check_dolar.c utils1.c executing/bultins/echo_cmd.c \
 		executing/bultins/cd_cmd.c executing/bultins/pwd_cmd.c executing/bultins/exit_cmd.c executing/bultins/unset_cmd.c\
+		executing/singal_exec.c
 		
 OBJS = $(SRC:.c=.o)
 CC = cc

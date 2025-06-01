@@ -12,44 +12,41 @@
 
 #include "minishell.h"
 
-
-/////getenv 9ad li founction nhandli $ ??????????
+extern char **environ;
 
 int main()
 {
     char *cmd;
-    t_list *cmd_list = NULL;
+    t_data data;
+    
+    // Initialize data structure
+    data.cmd_list = NULL;
+    data.cmd_exec = NULL;
+    data.envp = NULL;
+    data.exit_status = 0;
 
     while (1)
     {
-        cmd = readline("<minishell> ");
+        cmd = readline("minishell> ");
         if (!cmd)
         {
             printf("exit\n");
             break;
         }
 
-        cmd_list = paring_cmd(cmd);
-        
-        if (cmd_list)
+        if (*cmd)
         {
-            t_cmd_exec *cmd_exec = create_cmd_exec(cmd_list);
+            add_history(cmd);
+            data.cmd_list = paring_cmd(cmd);
             
-            if (cmd_exec)
+            if (data.cmd_list)
             {
-            //    int i = 0;
-            //    while (cmd_exec->argv[i])
-            //    {
-            //         printf("argv[%d] : %s\n",i, cmd_exec->argv[i]);
-            //         i++;
-            //    }
-                    execute_builtin(cmd_exec);
+                execute_command(&data);
+                ft_lstclear(&data.cmd_list);
             }
         }
-        if (*cmd)
-            add_history(cmd);
+        free(cmd);
     }
-
-    return 0;
+    return (data.exit_status);
 }
 

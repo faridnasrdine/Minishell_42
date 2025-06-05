@@ -20,20 +20,17 @@ char *find_command_path(char *cmd, char **envp)
     char *temp;
     int i;
 
-    (void)envp; // Suppress unused parameter warning
+    (void)envp;
 
     if (!cmd || !*cmd)
         return (NULL);
 
-    // If command contains '/', it's already a path
     if (ft_strchr(cmd, '/'))
     {
         if (access(cmd, F_OK | X_OK) == 0)
             return (ft_strdup(cmd));
         return (NULL);
     }
-
-    // Get PATH environment variable
     path_env = getenv("PATH");
     if (!path_env)
         return (NULL);
@@ -51,7 +48,6 @@ char *find_command_path(char *cmd, char **envp)
 
         if (access(full_path, F_OK | X_OK) == 0)
         {
-            // Free paths array
             int j = 0;
             while (paths[j])
                 free(paths[j++]);
@@ -61,8 +57,6 @@ char *find_command_path(char *cmd, char **envp)
         free(full_path);
         i++;
     }
-
-    // Free paths array
     i = 0;
     while (paths[i])
         free(paths[i++]);
@@ -74,21 +68,17 @@ int execute_single_command(t_data *data)
 {
     t_cmd_exec *cmd_exec;
     int pid;
-    int status;
 
     cmd_exec = create_cmd_exec(data->cmd_list);
     if (!cmd_exec || !cmd_exec->argv || !cmd_exec->argv[0])
         return (1);
 
-    // Handle built-in commands
     if (is_builtin(cmd_exec->argv[0]))
     {
-        data->exit_status = execute_builtin(cmd_exec);
+        data->exit_status = execute_builtin(cmd_exec, data);
         free_cmd_exec(cmd_exec);
         return (data->exit_status);
     }
-
-    // Find command path
     cmd_exec->path = find_command_path(cmd_exec->argv[0], data->envp);
     if (!cmd_exec->path)
     {
@@ -97,8 +87,6 @@ int execute_single_command(t_data *data)
         data->exit_status = 127;
         return (127);
     }
-
-    // Fork and execute
     pid = fork();
     if (pid == -1)
     {
@@ -108,7 +96,6 @@ int execute_single_command(t_data *data)
     }
     else if (pid == 0)
     {
-        // Child process
         if (execve(cmd_exec->path, cmd_exec->argv, data->envp) == -1)
         {
             perror("execve");
@@ -118,12 +105,7 @@ int execute_single_command(t_data *data)
     }
     else
     {
-        // Parent process
-        waitpid(pid, &status, 0);
-        if (WIFEXITED(status))
-            data->exit_status = WEXITSTATUS(status);
-        else if (WIFSIGNALED(status))
-            data->exit_status = 128 + WTERMSIG(status);
+       wait(NULL);
     }
 
     free_cmd_exec(cmd_exec);
@@ -134,8 +116,6 @@ int execute_command(t_data *data){
     if (!data || !data->cmd_list)
         return (1);
 
-    // For now, handle single commands only
-    // TODO: Add pipe handling, redirections, etc.
     return (execute_single_command(data));
 }
 

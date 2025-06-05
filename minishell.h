@@ -96,19 +96,22 @@ void free_cmd_exec(t_cmd_exec *cmd_exec);
 const char *token_type_to_string(t_token_type type);
 
 // Execution functions
-int execute_builtin(t_cmd_exec *cmd);
+int execute_builtin(t_cmd_exec *cmd, t_data *data);
 int execute_command(t_data *data);
 char *find_command_path(char *cmd, char **envp);
 int is_builtin(char *cmd);
 
 // Utility functions
 int cnt_string(char **str);
-char *ft_getenv(char *var);
-
+char	*ft_getenv(char **envp, char *var);
+char **cop_env(char **env);
+char *find_env(char **envp, char *name);
+int count_env_vars(char **envp);
 // Built-in commands
 int cd_cmd(char **av);
 int pwd_cmd(void);
 int exit_cmd(char **av);
 int unset_cmd(char **av);
 int print_echo(char **av);
+int ft_export(char **av, char ***envp);
 #endif

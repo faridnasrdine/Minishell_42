@@ -12,19 +12,18 @@
 
 #include "minishell.h"
 
-extern char **environ;
 
-int main()
+int main(int ac, char **av, char **env)
 {
     char *cmd;
     t_data data;
-    
-    // Initialize data structure
+        
     data.cmd_list = NULL;
     data.cmd_exec = NULL;
-    data.envp = NULL;
+    data.envp = cop_env(env);
     data.exit_status = 0;
-
+    (void)ac;
+    (void)av;
     while (1)
     {
         cmd = readline("minishell> ");

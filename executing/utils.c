@@ -12,68 +12,79 @@
 
 #include "../minishell.h"
 
-char	*ft_strjoin_3(char *path, char *cmd, char c)
-{
-	char	*s;
-	int		i;
-	int		len;
 
-	if (!path || !cmd)
-		return (NULL);
-	len = strlen(path) + strlen(cmd);
-	s = malloc(len + 2);
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (path[i])
+char *find_env(char **envp, char *name)
+{
+	char **env;
+	char *pos;
+	int len;
+	int i = 0;
+	if(!envp || !name)
+		return NULL;
+	len = ft_strlen(name);
+	env = envp;
+	while(env[i])
 	{
-		s[i] = path[i];
+		pos = ft_strchr(env[i], '=');
+		if(pos && (pos - env[i]) == len && strncmp(env[i],name, len) == 0)
+			return pos + 1;
 		i++;
 	}
-	s[i++] = c;
-	while (*cmd)
+	return NULL;
+}
+char **cop_env(char **env)
+{
+	int count;
+	char **new_env;
+	int i = 0;
+
+	if(!env)
+		return NULL;
+	count = count_env_vars(env);
+	new_env = malloc(sizeof(char *) * count + 1);
+	if(!new_env)
+		return NULL;
+	while(i < count)
 	{
-		s[i] = *cmd++;
+		new_env[i] = ft_strdup(env[i]);
+		if(!new_env[i])
+		{
+			while(--i >= 0)
+				free(new_env);
+			free(new_env);
+			return NULL;
+		}
 		i++;
 	}
-	s[i] = '\0';
-	return (s);
+	new_env[count] = NULL;
+	return new_env;
 }
-char	*ft_getenv(char *var, t_list *shell)
+char	*ft_getenv(char **envp, char *var)
 {
-	t_list	*temp;
-
-	temp = shell->content;
-	while (temp)
-	{
-		if (strcmp(var, temp->type) == 0)
-			return (temp->content);
-		temp = temp->next;
-	}
-	return (NULL);
+	return find_env(envp, var);
 }
-int list_size(t_list *shell)
-{
-    int		i;
-    t_list	*temp;
+// int list_size(t_list *shell)
+// {
+//     int		i;
+//     t_list	*temp;
 
-    i = 0;
-    temp = shell->content;
-    while (temp)
-    {
-        i++;
-        temp = temp->next;
-    }
-    return (i);
-}
-int cnt_string(char **str)
-{
-    int i;
+//     i = 0;
+//     temp = shell->content;
+//     while (temp)
+//     {
+//         i++;
+//         temp = temp->next;
+//     }
+//     return (i);
+// }
+// int cnt_string(char **str)
+// {
+//     int i;
 
-    i = 0;
-    if(!str)
-        return 0;
-    while(str[i])
-        i++; 
-    return i;
-}
+//     i = 0;
+//     if(!str)
+//         return 0;
+//     while(str[i])
+//         i++; 
+//     return i;
+// }

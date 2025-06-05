@@ -79,18 +79,6 @@ char *find_env_var(char **envp, char *name)
     return NULL;
 }
 
-int count_env_vars(char **envp)
-{
-    int count = 0;
-    
-    if (!envp)
-        return 0;
-    
-    while (envp[count])
-        count++;
-    
-    return count;
-}
 
 char **add_env_var(char **envp, char *name, char *value)
 {
@@ -229,7 +217,7 @@ void free_env_array(char **envp)
     free(envp);
 }
 
-int ft_export(char **av, char ***envp)
+int export_cmd(char **av, char ***envp)
 {
     int i;
     int exit_status;

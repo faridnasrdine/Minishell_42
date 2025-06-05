@@ -40,7 +40,7 @@ char **cop_env(char **env)
 
 	if(!env)
 		return NULL;
-	count = count_env_vars(env);
+	count = cnt_string(env);
 	new_env = malloc(sizeof(char *) * count + 1);
 	if(!new_env)
 		return NULL;

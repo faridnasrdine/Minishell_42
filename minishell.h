@@ -106,12 +106,11 @@ int cnt_string(char **str);
 char	*ft_getenv(char **envp, char *var);
 char **cop_env(char **env);
 char *find_env(char **envp, char *name);
-int count_env_vars(char **envp);
 // Built-in commands
 int cd_cmd(char **av);
 int pwd_cmd(void);
 int exit_cmd(char **av);
 int unset_cmd(char **av);
 int print_echo(char **av);
-int ft_export(char **av, char ***envp);
+int export_cmd(char **av, char ***envp);
 #endif

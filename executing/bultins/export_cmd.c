@@ -94,7 +94,12 @@ char **add_env_var(char **envp, char *name, char *value)
         return envp;
     
     name_len = strlen(name);
-    value_len = value ? strlen(value) : 0;
+    
+    if (value)
+        value_len = strlen(value);
+    else
+        value_len = 0;
+    
     env_count = count_env_vars(envp);
     existing_value = find_env_var(envp, name);
     
@@ -102,10 +107,10 @@ char **add_env_var(char **envp, char *name, char *value)
     if (!new_var)
         return envp;
     
+    strcpy(new_var, name);
+    strcat(new_var, "=");
     if (value)
-        sprintf(new_var, "%s=%s", name, value);
-    else
-        sprintf(new_var, "%s=", name);
+        strcat(new_var, value);
     
     if (existing_value)
     {
@@ -123,7 +128,9 @@ char **add_env_var(char **envp, char *name, char *value)
             char *equal_pos = strchr(envp[i], '=');
             if (equal_pos && (equal_pos - envp[i]) == name_len 
                 && strncmp(envp[i], name, name_len) == 0)
+            {
                 new_envp[j] = new_var;
+            }
             else
             {
                 new_envp[j] = ft_strdup(envp[i]);
@@ -149,6 +156,7 @@ char **add_env_var(char **envp, char *name, char *value)
             free(new_var);
             return envp;
         }
+        
         i = 0;
         while (i < env_count)
         {
@@ -162,8 +170,7 @@ char **add_env_var(char **envp, char *name, char *value)
                 return envp;
             }
             i++;
-        }
-        
+        }        
         new_envp[env_count] = new_var;
         new_envp[env_count + 1] = NULL;
     }

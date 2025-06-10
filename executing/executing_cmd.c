@@ -12,67 +12,27 @@
 
 #include "../minishell.h"
 
-// Function to count the number of non-builtin commands
-int nbr_of_pid(t_shell *shell, int proc)
+int execute_builtin(t_cmd_exec *cmd, t_data *data)
 {
-    int i;
-    int pid_count;
-
-    i = 0;
-    pid_count = 0;
-    while (i < proc)
-    {
-        if (shell->cmd[i].cmd && shell->cmd[i].builtin == 0)  // Check if it's not a builtin command
-            pid_count++;
-        i++;
-    }
-    return pid_count;
+	if (!ft_strcmp(cmd->argv[0], "echo"))
+		print_echo(cmd->argv + 1);
+	if (!ft_strcmp(cmd->argv[0], "cd"))
+		cd_cmd(cmd->argv);
+	if (!ft_strcmp(cmd->argv[0], "pwd"))
+		pwd_cmd();
+	if (!ft_strcmp(cmd->argv[0], "exit"))
+		exit_cmd(cmd->argv);
+	if (!ft_strcmp(cmd->argv[0], "unset"))
+		unset_cmd(cmd->argv);
+	if (!ft_strcmp(cmd->argv[0], "export"))
+		export_cmd(cmd->argv, &data->envp);
+	// if (!ft_strcmp(cmd->argv[0], "env"))
+	// 	env_cmd(cmd->argv, data->envp);
+	return 0;
 }
-
-// Create an array of PIDs to store the process IDs
-int *create_pid(int pid_count)
+int execute_command(t_data *data)
 {
-    int *pids;
-
-    pids = malloc(sizeof(int) * pid_count);
-    if (!pids)
-    {
-        perror("Memory allocation failed");
-        return NULL;
-    }
-    return pids;
-}
-
-// Execute the commands with support for pipes and forking processes
-void execute_cmd(t_shell *shell)
-{
-    int proc = cnt_string(shell->ap);  // Assuming cnt_string counts the commands to execute
-    int pipes = proc - 1;
-  
-    // Set up the shell structure
-    shell->pipes = pipes;
-    shell->fds = NULL;
-    shell->pid = NULL;
-    shell->cmd = calloc(proc, sizeof(t_command));  // Allocate memory for the commands
-    if (!shell->cmd)
-    {
-        perror("Memory allocation failed");
-        return;
-    }
-
-    // Initialize command structure
-    init_cmd(shell, proc);
-
-    // Create PID array if there are non-builtin commands
-    if (nbr_of_pid(shell, proc) > 0)
-        shell->pid = create_pid(nbr_of_pid(shell, proc));
-
-    // Fork processes
-    fork_process(shell, proc);
-
-    // Free allocated memory after execution
-    if (shell->cmd)
-        free(shell->cmd);
-    if (shell->pid)
-        free(shell->pid);
+	if (!data || !data->cdm_list)
+		return 1;
+	return (signal_exec(data));
 }

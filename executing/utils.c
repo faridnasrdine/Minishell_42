@@ -12,60 +12,8 @@
 
 #include "../minishell.h"
 
-char	*ft_strjoin_3(char *path, char *cmd, char c)
-{
-	char	*s;
-	int		i;
-	int		len;
 
-	if (!path || !cmd)
-		return (NULL);
-	len = strlen(path) + strlen(cmd);
-	s = malloc(len + 2);
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (path[i])
-	{
-		s[i] = path[i];
-		i++;
-	}
-	s[i++] = c;
-	while (*cmd)
-	{
-		s[i] = *cmd++;
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
-}
-char	*ft_getenv(char *var, t_list *shell)
-{
-	t_list	*temp;
 
-	temp = shell->content;
-	while (temp)
-	{
-		if (strcmp(var, temp->type) == 0)
-			return (temp->content);
-		temp = temp->next;
-	}
-	return (NULL);
-}
-int list_size(t_list *shell)
-{
-    int		i;
-    t_list	*temp;
-
-    i = 0;
-    temp = shell->content;
-    while (temp)
-    {
-        i++;
-        temp = temp->next;
-    }
-    return (i);
-}
 int cnt_string(char **str)
 {
     int i;
@@ -76,4 +24,56 @@ int cnt_string(char **str)
     while(str[i])
         i++; 
     return i;
+}
+void	ft_strncpy(char *dest, const char *src, int n)
+{
+	int	i;
+
+	i = 0;
+	while ((i < n) && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+
+void	ft_strcpy(char *dest, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+}
+void	ft_strcat(char *dest, const char *src)
+{
+	int	lend;
+	int	lens;
+	int	i;
+
+	lens = ft_strlen(src);
+	if (!dest)
+		return;
+	lend = ft_strlen(dest);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[lend + i] = src[i];
+		i++;
+	}
+	dest[lend + i] = '\0';
+}
+int	ft_strncmp(const char *str1, const char *str2, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n && str1[i] == str2[i] && str1[i] != '\0' && str2[i] != '\0')
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:50:41 by aoussama          #+#    #+#             */
-/*   Updated: 2025/05/31 13:43:14 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/10 10:02:50 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../minishell.h"
 
 
-size_t				ft_strlen(const char *str);
+int				ft_strlen(const char *str);
 size_t				ft_strlcat(char *dest, const char *src, size_t size);
 size_t				ft_strlcpy(char *dest, const char *src, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);

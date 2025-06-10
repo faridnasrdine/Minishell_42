@@ -6,20 +6,47 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 13:08:36 by aoussama          #+#    #+#             */
-/*   Updated: 2025/05/22 22:55:56 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/10 07:56:22 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-/////getenv 9ad li founction nhandli $ ??????????
+char **copy_env(char **env)
+{
+    int len;
+    char **new_env;
+    int i;
 
-int main()
+    i = 0;
+    len = cnt_string(env);
+    new_env = malloc(sizeof(char *) * len +1);
+    if(!new_env)
+        return NULL;
+    while(i < len)
+    {
+        new_env[i] = ft_strdup(env[i]);
+        i++;
+    }
+    new_env[len] = NULL;
+    return new_env;
+}
+void int_data(t_data *data, char **envp)
+{
+    data->cdm_list = NULL;
+    data->cmd_exec = NULL;
+    data->envp = copy_env(envp);
+    data->exit_status = 0;
+}
+int main(int ac, char **av, char **envp)
 {
     char *cmd;
-    t_list *cmd_list = NULL;
+    t_data data;
+    (void)ac;
+    (void)av;
 
+    int_data(&data, envp);
     while (1)
     {
         cmd = readline("<minishell> ");
@@ -28,28 +55,18 @@ int main()
             printf("exit\n");
             break;
         }
-
-        cmd_list = paring_cmd(cmd);
-        
-        if (cmd_list)
-        {
-            t_cmd_exec *cmd_exec = create_cmd_exec(cmd_list);
-            
-            if (cmd_exec)
-            {
-            //    int i = 0;
-            //    while (cmd_exec->argv[i])
-            //    {
-            //         printf("argv[%d] : %s\n",i, cmd_exec->argv[i]);
-            //         i++;
-            //    }
-                    execute_builtin(cmd_exec);
-            }
-        }
         if (*cmd)
+        {
             add_history(cmd);
+            data.cdm_list = paring_cmd(cmd);
+            if(data.cdm_list)
+            {
+                execute_command(&data);
+                ft_lstclear(&data.cdm_list);
+            }  
+        }
+        free(cmd);
     }
-
-    return 0;
+    return data.exit_status;
 }
 

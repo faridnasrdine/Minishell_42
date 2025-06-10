@@ -1,23 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset_cmd.c                                        :+:      :+:    :+:   */
+/*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/09 13:56:55 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/09 13:56:56 by nafarid          ###   ########.fr       */
+/*   Created: 2025/06/09 13:56:24 by nafarid           #+#    #+#             */
+/*   Updated: 2025/06/09 13:56:35 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int unset_cmd(char **av)
+int env_cmd(char **av, char **envp)
 {
-    long len;
-
-    len = cnt_string(av);
-    if(len == 1)
-        return 0;
-    return 0;
 }

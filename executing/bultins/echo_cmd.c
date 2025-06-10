@@ -65,18 +65,3 @@ int print_echo(char **av)
         write(1, "\n", 1);
     return 0;
 }
-
-int execute_builtin(t_cmd_exec *cmd)
-{
-    if(!ft_strcmp(cmd->argv[0], "echo"))
-        print_echo(cmd->argv + 1);
-    if(!ft_strcmp(cmd->argv[0], "cd"))
-        cd_cmd(cmd->argv);
-    if(!ft_strcmp(cmd->argv[0], "pwd"))
-        pwd_cmd();
-    if(!ft_strcmp(cmd->argv[0], "exit"))
-        exit_cmd(cmd->argv);
-    if(!ft_strcmp(cmd->argv[0], "unset"))
-        unset_cmd(cmd->argv);
-    return 0;
-}

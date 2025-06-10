@@ -6,23 +6,12 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:45:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/05/31 13:44:18 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/05 16:28:11 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int cnt_string(char **str)
-{
-    int i;
-
-    i = 0;
-    if (!str)
-        return 0;
-    while (str[i])
-        i++; 
-    return i;
-}
 
 int ft_cd_home(void)
 {

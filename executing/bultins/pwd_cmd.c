@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 13:56:51 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/09 13:56:52 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/11 15:20:11 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int pwd_cmd()
 
     path = getcwd(NULL, 0);
     if(!path)
-        path = ft_strdup(getenv("PWD"));
+    {
+        free(path);
+        return 1;
+    }
     printf("%s\n", path);
     free(path);
     return 0;

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 11:51:29 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/10 10:56:02 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/11 11:35:03 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,11 @@ char **add_new_var(char **envp, char *new, char *val)
 	int len_val;
 	int bol;
 	int len_env;
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 	
+	i = 0;
+	j = 0;
 	len_env = cnt_string(envp);
 	len_val = 0;
 	bol = find_var(envp, new);

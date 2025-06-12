@@ -103,11 +103,12 @@ int execute_builtin(t_cmd_exec *cmd, t_data *data);
 int signal_exec(t_data *data);
 int cnt_string(char **str);
 int execute_command(t_data *data);
+char **add_new_var(char **envp, char *new, char *val);
 //////////////////////////////////////////////////===>BUILTIN
-int	cd_cmd(char **av);
+int cd_cmd(char **av, t_data *data);
 int pwd_cmd();
 int exit_cmd(char **av);
-int unset_cmd(char **av);
+int unset_cmd(char **av, t_data *data);
 int print_echo(char **av);
 int export_cmd(char **av, char ***envp);
 int env_cmd(char **av, char **envp);

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 11:51:29 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/11 11:35:03 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/12 16:02:02 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ int valid_identifier(char *str)
 	
 	if(!str || str[0] == '\0')
 		return 1;
-	if(str[0] == '-' && isalpha(str[1]))
+	if(str[0] == '-' && ft_isalpha(str[1]))
 		return 2;
-	if(!isalpha(str[0]) && str[0] != '_')
+	if(!ft_isalpha(str[0]) && str[0] != '_')
 		return 1;
 	i = 0;
 	while(str[i])
 	{
-		if(!isalnum(str[i]) && str[i] != '_')
+		if(!ft_isalnum(str[i]) && str[i] != '_')
 			return 1;
 		i++;
 	}
@@ -133,15 +133,15 @@ char **add_new_var(char **envp, char *new, char *val)
 	len_val = 0;
 	bol = find_var(envp, new);
 	if(!new)
-		return envp;
+	return envp;
 	len_new = ft_strlen(new);
 	if(val)
-		len_val = ft_strlen(val);
+	len_val = ft_strlen(val);
 	if(val)
 	{
 		new_var = malloc((len_new + len_val + 2) * (sizeof(char)));
 		if(!new_var)
-			return envp;
+		return envp;
 		ft_strcpy(new_var, new);
 		ft_strcat(new_var, "=");
 		ft_strcat(new_var, val);
@@ -150,7 +150,7 @@ char **add_new_var(char **envp, char *new, char *val)
 	{
 		new_var = malloc((len_new + 1) * (sizeof(char)));
 		if(!new_var)
-			return envp;
+		return envp;
 		ft_strcpy(new_var, new);
 	}
 	if(bol)

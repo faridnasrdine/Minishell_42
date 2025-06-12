@@ -17,13 +17,13 @@ int execute_builtin(t_cmd_exec *cmd, t_data *data)
 	if (!ft_strcmp(cmd->argv[0], "echo"))
 		print_echo(cmd->argv + 1);
 	if (!ft_strcmp(cmd->argv[0], "cd"))
-		cd_cmd(cmd->argv);
+		cd_cmd(cmd->argv, data);
 	if (!ft_strcmp(cmd->argv[0], "pwd"))
 		pwd_cmd();
 	if (!ft_strcmp(cmd->argv[0], "exit"))
 		exit_cmd(cmd->argv);
 	if (!ft_strcmp(cmd->argv[0], "unset"))
-		unset_cmd(cmd->argv);
+		unset_cmd(cmd->argv, data);
 	if (!ft_strcmp(cmd->argv[0], "export"))
 		export_cmd(cmd->argv, &data->envp);
 	if (!ft_strcmp(cmd->argv[0], "env"))

@@ -105,7 +105,7 @@ int cnt_string(char **str);
 int execute_command(t_data *data);
 char **add_new_var(char **envp, char *new, char *val);
 //////////////////////////////////////////////////===>BUILTIN
-int cd_cmd(char **av, t_data *data);
+int cd_cmd(char **av, char ***env);
 int pwd_cmd();
 int exit_cmd(char **av);
 int unset_cmd(char **av, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 13:56:24 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/11 19:17:39 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/13 18:42:42 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void print_env(char **envp)
 	env = envp;
     while(env[i])
     {
-        printf("%s\n",env[i]);
+        if(ft_strchr(env[i], '='))
+            printf("%s\n",env[i]);
         i++;
     }
 }

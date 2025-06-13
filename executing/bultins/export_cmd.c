@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 11:51:29 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/12 16:02:02 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/13 18:43:06 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,21 +108,20 @@ int find_var(char **envp, char *new)
 	{
 		pos = ft_strchr(env[i], '=');
 		if(pos && ((pos - env[i]) == len) && (strncmp(env[i], new, len) == 0))
-			return 1;
+			return i;
 		if(!pos && (strcmp(env[i], new) == 0))
-			return 1;
+			return i;
 		i++;
 	}
-	return 0;
+	return -1;
 }
 char **add_new_var(char **envp, char *new, char *val)
 {
 	char *new_var;
 	char **new_envp;
-	char *pos;
 	int len_new;
 	int len_val;
-	int bol;
+	int index;
 	int len_env;
 	int i;
 	int j;
@@ -131,12 +130,12 @@ char **add_new_var(char **envp, char *new, char *val)
 	j = 0;
 	len_env = cnt_string(envp);
 	len_val = 0;
-	bol = find_var(envp, new);
+	index = find_var(envp, new);
 	if(!new)
-	return envp;
+		return envp;
 	len_new = ft_strlen(new);
 	if(val)
-	len_val = ft_strlen(val);
+		len_val = ft_strlen(val);
 	if(val)
 	{
 		new_var = malloc((len_new + len_val + 2) * (sizeof(char)));
@@ -150,21 +149,20 @@ char **add_new_var(char **envp, char *new, char *val)
 	{
 		new_var = malloc((len_new + 1) * (sizeof(char)));
 		if(!new_var)
-		return envp;
+			return envp;
 		ft_strcpy(new_var, new);
 	}
-	if(bol)
+	if(index >= 0)
 	{
 		new_envp = malloc(sizeof(char *) * (len_env + 1));
 		if(!new_envp)
 		{
 			free(new_var);
-			return envp;
+				return envp;
 		}
 		while(envp[i])
 		{
-			pos = ft_strchr(envp[i], '=');
-			if(pos && (pos - envp[i] == len_new) && strncmp(envp[i], new, len_new) == 0)
+			if(i == index)
 				new_envp[j] = new_var;
 			else
 			{
@@ -189,7 +187,7 @@ char **add_new_var(char **envp, char *new, char *val)
 		if(!new_envp)
 		{
 			free(new_var);
-			return envp;
+				return envp;
 		}
 		i = 0;
 		while(i < len_env)

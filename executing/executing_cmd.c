@@ -23,7 +23,7 @@ int execute_builtin(t_cmd_exec *cmd, t_data *data)
 	if (!ft_strcmp(cmd->argv[0], "exit"))
 		exit_cmd(cmd->argv);
 	if (!ft_strcmp(cmd->argv[0], "unset"))
-		unset_cmd(cmd->argv, data);
+		unset_cmd(cmd->argv, &data->envp);
 	if (!ft_strcmp(cmd->argv[0], "export"))
 		export_cmd(cmd->argv, &data->envp);
 	if (!ft_strcmp(cmd->argv[0], "env"))

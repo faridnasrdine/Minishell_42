@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 13:56:55 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/12 13:53:46 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/14 20:36:52 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,22 @@ int is_not_identifier(char *str)
     }
     return 0;
 }
-char **ft_remove_env(char **envp, char *var)
+char **ft_remove_env(char **envp, int index)
 {
     int len;
     char **new_env;
-    int len_var;
     int i;
     int j;
 
     i = 0;
     j = 0;
-    len_var = ft_strlen(var);
     len = cnt_string(envp);
     new_env = malloc(sizeof(char *) * (len + 1));
     if(!new_env)
         return NULL;
     while(envp[i])
     {
-        if(ft_strcmp(envp[i], var) == 0 || (envp[i][len_var] != '=' && envp[i][len] != '\0'))
+        if(index != i)
         {
             new_env[j++] = ft_strdup(envp[i]);
         }
@@ -54,10 +52,11 @@ char **ft_remove_env(char **envp, char *var)
     new_env[j] = NULL;
     return new_env;
 }
-int unset_cmd(char **av, t_data *data)
+int unset_cmd(char **av, char ***env)
 {
     int len;
     int i;
+    int index;
     char **new_env;
 
     i = 1;
@@ -69,18 +68,19 @@ int unset_cmd(char **av, t_data *data)
         if(is_not_identifier(av[i]))
         {
              printf("Minishell: unset: %s: is not identifier\n", av[i]);
-            data->exit_status = 1;
+             return 1;
         }
         else
         {
-            new_env = ft_remove_env(data->envp, av[i]);
+            index = find_var(*env, av[i]);
+            new_env = ft_remove_env(*env, index);
             if(new_env)
             {
-                free_string(data->envp);
-                data->envp = new_env;
+                free_string(*env);
+                *env = new_env;
             }
         }
         i++;
     } 
-    return data->exit_status;
+    return 0;
 }

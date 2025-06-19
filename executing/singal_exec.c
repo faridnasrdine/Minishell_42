@@ -37,7 +37,7 @@ char *find_paht(char *cmd)
     if(ft_strchr(cmd, '/'))
     {
         if(access(cmd, X_OK) == 0)
-            return cmd; 
+            return ft_strdup(cmd); 
     }
     path_env = getenv("PATH");
     if(!path_env)
@@ -53,7 +53,7 @@ char *find_paht(char *cmd)
         free (tmp);
         if(access(new_path, X_OK) == 0)
         {
-            free_string(path);
+            free_string(path, NULL);
             return new_path;
         }
         free(new_path);

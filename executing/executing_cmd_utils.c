@@ -17,12 +17,12 @@ void clear_data(t_data *data)
     if(!data->cmd_exec)
         return;
     if(data->cmd_exec)
-        free_string(data->cmd_exec->argv);
+        free_string(data->cmd_exec->argv, NULL);
     if(data->cmd_exec->path)
         free(data->cmd_exec->path);
 }
 
-void free_string(char **str)
+void free_string(char **str, char *arg)
 {
     int i = 0;
     while(str[i])
@@ -31,4 +31,5 @@ void free_string(char **str)
         i++;
     }
     free(str[i]);
+    free(arg);
 }

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:45:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/13 20:51:47 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/18 14:30:50 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,13 @@ int cd_cmd(char **av, char ***envp)
     new_envp = add_new_var(*envp, "PWD", pwd);
     if (new_envp != *envp)
     {
-        free_string(*envp);
+        free_string(*envp, NULL);
         *envp = new_envp;
     }
     new_envp = add_new_var(*envp, "OLDPWD", oldpwd);
     if (new_envp != *envp)
     {
-        free_string(*envp);
+        free_string(*envp, NULL);
         *envp = new_envp;
     }
 

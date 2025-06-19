@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 13:56:55 by nafarid           #+#    #+#             */
-/*   Updated: 2025/06/14 20:36:52 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/18 14:31:17 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int unset_cmd(char **av, char ***env)
             new_env = ft_remove_env(*env, index);
             if(new_env)
             {
-                free_string(*env);
+                free_string(*env, NULL);
                 *env = new_env;
             }
         }

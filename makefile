@@ -6,7 +6,7 @@
 #    By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/21 14:41:13 by nafarid           #+#    #+#              #
-#    Updated: 2025/06/11 14:31:34 by nafarid          ###   ########.fr        #
+#    Updated: 2025/06/19 16:14:03 by nafarid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,20 +24,21 @@ LIB = $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 $(NAME) : $(OBJS)
-	cd $(LIBFT_DIR) && $(MAKE) -s
-	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(FLAGS)
+	@cd $(LIBFT_DIR) && $(MAKE) -s
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(FLAGS)
 
 %.o :%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	cd $(LIBFT_DIR) && $(MAKE) clean -s
-	rm -f $(OBJS)
+	@cd $(LIBFT_DIR) && $(MAKE) clean -s
+	@rm -f $(OBJS)
 
 fclean: clean
-	cd $(LIBFT_DIR) && $(MAKE) fclean -s
-	rm -f $(NAME)
-
+	@cd $(LIBFT_DIR) && $(MAKE) fclean -s
+	@rm -f $(NAME)
+e: all clean
+	@./minishell
 re: fclean all
 
 .PHONY: all clean fclean re

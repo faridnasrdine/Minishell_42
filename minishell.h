@@ -59,6 +59,7 @@ typedef struct s_list
 	struct s_list *next;
 } t_list;
 // =======Command to Execute Structure ========
+
 typedef struct s_cmd_exec
 {
 	char **argv; // arguments for the command
@@ -93,7 +94,7 @@ void ft_strcat(char *dest, const char *src);
 int ft_strncmp(const char *str1, const char *str2, int n);
 ///////////////////////////////////////////////===>free
 void ft_lstclear(t_list **lst);
-void free_string(char **str);
+void free_string(char **str, char *arg);
 void clear_data(t_data *data);
 
 //////////////////////////////////////////////////////===>test
@@ -105,6 +106,7 @@ int cnt_string(char **str);
 int execute_command(t_data *data);
 char **add_new_var(char **envp, char *new, char *val);
 int find_var(char **envp, char *new);
+char *find_paht(char *cmd);
 //////////////////////////////////////////////////===>BUILTIN
 int cd_cmd(char **av, char ***env);
 int pwd_cmd();

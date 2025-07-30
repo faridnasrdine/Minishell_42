@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/28 15:48:37 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 11:38:44 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_cmd_exec				*lst_new_ele(char *name, char *value);
 void					toks_trim(t_token **toks);
 t_token					*lst_last_tok(t_token *lst);
 void					lstadd_back_tok(t_token **lst, t_token *node);
-int						change_dir(char *path, t_cmd_exec **env_lst);
+char					*check_dir(t_cmd_exec **env_lst, char *path);
 int						ft_cd(t_cmd *cmd, t_cmd_exec **env_lst);
 int						tokens_count(char *line, char *chars);
 int						pwd(t_cmd_exec **env_lst);

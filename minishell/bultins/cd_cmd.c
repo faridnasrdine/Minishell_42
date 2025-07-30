@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:45:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/07/28 09:44:55 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 11:39:08 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,37 @@ static int	find_home(t_cmd_exec **env_lst, char **path)
 	return (0);
 }
 
+static int	change_dir(char *path, t_cmd_exec **env_lst)
+{
+	char	*old_pwd;
+	char	*new_pwd;
+
+	old_pwd = getold(env_lst);
+	if (chdir(path) != 0)
+	{
+		perror(path);
+		if (old_pwd)
+			free(old_pwd);
+		change_stat(env_lst, 1);
+		return (1);
+	}
+	new_pwd = check_dir(env_lst, path);
+	change_env(old_pwd, new_pwd, *env_lst);
+	if (old_pwd)
+		free(old_pwd);
+	if (new_pwd)
+		free(new_pwd);
+	change_stat(env_lst, 0);
+	return (0);
+}
+
 int	ft_cd(t_cmd *cmd, t_cmd_exec **env_lst)
 {
 	char	*path;
 	int		res;
 
 	res = 0;
-	if (cmd->args[2])
+	if (cmd->args[1] && cmd->args[2])
 	{
 		ft_putstr_fd("Minishell: cd: too many arguments\n", 2);
 		change_stat(env_lst, 1);

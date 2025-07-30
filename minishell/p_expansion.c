@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/25 15:45:14 by houssam          ###   ########.fr       */
+/*   Updated: 2025/07/30 21:26:29 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 	char	*value;
 	int		k;
 
-	k = j;
+	k = 0;
 	while (toks->value[k])
 	{
-		if (!toks->value[k + 1] && toks->value[k] == '$')
+		if ((!toks->value[k + 1] && toks->value[k] == '$') || 
+			(toks->value[k] == '$' && toks->value[k + 1] == '.'))
 			toks->strip = 0;
 		k++;
 	}
@@ -122,6 +123,8 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 	int	i;
 
 	i = 0;
+	if (toks->expanded)
+		return ;
 	while (toks->value[i])
 	{
 		if (toks->value[i] == '\'')
@@ -136,8 +139,11 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 				if (toks->value[i] == '$')
 					search_and_replace(toks, &i, env_lst, 1);
 		}
-		else if (toks->value[i] == '$')
+		else if (toks->value[i] == '$' && !toks->expanded)
+		{
 			search_and_replace(toks, &i, env_lst, 0);
+			toks->expanded = 1;
+		}
 		i++;
 	}
 }

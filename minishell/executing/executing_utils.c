@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:49:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/28 10:56:31 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:04:04 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	exec_run(t_cmd *cmd, t_cmd_exec **env_lst)
 
 static void	close_dups(t_cmd *cmd)
 {
-	if (cmd->std_in)
+	if (cmd->std_in != 0)
 	{
 		close(0);
 		dup2(cmd->std_in_dup1, 0);

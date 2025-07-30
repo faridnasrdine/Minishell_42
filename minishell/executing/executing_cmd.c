@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/07/27 17:08:27 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 16:34:08 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@ static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst)
 	waiting(env_lst, cmd);
 }
 
+void	restore_std_fds(t_cmd *tmp)
+{
+	if (tmp->std_in_dup1 != -1)
+	{
+		dup2(tmp->std_in_dup1, 0);
+		close(tmp->std_in_dup1);
+	}
+	if (tmp->std_out_dup1 != -1)
+	{
+		dup2(tmp->std_out_dup1, 1);
+		close(tmp->std_out_dup1);
+	}
+}
+
 static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 {
 	int		my_pid;
@@ -85,6 +99,7 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 	my_pid = 1;
 	while (tmp && my_pid != 0)
 	{
+		dups(tmp);
 		if (tmp->id == 0 || tmp2->pipe == 1)
 			my_pid = fork();
 		if (!my_pid)
@@ -102,14 +117,13 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 		}
 		else if (tmp)
 		{
+			restore_std_fds(tmp);
 			tmp2 = tmp;
 			tmp = tmp->next;
 		}
 	}
 	if (my_pid != 0)
-	{
 		parent_proc(cmd, env_lst);
-	}
 }
 
 void	exec(t_cmd **cmd, t_cmd_exec **env_lst)

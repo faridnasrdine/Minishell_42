@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:07 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/28 15:49:43 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 20:20:54 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static int	final_parsing(t_token **toks, t_cmd_exec *env_lst)
 		tmp2 = tmp;
 		tmp = tmp->next;
 	}
-	remove_empty_tokens(toks);
 	word_split(toks, env_lst);
 	tmp = *toks;
 	while (tmp && tmp->type != 'c')
@@ -70,11 +69,11 @@ static int	parsing_cmd(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 	return (0);
 }
 
-static int	cmd_init(t_cmd **cmd)
+static void	cmd_init(t_cmd **cmd)
 {
 	(*cmd) = malloc(sizeof(t_cmd));
 	if (!(*cmd))
-		return 1;
+		return ;
 	(*cmd)->id = 0;
 	(*cmd)->args = NULL;
 	(*cmd)->op = NULL;
@@ -89,11 +88,10 @@ static int	cmd_init(t_cmd **cmd)
 	(*cmd)->redir_error = 0;
 	(*cmd)->pipe_out = 0;
 	(*cmd)->pipe_in = 0;
-	(*cmd)->std_in_dup1 = 0;
-	(*cmd)->std_out_dup1 = 0;
+	(*cmd)->std_in_dup1 = -1;
+	(*cmd)->std_out_dup1 = -1;
 	(*cmd)->delimiter = 0;
 	(*cmd)->next = NULL;
-	return 0;
 }
 
 static int	parse_pipe(t_token **toks, t_cmd *last)
@@ -123,8 +121,7 @@ int	toks_to_struct(t_token **toks, t_cmd **cmd, t_cmd_exec **env_lst)
 	int		id;
 
 	id = 0;
-	if (cmd_init(cmd))
-		return (-1);
+	cmd_init(cmd);
 	if (parsing_cmd(toks, *cmd, env_lst))
 		return (-1);
 	(*cmd)->id = id;

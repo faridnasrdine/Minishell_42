@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/30 14:48:19 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 21:20:59 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_token
 	char				*quote;
 	char				*value;
 	int					strip;
+	int					expanded;
 	struct s_token		*next;
 }						t_token;
 
@@ -73,6 +74,7 @@ typedef struct s_cmd
 }						t_cmd;
 
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
+void	restore_std_fds(t_cmd *tmp);
 int						get_exit_code(void);
 void					set_exit_code(int code);
 void					check_if_should_split(t_token *toks);

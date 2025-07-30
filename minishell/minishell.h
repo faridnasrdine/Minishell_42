@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/30 11:38:44 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 14:48:19 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ typedef struct s_cmd_exec
 	int					status;
 	struct s_cmd_exec	*next;
 }						t_cmd_exec;
+
+typedef struct s_gc
+{
+	void *data;
+	struct s_gc *next;
+}t_gc;
+
 
 typedef struct s_cmd
 {
@@ -139,5 +146,6 @@ void	cleanup(t_cmd_exec **env_lst, t_cmd **cmd,
 	t_cmd *exec_cmd, char **env);
 t_cmd	*close_pipes(t_cmd **cmd, int id);
 void	clear_all(t_cmd **cmds, t_token **tokens);
-
+char	*getold(t_cmd_exec **env_lst);
+void	change_env(char *oldpwd, char *newpwd, t_cmd_exec *env_lst);
 #endif

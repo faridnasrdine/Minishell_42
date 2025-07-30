@@ -6,13 +6,13 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:39:27 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/30 11:40:34 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 11:47:33 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*getold(t_cmd_exec **env_lst)
+char	*getold(t_cmd_exec **env_lst)
 {
 	t_cmd_exec	*tmp;
 
@@ -26,7 +26,7 @@ static char	*getold(t_cmd_exec **env_lst)
 	return (NULL);
 }
 
-static void	change_env(char *oldpwd, char *newpwd, t_cmd_exec *env_lst)
+void	change_env(char *oldpwd, char *newpwd, t_cmd_exec *env_lst)
 {
 	while (env_lst)
 	{

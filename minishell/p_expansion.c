@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/30 21:26:29 by houssam          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:16:47 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 	k = 0;
 	while (toks->value[k])
 	{
-		if ((!toks->value[k + 1] && toks->value[k] == '$') || 
-			(toks->value[k] == '$' && toks->value[k + 1] == '.'))
+		if ((!toks->value[k + 1] && toks->value[k] == '$')
+			|| (toks->value[k] == '$' && toks->value[k + 1] == '.'))
 			toks->strip = 0;
 		k++;
 	}

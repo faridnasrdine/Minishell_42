@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/28 13:21:02 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:06:42 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,52 +35,53 @@ static char	*line_expansion(char *line, t_cmd_exec *env_lst)
 	return (str);
 }
 
-static void    go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
+static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 {
-    char    *line;
-    char    *processed_line;
+	char	*line;
+	char	*processed_line;
 
-    while (1)
-    {
-        line = readline("heredoc> ");
-        if (get_exit_code() == 130)
-        {
-            if (line)
-                free(line);
-            lst_clear(&env_lst, &free);
-            cmd_free(&cmd);
-            exit(1);
-        }
-        if (!line)
-        {
-            lst_clear(&env_lst, &free);
-            cmd_free(&cmd);
-            ft_putstr_fd("Minishell: warning: here-document at line 1 delimited by end-of-file (wanted `", 2);
+	while (1)
+	{
+		line = readline("heredoc> ");
+		if (get_exit_code() == 130)
+		{
+			if (line)
+				free(line);
+			lst_clear(&env_lst, &free);
+			cmd_free(&cmd);
+			exit(1);
+		}
+		if (!line)
+		{
+			lst_clear(&env_lst, &free);
+			cmd_free(&cmd);
+			ft_putstr_fd("Minishell: warning: here-document at ", 2);
+			ft_putstr_fd("line 1 delimited by end-of-file (wanted `", 2);
 			ft_putstr_fd(processed_line, 2);
-            exit(0);
-        }        
-        if (!ft_strncmp(line, cmd->op_value, ft_strlen(cmd->op_value)) && 
-            ft_strlen(line) == ft_strlen(cmd->op_value))
-        {
-            free(line);
-            break ;
-        }        
-        if (cmd->delimiter == 'h')
-        {
-            processed_line = line_expansion(line, env_lst);
-            if (!processed_line)
-            {
-                lst_clear(&env_lst, &free);
-                cmd_free(&cmd);
-                exit(1);
-            }
-        }
-        else
-            processed_line = line;      
+			exit(0);
+		}
+		if (!ft_strncmp(line, cmd->op_value, ft_strlen(cmd->op_value))
+			&& ft_strlen(line) == ft_strlen(cmd->op_value))
+		{
+			free(line);
+			break ;
+		}
+		if (cmd->delimiter == 'h')
+		{
+			processed_line = line_expansion(line, env_lst);
+			if (!processed_line)
+			{
+				lst_clear(&env_lst, &free);
+				cmd_free(&cmd);
+				exit(1);
+			}
+		}
+		else
+			processed_line = line;
 		ft_putstr_fd(processed_line, fd_doc);
 		ft_putstr_fd("\n", fd_doc);
-        free(processed_line);
-    }
+		free(processed_line);
+	}
 }
 
 static void	child_heredoc(t_cmd *cmd, t_cmd_exec **env_lst, int *heredoc)
@@ -96,7 +97,7 @@ static int	parent_heredoc(t_cmd *cmd, int *heredoc)
 {
 	int	exit_stat;
 	int	code;
-	
+
 	signal(SIGINT, SIG_IGN);
 	wait(&exit_stat);
 	close(heredoc[1]);
@@ -111,14 +112,14 @@ static int	parent_heredoc(t_cmd *cmd, int *heredoc)
 		else if (code == 0)
 		{
 			if (cmd->std_in != STDIN_FILENO)
-			close(cmd->std_in);
+				close(cmd->std_in);
 			cmd->std_in = heredoc[0];
 			ft_signals();
-			return (0); 
+			return (0);
 		}
 	}
 	if (cmd->std_in != STDIN_FILENO)
-	close(cmd->std_in);
+		close(cmd->std_in);
 	cmd->std_in = heredoc[0];
 	ft_signals();
 	return (0);

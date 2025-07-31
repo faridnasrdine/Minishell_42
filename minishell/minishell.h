@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 11:25:53 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:27:35 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char					*remove_outer_quotes(char *s);
 void					toks_arr(char *line, char *chars, t_token **toks);
 void					check_if_should_split(t_token *toks);
 int						parsing_line(char *line, t_token **toks,
-	t_cmd_exec **env_lst);
+							t_cmd_exec **env_lst);
 int						copy_quotes(t_token *t, t_cmd_exec *env_lst, int i,
-	int j);
+							int j);
 void					p_expansion(t_token *toks, t_cmd_exec *env_lst);
 char					*erase_spaces(char *str);
 t_token					*lst_new_ele_tok(char type, char *value);
@@ -84,13 +84,13 @@ t_cmd_exec				*lst_new_ele(char *name, char *value);
 void					lstadd_back_tok(t_token **lst, t_token *node);
 int						tokens_count(char *line, char *chars);
 int						toks_to_struct(t_token **toks, t_cmd **cmd,
-	t_cmd_exec **env_lst);
+							t_cmd_exec **env_lst);
 int						parsing_opers(t_token **toks, t_cmd *cmd,
-	t_cmd_exec **env_lst);
+							t_cmd_exec **env_lst);
 void					quote_del(t_token *toks);
 t_cmd_exec				*search_and_replace_helper(t_cmd_exec *env_lst, int *i,
-	int j, t_token *t);
-	
+							int j, t_token *t);
+
 /////////////////////////////////////////exe
 int						get_exit_code(void);
 void					set_exit_code(int code);
@@ -105,20 +105,24 @@ int						ft_exit(t_cmd *cmd, t_cmd_exec **env_lst);
 char					*check_dir(t_cmd_exec **env_lst, char *path);
 int						ft_export(t_cmd *cmd, t_cmd_exec **env_lst);
 int						check_var_name(char *str, int *res,
-	t_cmd_exec **env_lst);
+							t_cmd_exec **env_lst);
 void					child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id);
 char					*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst);
 void					exec_built(t_cmd *cmd, t_cmd_exec **env_lst,
-	int child_par);
+							int child_par);
 void					ft_signals(void);
 void					func(t_token *t, int *j);
 void					dups(t_cmd *tmp);
-void					check_if_dir(t_cmd *exec_cmd, t_cmd_exec **env_lst, char **env);
+void					check_if_dir(t_cmd *exec_cmd, t_cmd_exec **env_lst,
+							char **env);
 t_cmd					*close_pipes(t_cmd **cmd, int id);
 char					*getold(t_cmd_exec **env_lst);
-void					change_env(char *oldpwd, char *newpwd, t_cmd_exec *env_lst);
+void					change_env(char *oldpwd, char *newpwd,
+							t_cmd_exec *env_lst);
 int						exec_run(t_cmd *cmd, t_cmd_exec **env_lst);
 void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
+void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
+							t_cmd **cmd);
 
 ////////////////////////////////////////clean
 void					cmd_free(t_cmd **cmd);
@@ -128,7 +132,7 @@ void					lst_del_tok(t_token *lst, void (*del)(void *));
 void					lst_clear_tok(t_token **lst, void (*del)(void *));
 void					clear_all(t_cmd **cmds, t_token **tokens);
 void					cleanup(t_cmd_exec **env_lst, t_cmd **cmd,
-	t_cmd *exec_cmd, char **env);
+							t_cmd *exec_cmd, char **env);
 void					arr_free(char **arr);
 
 /////////////////////////////////////utilis

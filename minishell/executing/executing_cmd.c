@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/07/30 16:34:08 by houssam          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:26:12 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
-	int *stat_code)
+		int *stat_code)
 {
-	(void)cmd;
 	int	sig;
 
+	(void)cmd;
 	sig = WTERMSIG(*exit_stat);
 	if (sig == SIGQUIT)
 	{
@@ -74,20 +74,6 @@ static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst)
 	waiting(env_lst, cmd);
 }
 
-void	restore_std_fds(t_cmd *tmp)
-{
-	if (tmp->std_in_dup1 != -1)
-	{
-		dup2(tmp->std_in_dup1, 0);
-		close(tmp->std_in_dup1);
-	}
-	if (tmp->std_out_dup1 != -1)
-	{
-		dup2(tmp->std_out_dup1, 1);
-		close(tmp->std_out_dup1);
-	}
-}
-
 static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 {
 	int		my_pid;
@@ -103,18 +89,7 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 		if (tmp->id == 0 || tmp2->pipe == 1)
 			my_pid = fork();
 		if (!my_pid)
-		{
-			if (tmp->redir_error)
-			{
-				ft_putstr_fd("Minishell: ", 2);
-				ft_putstr_fd(tmp->op_value, 2);
-				ft_putstr_fd(": no such file or directory\n", 2);
-				lst_clear(env_lst, free);
-				cmd_free(cmd);
-				exit(1);
-			}
-			child_proc(cmd, env_lst, tmp->id);
-		}
+			check_dir_exe(tmp, env_lst, cmd);
 		else if (tmp)
 		{
 			restore_std_fds(tmp);

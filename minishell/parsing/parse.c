@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:26 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/28 15:49:35 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:02:46 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	cmd_free(t_cmd **cmd)
 		}
 		if ((*cmd)->op)
 			free((*cmd)->op);
-		
 		if ((*cmd)->op_value)
 			free((*cmd)->op_value);
 		free(*cmd);

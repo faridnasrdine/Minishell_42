@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/27 11:57:10 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:26:19 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*find_path(t_cmd_exec *env_lst, char *cmd)
 
 	i = -1;
 	if (!cmd || !cmd[0])
-		return NULL;
+		return (NULL);
 	path = find_and_split(env_lst);
 	while (path && path[++i] != NULL)
 	{
@@ -104,4 +104,18 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 	if (!path)
 		cmd->path_error = 1;
 	return (path);
+}
+
+void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
+{
+	if (tmp->redir_error)
+	{
+		ft_putstr_fd("Minishell: ", 2);
+		ft_putstr_fd(tmp->op_value, 2);
+		ft_putstr_fd(": no such file or directory\n", 2);
+		lst_clear(env_lst, free);
+		cmd_free(cmd);
+		exit(1);
+	}
+	child_proc(cmd, env_lst, tmp->id);
 }

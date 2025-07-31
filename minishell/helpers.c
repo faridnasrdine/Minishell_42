@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/25 15:46:04 by houssam          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:07:59 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	func(t_token *t, int *j)
 	else
 	{
 		while (t->value[*j] && !ft_strchr(" \t\"\'/?$=[]:.<>|", t->value[*j])
-				&& ft_isalpha(t->value[*j]))
+			&& ft_isalpha(t->value[*j]))
 			(*j)++;
 		while (t->value[*j] == '_' || ft_isalpha(t->value[*j]))
 			(*j)++;

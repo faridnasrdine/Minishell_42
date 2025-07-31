@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:52:18 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/28 15:34:26 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/31 17:01:17 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	lst_del_tok(t_token *lst, void (*del)(void *))
 		del(lst->quote);
 		free(lst);
 	}
-	lst =NULL;
+	lst = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 22:56:21 by nafarid           #+#    #+#             */
-/*   Updated: 2025/07/30 21:42:11 by houssam          ###   ########.fr       */
+/*   Updated: 2025/07/31 11:29:56 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ int	ft_echo(t_cmd *command, t_cmd_exec **env_lst)
 	change_stat(env_lst, 0);
 	return (0);
 }
-

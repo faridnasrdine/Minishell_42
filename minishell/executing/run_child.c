@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/01 19:31:20 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/02 00:34:46 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id)
 	if (!exec_cmd->path)
 	{
 		fun(exec_cmd, &exit_code);
-		// cleanup(env_lst, cmd, exec_cmd, NULL);
+		restore_std_fds(exec_cmd);
 		free_grabage();
 		exit(exit_code);
 	}
@@ -83,6 +83,16 @@ void	child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id)
 	else
 	{
 		exit_code = exec_run(exec_cmd, env_lst);
+		if (exec_cmd->std_out_dup1 != -1)
+		{
+			dup2(exec_cmd->std_out_dup1, 1);
+			close(exec_cmd->std_out_dup1);
+		}
+		if (exec_cmd->std_in_dup1 != -1)
+		{
+			dup2(exec_cmd->std_in_dup1, 0);
+			close(exec_cmd->std_in_dup1);
+		}
 		// cleanup(env_lst, cmd, exec_cmd, NULL);
 		free_grabage();
 		exit(exit_code);

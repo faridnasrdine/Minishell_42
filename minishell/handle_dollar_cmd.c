@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:43:41 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:34:03 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 20:57:55 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	handle_split(t_token *toks, char *value)
 		return (-1);
 	// free(toks->value);
 	// free(toks->quote);
+	toks->value = NULL;
+	toks->quote = NULL;
 	toks->value = ft_strdup(parts[0]);
 	toks->quote = ft_strdup(parts[0]);
 	if (!toks->value || !toks->quote)

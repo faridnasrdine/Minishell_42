@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/07/31 17:26:12 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 23:55:09 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 	my_pid = 1;
 	while (tmp && my_pid != 0)
 	{
-		dups(tmp);
 		if (tmp->id == 0 || tmp2->pipe == 1)
 			my_pid = fork();
 		if (!my_pid)

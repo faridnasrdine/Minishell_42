@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:49:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:41:39 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 22:27:37 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ void	exec_built(t_cmd *cmd, t_cmd_exec **env_lst, int child_par)
 	else if (child_par == 1)
 	{
 		exit_code = exec_run(cmd, env_lst);
-		// lst_clear(env_lst, free);
-		// cmd_free(&cmd);
 		exit(exit_code);
 	}
 }

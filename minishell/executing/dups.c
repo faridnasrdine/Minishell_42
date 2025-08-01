@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:46 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 17:28:00 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 23:47:08 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,8 @@ void	restore_std_fds(t_cmd *tmp)
 		dup2(tmp->std_out_dup1, 1);
 		close(tmp->std_out_dup1);
 	}
+	if (tmp->pipe_in)
+		close(tmp->pipe_in);
+	if (tmp->pipe_out)
+		close(tmp->pipe_out);
 }

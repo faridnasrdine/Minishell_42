@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:18:40 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:33:18 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 20:53:30 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	change_stat(t_cmd_exec **env_lst, int stat)
 	tmp->status = stat;
 	// if (tmp->value)
 	// 	free(tmp->value);
+	tmp->value = NULL;
 	tmp->value = ft_itoa(tmp->status);
 }

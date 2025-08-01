@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 13:08:36 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/01 10:08:10 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 21:49:40 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	check_stat(t_cmd_exec *env_lst, int *status)
 {
 	while (env_lst->meaning != '?')
 		env_lst = env_lst->next;
+	if (env_lst->meaning == '?')
+		*status = env_lst->status;
 	if (env_lst->value)
 	{
 		if (ft_strncmp(env_lst->value, "exit", 5) == 0)
@@ -77,7 +79,7 @@ int	main(int ac, char **av, char **env)
 			ft_putstr_fd("\nexit\n", 1);
 			// exit((lst_clear(&env_lst, free), cleanup_readline(), 0));
 			free_grabage();
-			exit(0);
+			exit(status);
 		}
 		if (*cmd)
 			add_history(cmd);

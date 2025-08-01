@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:35:09 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 21:58:22 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,7 @@ t_cmd_exec	*search_and_replace_helper(t_cmd_exec *env_lst, int *i, int j,
 	}
 	if (!new_str[0])
 		return (NULL);
-	// free(new_str);
 	return (tmp);
-}
-
-void	remove_empty_tokens(t_token **toks)
-{
-	t_token	*curr;
-	// t_token	*to_delete;
-	t_token	*prev;
-
-	curr = *toks;
-	prev = NULL;
-	while (curr && curr->type != 'r')
-	{
-		if (curr->value && (!curr->value[0] || curr->value[0] == 32))
-		{
-			// to_delete = curr;
-			if (prev)
-				prev->next = curr->next;
-			else
-				*toks = curr->next;
-			curr = curr->next;
-			// lst_clear_tok(&to_delete, &free);
-		}
-		else
-		{
-			prev = curr;
-			curr = curr->next;
-		}
-	}
 }
 
 char	*ft_strdup_repeat(char c, size_t len)
@@ -111,14 +82,11 @@ int	copy_quotes(t_token *t, t_cmd_exec *env_lst, int i, int j)
 	new_quote[env_len] = '\0';
 	t->quote[i] = '\0';
 	new_str = ft_strjoin(t->quote, new_quote);
-	// free(new_quote);
 	if (!new_str)
 		return (-1);
 	final = ft_strjoin(new_str, t->quote + j);
-	// free(new_str);
 	if (!final)
 		return (-1);
-	// free(t->quote);
 	t->quote = final;
 	return (0);
 }

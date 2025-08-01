@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 19:32:00 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 23:53:32 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 		if (path)
 		{
 			// free(cmd->args[0]);
+			cmd->args[0] = NULL;
 			cmd->args[0] = path;
 		}
 	}
@@ -115,6 +116,7 @@ void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
 		ft_putstr_fd(": no such file or directory\n", 2);
 		// lst_clear(env_lst, free);
 		// cmd_free(cmd);
+		free_grabage();
 		exit(1);
 	}
 	child_proc(cmd, env_lst, tmp->id);

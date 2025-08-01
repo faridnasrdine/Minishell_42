@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:50:59 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 10:32:38 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 22:31:13 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	pwd(t_cmd_exec **env_lst)
 
 	tmp = getcwd(NULL, 0);
 	path = ft_strdup(tmp);
-	free(tmp);	if (!path)
+	free(tmp);
+	if (!path)
 	{
 		if (!get_from_envir(*env_lst))
 		{
@@ -49,7 +50,6 @@ int	pwd(t_cmd_exec **env_lst)
 	{
 		ft_putstr_fd(path, 1);
 		ft_putchar_fd('\n', 1);
-		// free(path);
 		change_stat(env_lst, 0);
 		return (0);
 	}

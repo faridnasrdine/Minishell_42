@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:47:49 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 19:32:00 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 			cmd->args[0] = path;
 		}
 	}
-	if (!path)
+	if (!path && cmd->path_error != 4)
 		cmd->path_error = 1;
 	return (path);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/01 09:50:24 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 19:31:20 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 
 static void	fun(t_cmd *exec_cmd, int *exit_code)
 {
-	if (exec_cmd->path_error == 0)
+	if (exec_cmd->path_error == 4)
+		*exit_code = 0;
+	else if (!exec_cmd->path_error)
 		*exit_code = 0;
 	else
 	{

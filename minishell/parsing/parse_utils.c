@@ -96,14 +96,13 @@ static void	cmd_init(t_cmd **cmd)
 
 static int	parse_pipe(t_token **toks, t_cmd *last)
 {
-	t_token	*tmp;
 	t_cmd	*new_cmd;
 	int		fd[2];
 
 	while (last->next != NULL)
 		last = last->next;
 	last->pipe = 1;
-	tmp = *toks;
+	// tmp = *toks;
 	*toks = (*toks)->next;
 	// lst_del_tok(tmp, &free);
 	if (pipe(fd) == -1)

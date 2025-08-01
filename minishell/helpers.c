@@ -54,7 +54,7 @@ t_cmd_exec	*search_and_replace_helper(t_cmd_exec *env_lst, int *i, int j,
 void	remove_empty_tokens(t_token **toks)
 {
 	t_token	*curr;
-	t_token	*to_delete;
+	// t_token	*to_delete;
 	t_token	*prev;
 
 	curr = *toks;
@@ -63,7 +63,7 @@ void	remove_empty_tokens(t_token **toks)
 	{
 		if (curr->value && (!curr->value[0] || curr->value[0] == 32))
 		{
-			to_delete = curr;
+			// to_delete = curr;
 			if (prev)
 				prev->next = curr->next;
 			else

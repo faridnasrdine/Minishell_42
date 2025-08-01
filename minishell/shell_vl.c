@@ -22,14 +22,14 @@ void	build_new_tok_val(t_token *toks, char *value, int i, int j)
 	prefix = ft_substr(toks->value, 0, i);
 	suffix = ft_strdup(toks->value + j);
 	clean_suffix = remove_outer_quotes(suffix);
-	free(suffix);
+	// free(suffix);
 	new_val = ft_strjoin(prefix, value);
-	free(prefix);
-	free(value);
+	// free(prefix);
+	// free(value);
 	value = ft_strjoin(new_val, clean_suffix);
-	free(new_val);
-	free(clean_suffix);
-	free(toks->value);
+	// free(new_val);
+	// free(clean_suffix);
+	// free(toks->value);
 	toks->value = value;
 	check_if_should_split(toks);
 }
@@ -107,12 +107,12 @@ static void	shell_up(int lvl, t_cmd_exec *tmp, char *str)
 	}
 	if (lvl == 1000)
 	{
-		free(tmp->value);
+		// free(tmp->value);
 		tmp->value = ft_strdup("");
 	}
 	else
 	{
-		free(tmp->value);
+		// free(tmp->value);
 		tmp->value = ft_itoa(lvl);
 	}
 }

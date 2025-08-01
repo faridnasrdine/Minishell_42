@@ -25,7 +25,7 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 			toks->strip = 0;
 		k++;
 	}
-	if (toks->strip && toks->value[i - 1] != '=')
+	if (toks->strip && (i == 0 || toks->value[i - 1] != '='))
 		value = erase_spaces(env_lst->value);
 	else
 		value = ft_strdup(env_lst->value);
@@ -132,18 +132,28 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 			i++;
 			while (toks->value[i] != '\'' && toks->value[i])
 				i++;
+			if (toks->value[i])
+				i++;
 		}
 		else if (toks->value[i] == '\"')
 		{
-			while (toks->value[i] && toks->value[++i] != '\"')
+			i++;
+			while (toks->value[i] && toks->value[i] != '\"')
+			{
 				if (toks->value[i] == '$')
 					search_and_replace(toks, &i, env_lst, 1);
+				else
+					i++;
+			}
+			if (toks->value[i])
+				i++;
 		}
 		else if (toks->value[i] == '$' && !toks->expanded)
 		{
 			search_and_replace(toks, &i, env_lst, 0);
 			toks->expanded = 1;
 		}
-		i++;
+		else
+			i++;
 	}
 }

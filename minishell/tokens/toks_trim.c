@@ -63,7 +63,7 @@ static void	toks_value_trim(t_token *toks)
 void	toks_trim(t_token **toks)
 {
 	t_token	*tmp1;
-	t_token	*tmp2;
+	// t_token	*tmp2;
 
 	tmp1 = *toks;
 	toks_value_trim(*toks);
@@ -80,7 +80,7 @@ void	toks_trim(t_token **toks)
 		else if ((tmp1->next) && ((ft_strlen(tmp1->next->value) == 0)
 				|| tmp1->next->type == 'd'))
 		{
-			tmp2 = tmp1->next;
+			// tmp2 = tmp1->next;
 			tmp1->next = tmp1->next->next;
 			// lst_del_tok(tmp2, &free);
 		}

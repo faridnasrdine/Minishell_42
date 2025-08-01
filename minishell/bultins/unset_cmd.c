@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:50:50 by houssam           #+#    #+#             */
-/*   Updated: 2025/06/26 21:50:52 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:40:58 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	find_and_del(t_cmd *cmd, t_cmd_exec **env_lst, int i)
 				tmp1->next = tmp1->next->next;
 			else
 				tmp1->next = NULL;
-			lst_del(tmp2, &free);
+			// lst_del(tmp2, &free);
 		}
 		else
 			tmp1 = tmp1->next;
@@ -65,7 +65,7 @@ static void	unset_vars(t_cmd *cmd, t_cmd_exec **env_lst, int *res)
 			{
 				tmp = *env_lst;
 				*env_lst = (*env_lst)->next;
-				lst_del(tmp, &free);
+				// lst_del(tmp, &free);
 				continue ;
 			}
 			else

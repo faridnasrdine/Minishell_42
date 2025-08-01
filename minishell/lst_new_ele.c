@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_new_ele.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:20:05 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/30 21:21:28 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:26:54 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_cmd_exec	*lst_new_ele(char *name, char *value)
 {
 	t_cmd_exec	*new_ele;
 
-	new_ele = malloc(sizeof(t_cmd_exec));
+	new_ele = ft_malloc(sizeof(t_cmd_exec));
 	if (!new_ele)
 		return (NULL);
 	new_ele->name = name;
@@ -30,7 +30,7 @@ t_token	*lst_new_ele_tok(char type, char *value)
 {
 	t_token	*new_ele;
 
-	new_ele = malloc(sizeof(t_token));
+	new_ele = ft_malloc(sizeof(t_token));
 	if (!new_ele)
 		return (NULL);
 	new_ele->type = type;

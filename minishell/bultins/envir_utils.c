@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:50:35 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/23 11:54:06 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:39:56 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	print_error(char *str)
 
 	tmp = ft_strjoin(str, "': not a valid identifier\n");
 	err = ft_strjoin("Minishell: '", tmp);
-	free(tmp);
+	// free(tmp);
 	ft_putstr_fd(err, 2);
-	free(err);
+	// free(err);
 }
 
 int	check_var_name(char *str, int *res, t_cmd_exec **env_lst)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:07 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/30 20:20:54 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:44:08 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	parsing_cmd(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 
 static void	cmd_init(t_cmd **cmd)
 {
-	(*cmd) = malloc(sizeof(t_cmd));
+	(*cmd) = ft_malloc(sizeof(t_cmd));
 	if (!(*cmd))
 		return ;
 	(*cmd)->id = 0;
@@ -105,7 +105,7 @@ static int	parse_pipe(t_token **toks, t_cmd *last)
 	last->pipe = 1;
 	tmp = *toks;
 	*toks = (*toks)->next;
-	lst_del_tok(tmp, &free);
+	// lst_del_tok(tmp, &free);
 	if (pipe(fd) == -1)
 		return (-1);
 	cmd_init(&new_cmd);

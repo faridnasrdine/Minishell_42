@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 17:26:19 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:47:49 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static char	*find_path(t_cmd_exec *env_lst, char *cmd)
 		value = ft_strjoin_sep(path[i], cmd, '/');
 		if (access(value, X_OK) == 0 || access(value, F_OK) == 0)
 		{
-			arr_free(path);
+			// arr_free(path);
 			return (value);
 		}
-		free(value);
+		// free(value);
 	}
-	if (path != NULL)
-		arr_free(path);
+	// if (path != NULL)
+		// arr_free(path);
 	return (NULL);
 }
 
@@ -97,7 +97,7 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 		path = find_path(env_lst, cmd->args[0]);
 		if (path)
 		{
-			free(cmd->args[0]);
+			// free(cmd->args[0]);
 			cmd->args[0] = path;
 		}
 	}
@@ -113,8 +113,8 @@ void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(tmp->op_value, 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
-		lst_clear(env_lst, free);
-		cmd_free(cmd);
+		// lst_clear(env_lst, free);
+		// cmd_free(cmd);
 		exit(1);
 	}
 	child_proc(cmd, env_lst, tmp->id);

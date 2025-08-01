@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:37 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/29 11:39:58 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:27:19 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*erase_spaces(char *str)
 	int		space;
 	char	*res;
 
-	res = malloc(ft_strlen(str) + 1);
+	res = ft_malloc(ft_strlen(str) + 1);
 	i = -1;
 	j = 0;
 	if (!res)

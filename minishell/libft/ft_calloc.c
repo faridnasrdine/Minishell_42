@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 09:56:09 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/07 10:18:31 by aoussama         ###   ########.fr       */
+/*   Updated: 2025/08/01 09:27:59 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*res;
 
 	i = nmemb * size;
-	res = (void *)malloc(i);
+	res = (void *)ft_malloc(i);
 	if (res == NULL)
 		return (NULL);
 	ft_bzero(res, i);

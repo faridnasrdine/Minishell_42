@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 13:08:36 by aoussama          #+#    #+#             */
-/*   Updated: 2025/07/28 15:37:25 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 10:08:10 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_handle_sigint(int sig)
 static void	cleanup_readline(void)
 {
 	rl_clear_history();
-	rl_free_line_state();
+	// rl_free_line_state();
 	rl_deprep_terminal();
 }
 
@@ -54,7 +54,7 @@ static int	start(int ac, char **av, char **env, t_cmd_exec **env_lst)
 	}
 	ft_signals();
 	env_to_lst(env, env_lst);
-	shell_vl(env_lst);
+	// shell_vl(env_lst);
 	return (0);
 }
 
@@ -75,7 +75,9 @@ int	main(int ac, char **av, char **env)
 		if (!cmd)
 		{
 			ft_putstr_fd("\nexit\n", 1);
-			exit((lst_clear(&env_lst, free), cleanup_readline(), 0));
+			// exit((lst_clear(&env_lst, free), cleanup_readline(), 0));
+			free_grabage();
+			exit(0);
 		}
 		if (*cmd)
 			add_history(cmd);
@@ -85,11 +87,12 @@ int	main(int ac, char **av, char **env)
 			set_exit_code(0);
 		}
 		parsing_line(cmd, &tok, &env_lst);
-		free(cmd);
+		// free(cmd);
 		if (check_stat(env_lst, &status) == 1)
 			break ;
 	}
-	lst_clear(&env_lst, free);
+	// lst_clear(&env_lst, free);
 	cleanup_readline();
+	free_grabage();
 	return (status);
 }

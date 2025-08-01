@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 17:07:59 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:35:09 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_cmd_exec	*search_and_replace_helper(t_cmd_exec *env_lst, int *i, int j,
 		tmp = tmp->next;
 	}
 	if (!new_str[0])
-		return (free(new_str), NULL);
-	free(new_str);
+		return (NULL);
+	// free(new_str);
 	return (tmp);
 }
 
@@ -69,7 +69,7 @@ void	remove_empty_tokens(t_token **toks)
 			else
 				*toks = curr->next;
 			curr = curr->next;
-			lst_clear_tok(&to_delete, &free);
+			// lst_clear_tok(&to_delete, &free);
 		}
 		else
 		{
@@ -85,7 +85,7 @@ char	*ft_strdup_repeat(char c, size_t len)
 	char	*res;
 
 	i = 0;
-	res = malloc(len + 1);
+	res = ft_malloc(len + 1);
 	if (!res)
 		return (NULL);
 	while (i < len)
@@ -104,21 +104,21 @@ int	copy_quotes(t_token *t, t_cmd_exec *env_lst, int i, int j)
 	env_len = ft_strlen(env_lst->value);
 	if (i > (int)ft_strlen(t->quote) || j > (int)ft_strlen(t->quote))
 		return (-1);
-	new_quote = malloc(env_len + 1);
+	new_quote = ft_malloc(env_len + 1);
 	if (!new_quote)
 		return (-1);
 	ft_memset(new_quote, '2', env_len);
 	new_quote[env_len] = '\0';
 	t->quote[i] = '\0';
 	new_str = ft_strjoin(t->quote, new_quote);
-	free(new_quote);
+	// free(new_quote);
 	if (!new_str)
 		return (-1);
 	final = ft_strjoin(new_str, t->quote + j);
-	free(new_str);
+	// free(new_str);
 	if (!final)
 		return (-1);
-	free(t->quote);
+	// free(t->quote);
 	t->quote = final;
 	return (0);
 }

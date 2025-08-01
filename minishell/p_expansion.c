@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 17:16:47 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:38:27 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static int	ft_is_found2(t_token *toks, int *i, int j, t_cmd_exec *tmp)
 {
 	if ((j - *i) == 1 && (tmp->name[0] == '1' || (toks->value[j] != '\"'
 				&& toks->value[j] != '\'')))
-		tmp->value = malloc(sizeof(char) * 2);
+		tmp->value = ft_malloc(sizeof(char) * 2);
 	else
-		tmp->value = malloc(sizeof(char) * 1);
+		tmp->value = ft_malloc(sizeof(char) * 1);
 	if (!tmp->value)
 		return (-1);
 	if ((j - *i) == 1 && (tmp->name[0] == 1 || (toks->value[j] != '\"'
@@ -69,12 +69,12 @@ static int	ft_is_found(t_token *toks, int *i, int j, int quote)
 	int			res;
 
 	toks->strip = (quote == 0);
-	tmp = malloc(sizeof(t_cmd_exec) * 1);
+	tmp = ft_malloc(sizeof(t_cmd_exec) * 1);
 	if (!tmp)
 		return (-1);
-	tmp->name = malloc(sizeof(char) * 2);
+	tmp->name = ft_malloc(sizeof(char) * 2);
 	if (!tmp->name)
-		return (free(tmp), -1);
+		return (-1);
 	if (quote == 1)
 		tmp->name[0] = '1';
 	else
@@ -85,7 +85,7 @@ static int	ft_is_found(t_token *toks, int *i, int j, int quote)
 	if (!((j - *i) == 1 && (tmp->name[0] == '1' || (toks->value[j] == '\"'
 					|| toks->value[j] == '\''))))
 		*i = *i - 1;
-	lst_del(tmp, free);
+	// lst_del(tmp, free);
 	return (res);
 }
 
@@ -101,11 +101,11 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	if (!new_str)
 		return (-1);
 	if (!new_str[0])
-		return (free(new_str), 0);
+		return (0);
 	while (env_lst && ft_strncmp(env_lst->name, new_str, ft_strlen(new_str)
 			+ 1))
 		env_lst = env_lst->next;
-	free(new_str);
+	// free(new_str);
 	inside_word = (*i > 0 && !ft_strchr(" \t/$.<>|", t->value[*i - 1]));
 	if (env_lst)
 	{

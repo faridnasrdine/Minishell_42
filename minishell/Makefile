@@ -6,7 +6,7 @@
 #    By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/21 14:41:13 by nafarid           #+#    #+#              #
-#    Updated: 2025/07/28 11:03:11 by nafarid          ###   ########.fr        #
+#    Updated: 2025/08/01 09:56:03 by nafarid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = main.c bultins/echo_cmd.c \
 		
 OBJS = $(SRC:.c=.o)
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 LIBFT_DIR = libft
 FLAGS = -lreadline
 LIB = $(LIBFT_DIR)/libft.a

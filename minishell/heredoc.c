@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 17:06:42 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:35:48 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ static char	*line_expansion(char *line, t_cmd_exec *env_lst)
 	t_token	*tmp;
 	char	*str;
 
-	tmp = malloc(sizeof(t_token));
+	tmp = ft_malloc(sizeof(t_token));
 	if (!tmp)
 		return (NULL);
 	tmp->value = line;
 	tmp->type = 'w';
-	tmp->quote = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	tmp->quote = ft_malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!tmp->quote)
 		return (NULL);
 	tmp->quote[ft_strlen(line)] = '\0';
 	tmp->quote = ft_memset(tmp->quote, '0', ft_strlen(line));
 	tmp->next = NULL;
 	p_expansion(tmp, env_lst);
-	free(tmp->quote);
+	// free(tmp->quote);
 	str = tmp->value;
-	free(tmp);
+	// free(tmp);
 	return (str);
 }
 
@@ -45,16 +45,16 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 		line = readline("heredoc> ");
 		if (get_exit_code() == 130)
 		{
-			if (line)
-				free(line);
-			lst_clear(&env_lst, &free);
-			cmd_free(&cmd);
+			// if (line)
+			// 	// free(line);
+			// lst_clear(&env_lst, &free);
+			// cmd_free(&cmd);
 			exit(1);
 		}
 		if (!line)
 		{
-			lst_clear(&env_lst, &free);
-			cmd_free(&cmd);
+			// lst_clear(&env_lst, &free);
+			// cmd_free(&cmd);
 			ft_putstr_fd("Minishell: warning: here-document at ", 2);
 			ft_putstr_fd("line 1 delimited by end-of-file (wanted `", 2);
 			ft_putstr_fd(processed_line, 2);
@@ -63,7 +63,7 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 		if (!ft_strncmp(line, cmd->op_value, ft_strlen(cmd->op_value))
 			&& ft_strlen(line) == ft_strlen(cmd->op_value))
 		{
-			free(line);
+			// free(line);
 			break ;
 		}
 		if (cmd->delimiter == 'h')
@@ -71,8 +71,8 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 			processed_line = line_expansion(line, env_lst);
 			if (!processed_line)
 			{
-				lst_clear(&env_lst, &free);
-				cmd_free(&cmd);
+				// lst_clear(&env_lst, &free);
+				// cmd_free(&cmd);
 				exit(1);
 			}
 		}
@@ -80,7 +80,7 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 			processed_line = line;
 		ft_putstr_fd(processed_line, fd_doc);
 		ft_putstr_fd("\n", fd_doc);
-		free(processed_line);
+		// free(processed_line);
 	}
 }
 

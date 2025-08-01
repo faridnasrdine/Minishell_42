@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:43:41 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/06 16:28:22 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:34:03 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_token	*new_ele(char **parts, t_token *last, int i)
 {
 	t_token	*curr;
 
-	curr = malloc(sizeof(t_token));
+	curr = ft_malloc(sizeof(t_token));
 	if (!curr)
 		return (NULL);
 	curr->value = ft_strdup(parts[i]);
@@ -35,21 +35,21 @@ int	handle_split(t_token *toks, char *value)
 	parts = ft_split(value, ' ');
 	if (!parts)
 		return (-1);
-	free(toks->value);
-	free(toks->quote);
+	// free(toks->value);
+	// free(toks->quote);
 	toks->value = ft_strdup(parts[0]);
 	toks->quote = ft_strdup(parts[0]);
 	if (!toks->value || !toks->quote)
-		return (arr_free(parts), -1);
+		return (-1);
 	last = toks;
 	i = 0;
 	while (parts[++i])
 	{
 		new = new_ele(parts, last, i);
 		if (!new)
-			return (arr_free(parts), -1);
+			return (-1);
 		last->next = new;
 		last = new;
 	}
-	return (arr_free(parts), 0);
+	return (0);
 }

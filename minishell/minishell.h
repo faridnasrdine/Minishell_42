@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/31 17:27:35 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 10:14:05 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+typedef struct s_gc
+{
+	void *data;
+	struct s_gc *next;
+}t_gc;
 
 typedef struct s_token
 {
@@ -125,15 +131,15 @@ void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
 
 ////////////////////////////////////////clean
-void					cmd_free(t_cmd **cmd);
-void					lst_clear(t_cmd_exec **lst, void (*del)(void *));
-void					lst_del(t_cmd_exec *lst, void (*del)(void *));
-void					lst_del_tok(t_token *lst, void (*del)(void *));
-void					lst_clear_tok(t_token **lst, void (*del)(void *));
-void					clear_all(t_cmd **cmds, t_token **tokens);
-void					cleanup(t_cmd_exec **env_lst, t_cmd **cmd,
-							t_cmd *exec_cmd, char **env);
-void					arr_free(char **arr);
+// void					cmd_free(t_cmd **cmd);
+// void					lst_clear(t_cmd_exec **lst, void (*del)(void *));
+// void					lst_del(t_cmd_exec *lst, void (*del)(void *));
+// void					lst_del_tok(t_token *lst, void (*del)(void *));
+// void					lst_clear_tok(t_token **lst, void (*del)(void *));
+// void					clear_all(t_cmd **cmds, t_token **tokens);
+// void					cleanup(t_cmd_exec **env_lst, t_cmd **cmd,
+// 							t_cmd *exec_cmd, char **env);
+// void					arr_free(char **arr);
 
 /////////////////////////////////////utilis
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
@@ -154,4 +160,7 @@ void					build_new_tok_val(t_token *toks, char *value, int i,
 char					**env_lst_to_arr(t_cmd_exec *env_lst, char meaning,
 							int quote);
 void					exec(t_cmd **cmd, t_cmd_exec **env_lst);
+
+void *ft_malloc(size_t size);
+void    free_grabage();
 #endif

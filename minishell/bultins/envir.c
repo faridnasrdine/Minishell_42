@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:51:15 by houssam           #+#    #+#             */
-/*   Updated: 2025/06/26 21:51:17 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:40:04 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	env(t_cmd_exec **env_lst)
 	}
 	if (!env[i])
 	{
-		arr_free(env);
+		// arr_free(env);
 		change_stat(env_lst, 0);
 		return (0);
 	}
 	else
 	{
-		arr_free(env);
+		// arr_free(env);
 		change_stat(env_lst, 127);
 		return (2);
 	}

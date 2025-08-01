@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:18 by houssam           #+#    #+#             */
-/*   Updated: 2025/06/26 20:34:20 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:39:22 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static int	split_ifs(t_token *tmp, char *ifs, int *i)
 	new_ele->next = tmp->next;
 	tmp->next = new_ele;
 	new_str = ft_strdup(tmp->value);
-	free(tmp->value);
+	// free(tmp->value);
 	tmp->value = new_str;
 	new_str = ft_strdup(tmp->quote);
-	free(tmp->quote);
+	// free(tmp->quote);
 	tmp->quote = new_str;
 	return (1);
 }

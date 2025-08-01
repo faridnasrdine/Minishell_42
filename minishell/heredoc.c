@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:35:48 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 10:55:20 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 			// 	// free(line);
 			// lst_clear(&env_lst, &free);
 			// cmd_free(&cmd);
+			free_grabage();
 			exit(1);
 		}
 		if (!line)
 		{
 			// lst_clear(&env_lst, &free);
 			// cmd_free(&cmd);
+			free_grabage();
 			ft_putstr_fd("Minishell: warning: here-document at ", 2);
 			ft_putstr_fd("line 1 delimited by end-of-file (wanted `", 2);
 			ft_putstr_fd(processed_line, 2);
@@ -73,6 +75,7 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 			{
 				// lst_clear(&env_lst, &free);
 				// cmd_free(&cmd);
+				free_grabage();
 				exit(1);
 			}
 		}
@@ -90,6 +93,7 @@ static void	child_heredoc(t_cmd *cmd, t_cmd_exec **env_lst, int *heredoc)
 	close(heredoc[0]);
 	go_heredoc(cmd, *env_lst, heredoc[1]);
 	close(heredoc[1]);
+	free_grabage();
 	exit(0);
 }
 

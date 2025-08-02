@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 11:23:10 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 13:05:39 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ static char	*line_expansion(char *line, t_cmd_exec *env_lst)
 	return (str);
 }
 
-static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd)
+static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
 {
 	if (get_exit_code() == 130)
 	{
 		free_grabage();
+		close(fd);
 		exit(1);
 	}
 	if (!line)
@@ -46,6 +47,7 @@ static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd)
 		ft_putstr_fd("line 1 delimited by end-of-file (wanted `", 2);
 		ft_putstr_fd(cmd->op_value, 2);
 		ft_putstr_fd("')\n", 2);
+		close(fd);
 		free_grabage();
 		exit(0);
 	}
@@ -59,7 +61,7 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		handle_ctrl_d_heredoc(line, cmd);
+		handle_ctrl_d_heredoc(line, cmd, fd_doc);
 		if (!ft_strncmp(line, cmd->op_value, ft_strlen(cmd->op_value))
 			&& ft_strlen(line) == ft_strlen(cmd->op_value))
 			break ;

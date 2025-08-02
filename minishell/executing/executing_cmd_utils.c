@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 10:32:32 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:58:48 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,23 @@ static int	built(t_cmd *cmd)
 	}
 	return (i);
 }
-
-char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
+char *check_is_path_fail(t_cmd *cmd)
 {
-	char	*path;
+	char *path;
+
+	path = ft_strjoin("./", cmd->args[0]);
+	if (!path)
+		return (NULL);
+	if (access(path, X_OK) == 0)
+		return (path);
+	if (access(path, F_OK) == 0)
+		return (NULL);
+	return (NULL);
+}
+
+char *find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
+{
+	char *path;
 
 	path = NULL;
 	if (!cmd->args || !cmd->args[0])
@@ -89,11 +102,14 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 	else
 	{
 		path = find_path(env_lst, cmd->args[0]);
-		if (path)
+		if (!path)
 		{
-			cmd->args[0] = NULL;
-			cmd->args[0] = path;
+			path = check_is_path_fail(cmd);
+			if (path)
+				cmd->args[0] = path;
 		}
+		else
+			cmd->args[0] = path;
 	}
 	if (!path && cmd->path_error != 4)
 		cmd->path_error = 1;

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 11:24:51 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 13:03:25 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	parent_heredoc(t_cmd *cmd, int *heredoc)
 	close(heredoc[1]);
 	ret = handle_exit_status(exit_stat, heredoc, cmd);
 	if (ret != -1)
-		return (ret);
+		return (close(heredoc[0]), ret);
 	set_cmd_stdin(cmd, heredoc[0]);
 	return (0);
 }

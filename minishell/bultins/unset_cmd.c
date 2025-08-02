@@ -15,8 +15,8 @@
 static void	find_and_del(t_cmd *cmd, t_cmd_exec **env_lst, int i)
 {
 	t_cmd_exec	*tmp1;
-	// t_cmd_exec	*tmp2;
 
+	// t_cmd_exec	*tmp2;
 	tmp1 = *env_lst;
 	while (tmp1)
 	{
@@ -50,9 +50,9 @@ static void	pwd_fake(t_cmd_exec *env_lst)
 
 static void	unset_vars(t_cmd *cmd, t_cmd_exec **env_lst, int *res)
 {
-	// t_cmd_exec	*tmp;
-	int			i;
+	int	i;
 
+	// t_cmd_exec	*tmp;
 	i = 0;
 	while (cmd->args[++i])
 	{

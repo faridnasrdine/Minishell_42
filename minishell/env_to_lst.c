@@ -29,7 +29,7 @@ static int	exit_status(t_cmd_exec *node, t_cmd_exec **env_lst)
 {
 	char	*blank;
 
-	blank =ft_malloc(sizeof(char) * 2);
+	blank = ft_malloc(sizeof(char) * 2);
 	if (!blank)
 		return (0);
 	blank[0] = '0';

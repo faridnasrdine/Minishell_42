@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:52:23 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:41:11 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 09:04:19 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ void	quote_del(t_token *toks)
 		{
 			toks->value[i] = '\0';
 			new_value = ft_strjoin(toks->value, toks->value + i + 1);
-			// free(toks->value);
 			toks->value = new_value;
 			toks->quote[i] = '\0';
 			new_quote = ft_strjoin(toks->quote, toks->quote + i + 1);
-			// free(toks->quote);
 			toks->quote = new_quote;
 			--i;
 			if (toks->type == 'h')

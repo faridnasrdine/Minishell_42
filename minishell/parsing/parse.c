@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:26 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:45:21 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 09:11:51 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,9 @@ int	parsing_line(char *line, t_token **toks, t_cmd_exec **env_lst)
 	{
 		toks_arr(line, chars, toks);
 		if (opers(*toks, env_lst) == -1)
-		{
-			// lst_clear_tok(toks, &free);
 			return (-1);
-		}
 		if (toks_to_struct(toks, &cmd, env_lst) == 0)
 			exec(&cmd, env_lst);
-		// clear_all(&cmd, toks);
 	}
 	return (1);
 }

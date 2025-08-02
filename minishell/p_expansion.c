@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 19:29:10 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/02 10:06:55 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	int		j;
 	int		inside_word;
 	int		start_pos;
-	
+
 	start_pos = *i;
 	j = *i + 1;
 	func(t, &j);
@@ -103,11 +103,10 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	if (!new_str)
 		return (-1);
 	if (!new_str[0])
-		return (free(new_str),(*i)++,  0);
+		return ((*i)++, 0);
 	while (env_lst && ft_strncmp(env_lst->name, new_str, ft_strlen(new_str)
-		+ 1))
+			+ 1))
 		env_lst = env_lst->next;
-	// free(new_str);
 	inside_word = (*i > 0 && !ft_strchr(" \t/$.<>|", t->value[*i - 1]));
 	if (env_lst)
 	{

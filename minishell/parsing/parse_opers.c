@@ -103,7 +103,8 @@ int	parsing_opers(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 		else
 		{
 			ft_putstr_fd("Minishell Syntax error: Undefined value after "
-				"operator\n", 2);
+							"operator\n",
+							2);
 			return (-2);
 		}
 	}

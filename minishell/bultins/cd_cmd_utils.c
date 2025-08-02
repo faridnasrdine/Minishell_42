@@ -95,8 +95,9 @@ char	*check_dir(t_cmd_exec **env_lst, char *path)
 		else
 			new_pwd = ft_strdup(path);
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: "
-			"cannot access parent directories: No such file or "
-			"directory\n", 2);
+						"cannot access parent directories: No such file or "
+						"directory\n",
+						2);
 	}
 	return (new_pwd);
 }

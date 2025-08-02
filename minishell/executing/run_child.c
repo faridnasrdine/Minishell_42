@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 00:34:46 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 09:09:00 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 	if (i == -1)
 	{
 		perror("Minishell");
-		// cleanup(env_lst, cmd, exec_cmd, env);
 		free_grabage();
 		exit(127);
 	}
@@ -93,7 +92,6 @@ void	child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id)
 			dup2(exec_cmd->std_in_dup1, 0);
 			close(exec_cmd->std_in_dup1);
 		}
-		// cleanup(env_lst, cmd, exec_cmd, NULL);
 		free_grabage();
 		exit(exit_code);
 	}

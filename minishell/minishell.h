@@ -6,13 +6,14 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 10:14:05 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:21:42 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "get/get_next_line.h"
 # include "libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -27,9 +28,9 @@
 
 typedef struct s_gc
 {
-	void *data;
-	struct s_gc *next;
-}t_gc;
+	void				*data;
+	struct s_gc			*next;
+}						t_gc;
 
 typedef struct s_token
 {
@@ -129,6 +130,7 @@ int						exec_run(t_cmd *cmd, t_cmd_exec **env_lst);
 void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
 void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
+int						parent_heredoc(t_cmd *cmd, int *heredoc);
 
 ////////////////////////////////////////clean
 // void					cmd_free(t_cmd **cmd);
@@ -140,6 +142,8 @@ void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 // void					cleanup(t_cmd_exec **env_lst, t_cmd **cmd,
 // 							t_cmd *exec_cmd, char **env);
 // void					arr_free(char **arr);
+void					*ft_malloc(size_t size);
+void					free_grabage(void);
 
 /////////////////////////////////////utilis
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
@@ -161,6 +165,4 @@ char					**env_lst_to_arr(t_cmd_exec *env_lst, char meaning,
 							int quote);
 void					exec(t_cmd **cmd, t_cmd_exec **env_lst);
 
-void *ft_malloc(size_t size);
-void    free_grabage();
 #endif

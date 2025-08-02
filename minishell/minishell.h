@@ -6,14 +6,13 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 11:21:42 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:35:30 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "get/get_next_line.h"
 # include "libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>

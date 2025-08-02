@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:51:26 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:40:26 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:36:37 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@ static int	print_env(t_cmd_exec **env_lst)
 	}
 	if (!envp[i])
 	{
-		// arr_free(envp);
 		change_stat(env_lst, 0);
 		return (0);
 	}
 	else
 	{
-		// arr_free(envp);
 		change_stat(env_lst, 1);
 		return (2);
 	}

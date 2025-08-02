@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:39:27 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 10:31:51 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:39:24 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,9 @@ void	change_env(char *oldpwd, char *newpwd, t_cmd_exec *env_lst)
 	while (env_lst)
 	{
 		if (!ft_strncmp(env_lst->name, "PWD", 4))
-		{
-			// free(env_lst->value);
 			env_lst->value = ft_strdup(newpwd);
-		}
 		else if (!ft_strncmp(env_lst->name, "OLDPWD", 7))
 		{
-			// if (env_lst->value)
-			// 	free(env_lst->value);
 			if (!oldpwd)
 			{
 				env_lst->value = ft_strdup("");
@@ -95,9 +90,8 @@ char	*check_dir(t_cmd_exec **env_lst, char *path)
 		else
 			new_pwd = ft_strdup(path);
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: "
-						"cannot access parent directories: No such file or "
-						"directory\n",
-						2);
+			"cannot access parent directories: No such file or "
+			"directory\n", 2);
 	}
 	return (new_pwd);
 }

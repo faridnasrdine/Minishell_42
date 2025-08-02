@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 13:45:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/01 09:39:48 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:35:47 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,11 @@ static int	change_dir(char *path, t_cmd_exec **env_lst)
 	if (chdir(path) != 0)
 	{
 		perror(path);
-		// if (old_pwd)
-		// 	free(old_pwd);
 		change_stat(env_lst, 1);
 		return (1);
 	}
 	new_pwd = check_dir(env_lst, path);
 	change_env(old_pwd, new_pwd, *env_lst);
-	// if (old_pwd)
-	// 	free(old_pwd);
-	// if (new_pwd)
-	// 	free(new_pwd);
 	change_stat(env_lst, 0);
 	return (0);
 }

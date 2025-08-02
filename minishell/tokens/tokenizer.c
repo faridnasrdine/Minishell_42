@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:55:48 by houssam           #+#    #+#             */
-/*   Updated: 2025/06/26 21:55:49 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/02 18:06:51 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	single_quotes(char *line, int *i, int *count, char *chars)
 		{
 			ft_putstr_fd("Error: found not closed quote\n", 2);
 			(*count) = -300;
+			return ;
 		}
 		(*i)++;
 		if (line[*i] == '\0' || ft_strchr(chars, line[*i]) != 0)
@@ -41,6 +42,7 @@ static void	double_quotes(char *line, int *i, int *count, char *chars)
 		{
 			ft_putstr_fd("Error: found not closed quote\n", 2);
 			(*count) = -300;
+			return ;
 		}
 		(*i)++;
 		if (line[*i] == '\0' || ft_strchr(chars, line[*i]) != 0)

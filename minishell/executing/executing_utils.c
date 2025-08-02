@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:49:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 22:27:37 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/30 15:04:04 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strjoin_sep(char *path, char *cmd, char c)
 	if (!path || !cmd)
 		return (NULL);
 	len = ft_strlen(path) + ft_strlen(cmd);
-	s = ft_malloc(len + 2);
+	s = malloc(len + 2);
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -91,6 +91,8 @@ void	exec_built(t_cmd *cmd, t_cmd_exec **env_lst, int child_par)
 	else if (child_par == 1)
 	{
 		exit_code = exec_run(cmd, env_lst);
+		lst_clear(env_lst, free);
+		cmd_free(&cmd);
 		exit(exit_code);
 	}
 }

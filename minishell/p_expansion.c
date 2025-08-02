@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 10:06:55 by nafarid          ###   ########.fr       */
+/*   Created: 2025/08/01 00:32:42 by hounejja          #+#    #+#             */
+/*   Updated: 2025/08/01 19:25:58 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 	int		k;
 
 	k = 0;
+	toks->strip = 0;
 	while (toks->value[k])
 	{
-		if ((!toks->value[k + 1] && toks->value[k] == '$')
-			|| (toks->value[k] == '$' && toks->value[k + 1] == '.'))
+		if ((!toks->value[k + 1] && toks->value[k] == '$') || 
+			(toks->value[k] == '$' && toks->value[k + 1] == '.'))
 			toks->strip = 0;
 		k++;
 	}
-	if (toks->strip && (i == 0 || toks->value[i - 1] != '='))
+	if (toks->strip && toks->value[i - 1] != '=')
 		value = erase_spaces(env_lst->value);
 	else
 		value = ft_strdup(env_lst->value);
@@ -46,9 +47,9 @@ static int	ft_is_found2(t_token *toks, int *i, int j, t_cmd_exec *tmp)
 {
 	if ((j - *i) == 1 && (tmp->name[0] == '1' || (toks->value[j] != '\"'
 				&& toks->value[j] != '\'')))
-		tmp->value = ft_malloc(sizeof(char) * 2);
+		tmp->value = malloc(sizeof(char) * 2);
 	else
-		tmp->value = ft_malloc(sizeof(char) * 1);
+		tmp->value = malloc(sizeof(char) * 1);
 	if (!tmp->value)
 		return (-1);
 	if ((j - *i) == 1 && (tmp->name[0] == 1 || (toks->value[j] != '\"'
@@ -68,13 +69,13 @@ static int	ft_is_found(t_token *toks, int *i, int j, int quote)
 	t_cmd_exec	*tmp;
 	int			res;
 
-	toks->strip = (quote == 0);
-	tmp = ft_malloc(sizeof(t_cmd_exec) * 1);
+	toks->strip = (quote == 0);	
+	tmp = malloc(sizeof(t_cmd_exec) * 1);
 	if (!tmp)
 		return (-1);
-	tmp->name = ft_malloc(sizeof(char) * 2);
+	tmp->name = malloc(sizeof(char) * 2);
 	if (!tmp->name)
-		return (-1);
+		return (free(tmp), -1);
 	if (quote == 1)
 		tmp->name[0] = '1';
 	else
@@ -85,7 +86,7 @@ static int	ft_is_found(t_token *toks, int *i, int j, int quote)
 	if (!((j - *i) == 1 && (tmp->name[0] == '1' || (toks->value[j] == '\"'
 					|| toks->value[j] == '\''))))
 		*i = *i - 1;
-	// lst_del(tmp, free);
+	lst_del(tmp, free);
 	return (res);
 }
 
@@ -95,7 +96,7 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	int		j;
 	int		inside_word;
 	int		start_pos;
-
+	
 	start_pos = *i;
 	j = *i + 1;
 	func(t, &j);
@@ -103,10 +104,11 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	if (!new_str)
 		return (-1);
 	if (!new_str[0])
-		return ((*i)++, 0);
+		return (free(new_str),(*i)++,  0);
 	while (env_lst && ft_strncmp(env_lst->name, new_str, ft_strlen(new_str)
-			+ 1))
+		+ 1))
 		env_lst = env_lst->next;
+	free(new_str);
 	inside_word = (*i > 0 && !ft_strchr(" \t/$.<>|", t->value[*i - 1]));
 	if (env_lst)
 	{

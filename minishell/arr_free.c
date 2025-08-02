@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   arr_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:18:53 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:33:10 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/31 23:30:40 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	arr_free(char **arr)
-// {
-// 	int	i;
+void	arr_free(char **arr)
+{
+	int	i;
 
-// 	i = -1;
-// 	if (arr)
-// 	{
-// 		while (arr[++i])
-// 			free(arr[i]);
-// 		free(arr);
-// 	}
-// 	arr = NULL;
-// }
+	i = -1;
+	if (arr)
+	{
+		while (arr[++i])
+			free(arr[i]);
+		free(arr);
+	}
+	arr = NULL;
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dups.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/26 22:01:46 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 23:47:08 by nafarid          ###   ########.fr       */
+/*   Created: 2025/07/31 23:42:13 by hounejja          #+#    #+#             */
+/*   Updated: 2025/07/31 23:42:15 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,4 @@ void	dups(t_cmd *tmp)
 		close(tmp->pipe_in);
 	}
 	dups_outs(tmp);
-}
-
-void	restore_std_fds(t_cmd *tmp)
-{
-	if (tmp->std_in_dup1 != -1)
-	{
-		dup2(tmp->std_in_dup1, 0);
-		close(tmp->std_in_dup1);
-	}
-	if (tmp->std_out_dup1 != -1)
-	{
-		dup2(tmp->std_out_dup1, 1);
-		close(tmp->std_out_dup1);
-	}
-	if (tmp->pipe_in)
-		close(tmp->pipe_in);
-	if (tmp->pipe_out)
-		close(tmp->pipe_out);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:55:55 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:29:29 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/24 15:28:55 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	word_alloc(t_token **toks, int *j, size_t *word_len, char *line)
 
 	if (line && *word_len != 0)
 	{
-		str = ft_malloc(sizeof(char) * (*word_len + 1));
+		str = malloc(sizeof(char) * (*word_len + 1));
 		if (!str || !line)
 			return ;
 		ft_strlcpy(str, line, *word_len + 1);

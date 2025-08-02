@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 11:49:11 by nafarid          ###   ########.fr       */
+/*   Created: 2025/04/20 13:08:36 by aoussama          #+#    #+#             */
+/*   Updated: 2025/08/02 18:29:50 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	ft_handle_sigint(int sig)
 static void	cleanup_readline(void)
 {
 	rl_clear_history();
+	rl_free_line_state();
 	rl_deprep_terminal();
 }
 
@@ -55,7 +56,6 @@ static int	start(int ac, char **av, char **env, t_cmd_exec **env_lst)
 	}
 	ft_signals();
 	env_to_lst(env, env_lst);
-	// shell_vl(env_lst);
 	return (0);
 }
 
@@ -76,8 +76,7 @@ int	main(int ac, char **av, char **env)
 		if (!cmd)
 		{
 			ft_putstr_fd("\nexit\n", 1);
-			free_grabage();
-			exit(status);
+			exit((lst_clear(&env_lst, free), cleanup_readline(), status));
 		}
 		if (*cmd)
 			add_history(cmd);
@@ -87,10 +86,11 @@ int	main(int ac, char **av, char **env)
 			set_exit_code(0);
 		}
 		parsing_line(cmd, &tok, &env_lst);
+		free(cmd);
 		if (check_stat(env_lst, &status) == 1)
 			break ;
 	}
+	lst_clear(&env_lst, free);
 	cleanup_readline();
-	free_grabage();
 	return (status);
 }

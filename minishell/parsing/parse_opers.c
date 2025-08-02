@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_opers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:59:52 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:44:00 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 19:27:43 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	parsing_in(t_cmd *cmd, t_cmd_exec **env_lst)
 		if (cmd->std_in != 0)
 			close(cmd->std_in);
 		cmd->std_in = fd;
+		cmd->redir_error = 3;
 	}
 	else if (!ft_strncmp(cmd->op, "<<", 3))
 		return (heredoc(cmd, env_lst));
@@ -57,13 +58,13 @@ static int	parsing_redirs(t_token **toks, t_cmd *cmd, t_token **tmp,
 {
 	int	fd;
 
-	// if (cmd->op_value)
-	// 	free(cmd->op_value);
+	if (cmd->op_value)
+		free(cmd->op_value);
 	cmd->op_value = ft_strdup((*toks)->value);
 	cmd->delimiter = (*toks)->type;
 	*tmp = *toks;
 	*toks = (*toks)->next;
-	// lst_del_tok(*tmp, &free);
+	lst_del_tok(*tmp, &free);
 	if (!ft_strncmp(cmd->op, ">", 2))
 	{
 		fd = open(cmd->op_value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -72,6 +73,7 @@ static int	parsing_redirs(t_token **toks, t_cmd *cmd, t_token **tmp,
 		if (cmd->std_out != 1)
 			close(cmd->std_out);
 		cmd->std_out = fd;
+		cmd->redir_error = 3;
 	}
 	else if (ft_strncmp(cmd->op, ">>", 3) == 0)
 	{
@@ -91,20 +93,20 @@ int	parsing_opers(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 	stat = 0;
 	while ((*toks) != NULL && (*toks)->type != 'c' && stat >= 0)
 	{
-		// if (cmd->op != NULL)
-		// 	free(cmd->op);
+		if (cmd->op != NULL)
+			free(cmd->op);
 		cmd->op = ft_strdup((*toks)->value);
 		tmp = *toks;
 		*toks = (*toks)->next;
-		// lst_del_tok(tmp, &free);
+		lst_del_tok(tmp, &free);
 		if (*toks && ((*toks)->type == 'v' || (*toks)->type == 'h'
 				|| (*toks)->type == 'H'))
 			stat = parsing_redirs(toks, cmd, &tmp, env_lst);
 		else
 		{
 			ft_putstr_fd("Minishell Syntax error: Undefined value after "
-							"operator\n",
-							2);
+				"operator\n", 2);
+			restore_std_fds(cmd);
 			return (-2);
 		}
 	}

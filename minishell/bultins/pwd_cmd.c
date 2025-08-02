@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:50:59 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 22:31:13 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/07/26 08:27:55 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,8 @@ static int	get_from_envir(t_cmd_exec *env_lst)
 int	pwd(t_cmd_exec **env_lst)
 {
 	char	*path;
-	char	*tmp;
 
-	tmp = getcwd(NULL, 0);
-	path = ft_strdup(tmp);
-	free(tmp);
+	path = getcwd(NULL, 0);
 	if (!path)
 	{
 		if (!get_from_envir(*env_lst))
@@ -50,6 +47,7 @@ int	pwd(t_cmd_exec **env_lst)
 	{
 		ft_putstr_fd(path, 1);
 		ft_putchar_fd('\n', 1);
+		free(path);
 		change_stat(env_lst, 0);
 		return (0);
 	}

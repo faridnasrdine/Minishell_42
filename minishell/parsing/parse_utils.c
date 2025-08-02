@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:07 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 22:18:00 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 18:43:36 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ static int	final_parsing(t_token **toks, t_cmd_exec *env_lst)
 		tmp2 = tmp;
 		tmp = tmp->next;
 	}
+	remove_empty_tokens(toks);
+	if (!toks || !*toks)
+		return (-1);
 	word_split(toks, env_lst);
 	tmp = *toks;
 	while (tmp && tmp->type != 'c')
@@ -71,7 +74,7 @@ static int	parsing_cmd(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 
 static void	cmd_init(t_cmd **cmd)
 {
-	(*cmd) = ft_malloc(sizeof(t_cmd));
+	(*cmd) = malloc(sizeof(t_cmd));
 	if (!(*cmd))
 		return ;
 	(*cmd)->id = 0;
@@ -96,15 +99,16 @@ static void	cmd_init(t_cmd **cmd)
 
 static int	parse_pipe(t_token **toks, t_cmd *last)
 {
+	t_token	*tmp;
 	t_cmd	*new_cmd;
 	int		fd[2];
 
 	while (last->next != NULL)
 		last = last->next;
 	last->pipe = 1;
-	// tmp = *toks;
+	tmp = *toks;
 	*toks = (*toks)->next;
-	// lst_del_tok(tmp, &free);
+	lst_del_tok(tmp, &free);
 	if (pipe(fd) == -1)
 		return (-1);
 	cmd_init(&new_cmd);

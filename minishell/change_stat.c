@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   change_stat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:18:40 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 09:10:36 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/06/26 22:18:42 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	change_stat(t_cmd_exec **env_lst, int stat)
 	while (tmp->meaning != '?')
 		tmp = tmp->next;
 	tmp->status = stat;
-	tmp->value = NULL;
+	if (tmp->value)
+		free(tmp->value);
 	tmp->value = ft_itoa(tmp->status);
 }

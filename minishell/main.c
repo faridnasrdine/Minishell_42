@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 11:19:51 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:49:11 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,7 @@ static int	start(int ac, char **av, char **env, t_cmd_exec **env_lst)
 	// shell_vl(env_lst);
 	return (0);
 }
-char	*red_line(void)
-{
-	char	*line;
-	char	*r_line;
-	int		len;
 
-	line = NULL;
-	r_line = NULL;
-	if (isatty(STDIN_FILENO))
-	{
-		r_line = readline("<minishell> ");
-	}
-	else
-	{
-		line = get_next_line(STDIN_FILENO);
-		if (!line)
-			return (NULL);
-		len = ft_strlen(line);
-		if (len > 0 && line[len - 1] == '\n')
-			line[len - 1] = '\0';
-		r_line = line;
-	}
-	return (r_line);
-}
 int	main(int ac, char **av, char **env)
 {
 	char		*cmd;
@@ -95,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	{
 		signal(SIGINT, ft_handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
-		cmd = red_line();
+		cmd = readline("<minishell> ");
 		if (!cmd)
 		{
 			ft_putstr_fd("\nexit\n", 1);

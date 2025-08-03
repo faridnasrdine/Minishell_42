@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:39:47 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 11:36:31 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 17:18:09 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	ft_exit(t_cmd *cmd, t_cmd_exec **env_lst)
 	int	k;
 
 	k = 0;
+	if(cmd->args[0] || !cmd->args[1])
+		ft_putstr_fd("exit\n", 1);
 	if (cmd->args[1])
 	{
 		res = parsing_code(cmd, &k);

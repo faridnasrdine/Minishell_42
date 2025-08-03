@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:20:22 by houssam           #+#    #+#             */
-/*   Updated: 2025/07/26 06:44:39 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:10:06 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 void	check_if_should_split(t_token *toks)
 {
 	int	k;
+	int	in_quotes;
 
 	k = -1;
+	in_quotes = 0;
 	while (toks->value[++k])
 	{
-		if ((toks->value[k] == '$' && !toks->value[k + 1])
-			|| toks->value[k] == '\'' || toks->value[k] == '\"'
-			|| toks->value[k] == '=')
-			toks->strip = 2;
+		if (toks->value[k] == '"' && !in_quotes)
+			in_quotes = 1;
+		else if (toks->value[k] == '"' && in_quotes)
+			in_quotes = 0;
+		else if ((toks->value[k] == '$' && !toks->value[k + 1])
+			|| ft_strchr("=.", toks->value[k])
+			|| in_quotes)
+			{
+				toks->strip = 2;
+				return ;
+			}
 	}
 }
 

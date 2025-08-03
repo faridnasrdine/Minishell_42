@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:22:09 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:13:13 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 			toks->strip = 0;
 		k++;
 	}
-	if (toks->strip && (i == 0 || toks->value[i - 1] != '='))
+	if (toks->strip && toks->value[i - 1] != '=')
 		value = erase_spaces(env_lst->value);
 	else
 		value = ft_strdup(env_lst->value);
@@ -85,7 +85,6 @@ static int	ft_is_found(t_token *toks, int *i, int j, int quote)
 	if (!((j - *i) == 1 && (tmp->name[0] == '1' || (toks->value[j] == '\"'
 					|| toks->value[j] == '\''))))
 		*i = *i - 1;
-	// lst_del(tmp, free);
 	return (res);
 }
 
@@ -94,7 +93,9 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	char	*new_str;
 	int		j;
 	int		inside_word;
+	int		start_pos;
 
+	start_pos = *i;
 	j = *i + 1;
 	func(t, &j);
 	new_str = ft_substr(t->value, *i + 1, j - *i - 1);
@@ -112,7 +113,8 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 			t->strip = (w == 0);
 		else
 			t->strip = 1;
-		return (ft_replace(t, *i, j, env_lst));
+		return (ft_replace(t, *i, j, env_lst),
+			*i = start_pos + len_till_expansion(env_lst->value, *i) - 1);
 	}
 	return (t->strip = !(inside_word), ft_is_found(t, i, j, w));
 }

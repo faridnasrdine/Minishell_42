@@ -6,24 +6,42 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:37 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:36:18 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:11:53 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	len_till_expansion(char *s, int start_pos)
+{
+	int	i;
+	int	in_quotes;
+	
+	i = start_pos;
+	in_quotes = 0;
+	while (s[i])
+	{
+		if (s[i] == '"' && !in_quotes)
+			in_quotes = 1;
+		else if (s[i] == '"' && in_quotes)
+			in_quotes = 0;
+		else if (!in_quotes && (s[i] == ' ' || s[i] == '\t'))
+			break;
+		i++;
+	}
+	return (i - start_pos);
+}
+
 void	build_new_tok_val(t_token *toks, char *value, int i, int j)
 {
 	char	*prefix;
 	char	*suffix;
-	char	*clean_suffix;
 	char	*new_val;
 
 	prefix = ft_substr(toks->value, 0, i);
 	suffix = ft_strdup(toks->value + j);
-	clean_suffix = remove_outer_quotes(suffix);
 	new_val = ft_strjoin(prefix, value);
-	value = ft_strjoin(new_val, clean_suffix);
+	value = ft_strjoin(new_val, suffix);
 	toks->value = value;
 	check_if_should_split(toks);
 }

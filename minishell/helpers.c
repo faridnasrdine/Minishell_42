@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 18:26:04 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:32:11 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	func(t_token *t, int *j)
 	else
 	{
 		while (t->value[*j] && !ft_strchr(" \t\"\'/?$=[]:.<>|", t->value[*j])
-				&& ft_isalpha(t->value[*j]))
+			&& ft_isalpha(t->value[*j]))
 			(*j)++;
 		while (t->value[*j] == '_' || ft_isalpha(t->value[*j]))
 			(*j)++;
@@ -93,8 +93,6 @@ int	copy_quotes(t_token *t, t_cmd_exec *env_lst, int i, int j)
 	int		env_len;
 
 	env_len = ft_strlen(env_lst->value);
-	// if (i > (int)ft_strlen(t->quote) || j > (int)ft_strlen(t->quote))
-	// 	return (-1);
 	new_quote = ft_malloc(env_len + 1);
 	if (!new_quote)
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:19:02 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 19:22:24 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:34:37 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ static void	arg_delete_next(t_token **toks, t_token **tmp1, t_token **tmp2)
 	if (*toks == *tmp1)
 	{
 		*toks = (*tmp1)->next;
-		// lst_del_tok(*tmp1, &free);
 		*tmp1 = NULL;
 		*tmp1 = *toks;
 	}
 	else
 	{
 		(*tmp2)->next = (*tmp1)->next;
-		// lst_del_tok(*tmp1, &free);
 		*tmp1 = NULL;
 		*tmp1 = (*tmp2)->next;
 	}

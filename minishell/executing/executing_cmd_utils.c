@@ -31,11 +31,11 @@ static char	**find_and_split(t_cmd_exec *env_lst)
 
 static char	*find_path(t_cmd_exec *env_lst, char *cmd)
 {
-	char	**path;
-	char	*value;
-	char	*tmp;
-	struct stat check;
-	int		i;
+	char		**path;
+	char		*value;
+	char		*tmp;
+	struct stat	check;
+	int			i;
 
 	i = -1;
 	if (!cmd || !cmd[0])
@@ -45,10 +45,11 @@ static char	*find_path(t_cmd_exec *env_lst, char *cmd)
 	while (path && path[++i] != NULL)
 	{
 		value = ft_strjoin_sep(path[i], cmd, '/');
-		if (access(value, F_OK) == 0 && !stat(value, &check) && !S_ISDIR(check.st_mode))
+		if (access(value, F_OK) == 0 && !stat(value, &check)
+			&& !S_ISDIR(check.st_mode))
 		{
-			if(access(value, X_OK) == 0)
-				return value;
+			if (access(value, X_OK) == 0)
+				return (value);
 			tmp = value;
 		}
 	}

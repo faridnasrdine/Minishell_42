@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dollar_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 14:43:41 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 20:57:55 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:31:17 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	handle_split(t_token *toks, char *value)
 	parts = ft_split(value, ' ');
 	if (!parts)
 		return (-1);
-	// free(toks->value);
-	// free(toks->quote);
 	toks->value = NULL;
 	toks->quote = NULL;
 	toks->value = ft_strdup(parts[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 22:44:03 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:47:08 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:28:02 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	check_if_dir(t_cmd *exec_cmd)
 {
 	struct stat	sb;
+
 	if (!stat(exec_cmd->path, &sb))
 	{
 		if (S_ISDIR(sb.st_mode))

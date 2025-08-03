@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:12:07 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:27:03 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ typedef struct s_cmd
 }						t_cmd;
 
 int						arg_count(t_token **toks, t_cmd *cmd);
-int					len_till_expansion(char *s, int start_pos);
+int						len_till_expansion(char *s, int start_pos);
+void					ft_quote_removal(t_token **toks);
 char					*remove_outer_quotes(char *s);
 void					toks_arr(char *line, char *chars, t_token **toks);
 void					check_if_should_split(t_token *toks);

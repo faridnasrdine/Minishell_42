@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:07 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:32:59 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:25:59 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,7 @@ static int	final_parsing(t_token **toks, t_cmd_exec *env_lst)
 	if (!toks || !*toks)
 		return (-1);
 	word_split(toks, env_lst);
-	tmp = *toks;
-	while (tmp && tmp->type != 'c')
-	{
-		if (tmp->type != 'r')
-			quote_del(tmp);
-		tmp = tmp->next;
-	}
+	ft_quote_removal(toks);
 	return (0);
 }
 

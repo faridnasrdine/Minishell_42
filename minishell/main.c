@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 11:49:11 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:37:44 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ static void	ft_handle_sigint(int sig)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	set_exit_code(130);
-}
-
-static void	cleanup_readline(void)
-{
-	rl_clear_history();
-	rl_deprep_terminal();
 }
 
 static int	check_stat(t_cmd_exec *env_lst, int *status)
@@ -55,7 +49,6 @@ static int	start(int ac, char **av, char **env, t_cmd_exec **env_lst)
 	}
 	ft_signals();
 	env_to_lst(env, env_lst);
-	// shell_vl(env_lst);
 	return (0);
 }
 
@@ -74,11 +67,7 @@ int	main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		cmd = readline("<minishell> ");
 		if (!cmd)
-		{
-			ft_putstr_fd("\nexit\n", 1);
-			free_grabage();
-			exit(status);
-		}
+			exit((ft_putstr_fd("\nexit\n", 1), free_grabage(), status));
 		if (*cmd)
 			add_history(cmd);
 		if (get_exit_code() == 130)
@@ -90,7 +79,5 @@ int	main(int ac, char **av, char **env)
 		if (check_stat(env_lst, &status) == 1)
 			break ;
 	}
-	cleanup_readline();
-	free_grabage();
-	return (status);
+	return (free_grabage(), status);
 }

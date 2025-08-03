@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:59:12 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:39:13 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:34:07 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_quote_removal(t_token **toks)
+{
+	t_token	*tmp;
+
+	tmp = *toks;
+	while (tmp && tmp->type != 'c')
+	{
+		if (tmp->type != 'r')
+			quote_del(tmp);
+		tmp = tmp->next;
+	}
+}
 
 void	handle_ctrl_c_heredoc(int sig)
 {
@@ -68,14 +81,11 @@ int	split_token_into_nodes(t_token *tok)
 	words = ft_split(tok->value, ' ');
 	if (!words || !words[0])
 		return (-1);
-	// free(curr->value);
 	curr->value = ft_strdup(words[0]);
-	// free(curr->quote);
 	curr->quote = ft_strdup("0");
 	if (!curr->value || !curr->quote)
 		return (-1);
 	if (ft_split_token_into_nodes_2(curr, words, next) == -1)
 		return (-1);
-	// arr_free(words);
 	return (0);
 }

@@ -16,7 +16,7 @@ int	len_till_expansion(char *s, int start_pos)
 {
 	int	i;
 	int	in_quotes;
-	
+
 	i = start_pos;
 	in_quotes = 0;
 	while (s[i])
@@ -26,7 +26,7 @@ int	len_till_expansion(char *s, int start_pos)
 		else if (s[i] == '"' && in_quotes)
 			in_quotes = 0;
 		else if (!in_quotes && (s[i] == ' ' || s[i] == '\t'))
-			break;
+			break ;
 		i++;
 	}
 	return (i - start_pos);
@@ -74,4 +74,3 @@ char	*erase_spaces(char *str)
 	}
 	return (res[j] = '\0', res);
 }
-

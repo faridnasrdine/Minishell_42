@@ -26,12 +26,11 @@ void	check_if_should_split(t_token *toks)
 		else if (toks->value[k] == '"' && in_quotes)
 			in_quotes = 0;
 		else if ((toks->value[k] == '$' && !toks->value[k + 1])
-			|| ft_strchr("=.", toks->value[k])
-			|| in_quotes)
-			{
-				toks->strip = 2;
-				return ;
-			}
+			|| ft_strchr("=.", toks->value[k]) || in_quotes)
+		{
+			toks->strip = 2;
+			return ;
+		}
 	}
 }
 

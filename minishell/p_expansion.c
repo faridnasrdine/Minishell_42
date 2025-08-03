@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:13:13 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:33:31 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	j = *i + 1;
 	func(t, &j);
 	new_str = ft_substr(t->value, *i + 1, j - *i - 1);
-	if (!new_str)
-		return (-1);
-	if (!new_str[0])
+	if (!new_str || !new_str[0])
 		return ((*i)++, 0);
 	while (env_lst && ft_strncmp(env_lst->name, new_str, ft_strlen(new_str)
 			+ 1))
@@ -113,8 +111,8 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 			t->strip = (w == 0);
 		else
 			t->strip = 1;
-		return (ft_replace(t, *i, j, env_lst),
-			*i = start_pos + len_till_expansion(env_lst->value, *i) - 1);
+		return (ft_replace(t, *i, j, env_lst), *i = start_pos
+			+ len_till_expansion(env_lst->value, *i) - 1);
 	}
 	return (t->strip = !(inside_word), ft_is_found(t, i, j, w));
 }

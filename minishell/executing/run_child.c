@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/03 17:47:18 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 18:16:16 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,13 @@ static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 	check_if_dir(exec_cmd);
 	if (!exec_cmd->path)
 		exec_cmd->path = ft_strdup("");
-	execve(exec_cmd->path, exec_cmd->args, env);	
-	perror("Minishell");
-	free_grabage();
-	exit(127);
+	execve(exec_cmd->path, exec_cmd->args, env);
+	if (exec_cmd->redir_error != 3)
+	{
+		perror("Minishell");
+		free_grabage();
+		exit(127);
+	}
 }
 
 static void	fun(t_cmd *exec_cmd, int *exit_code)
@@ -44,7 +47,7 @@ static void	fun(t_cmd *exec_cmd, int *exit_code)
 		*exit_code = 0;
 	else if (!exec_cmd->path_error)
 		*exit_code = 0;
-	else
+	else if (exec_cmd->redir_error != 3)
 	{
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(exec_cmd->args[0], 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:48:33 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 18:16:38 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 
 void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
 {
-	if (tmp->redir_error)
+	if (tmp->redir_error && tmp->redir_error != 3)
 	{
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(tmp->op_value, 2);

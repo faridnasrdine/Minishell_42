@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 09:09:00 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 11:47:06 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,16 @@ static void	proc_handle_sigquit(int sig)
 
 static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 {
-	int		i;
 	char	**env;
 
 	env = env_lst_to_arr(*env_lst, 'e', 0);
 	check_if_dir(exec_cmd, env_lst, env);
 	if (!exec_cmd->path)
 		exec_cmd->path = ft_strdup("");
-	i = execve(exec_cmd->path, exec_cmd->args, env);
-	if (i == -1)
-	{
-		perror("Minishell");
-		free_grabage();
-		exit(127);
-	}
+	execve(exec_cmd->path, exec_cmd->args, env);	
+	perror("Minishell");
+	free_grabage();
+	exit(127);
 }
 
 static void	fun(t_cmd *exec_cmd, int *exit_code)

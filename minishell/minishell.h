@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 11:35:30 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 18:32:37 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
 void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
 int						parent_heredoc(t_cmd *cmd, int *heredoc);
+void					exec(t_cmd **cmd, t_cmd_exec **env_lst);
 
 ////////////////////////////////////////clean
 // void					cmd_free(t_cmd **cmd);
@@ -162,6 +163,5 @@ void					build_new_tok_val(t_token *toks, char *value, int i,
 							int j);
 char					**env_lst_to_arr(t_cmd_exec *env_lst, char meaning,
 							int quote);
-void					exec(t_cmd **cmd, t_cmd_exec **env_lst);
 
 #endif

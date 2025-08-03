@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 12:58:48 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 11:40:10 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,26 @@ static char	*find_path(t_cmd_exec *env_lst, char *cmd)
 {
 	char	**path;
 	char	*value;
+	char	*tmp;
+	struct stat check;
 	int		i;
 
 	i = -1;
 	if (!cmd || !cmd[0])
 		return (NULL);
 	path = find_and_split(env_lst);
+	tmp = NULL;
 	while (path && path[++i] != NULL)
 	{
 		value = ft_strjoin_sep(path[i], cmd, '/');
-		if (access(value, X_OK) == 0 || access(value, F_OK) == 0)
-			return (value);
+		if (access(value, F_OK) == 0 && !stat(value, &check) && !S_ISDIR(check.st_mode))
+		{
+			if(access(value, X_OK) == 0)
+				return value;
+			tmp = value;
+		}
 	}
-	return (NULL);
+	return (tmp);
 }
 
 static int	built(t_cmd *cmd)
@@ -73,9 +80,10 @@ static int	built(t_cmd *cmd)
 	}
 	return (i);
 }
-char *check_is_path_fail(t_cmd *cmd)
+
+char	*check_is_path_fail(t_cmd *cmd)
 {
-	char *path;
+	char	*path;
 
 	path = ft_strjoin("./", cmd->args[0]);
 	if (!path)
@@ -87,9 +95,9 @@ char *check_is_path_fail(t_cmd *cmd)
 	return (NULL);
 }
 
-char *find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
+char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	if (!cmd->args || !cmd->args[0])
@@ -114,17 +122,4 @@ char *find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 	if (!path && cmd->path_error != 4)
 		cmd->path_error = 1;
 	return (path);
-}
-
-void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
-{
-	if (tmp->redir_error)
-	{
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(tmp->op_value, 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
-		free_grabage();
-		exit(1);
-	}
-	child_proc(cmd, env_lst, tmp->id);
 }

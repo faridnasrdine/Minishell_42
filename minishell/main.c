@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 11:49:11 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 18:32:19 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **env)
 	{
 		signal(SIGINT, ft_handle_sigint);
 		signal(SIGQUIT, SIG_IGN);
-		cmd = readline("<minishell> ");
+		cmd = readline("shell $ ");
 		if (!cmd)
 		{
 			ft_putstr_fd("\nexit\n", 1);

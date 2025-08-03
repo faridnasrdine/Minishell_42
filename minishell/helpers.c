@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:32:11 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 21:37:43 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	copy_quotes(t_token *t, t_cmd_exec *env_lst, int i, int j)
 	char	*final;
 	int		env_len;
 
+	if (i < 0 || j < 0 || i > j || j > (int)ft_strlen(t->quote))
+		return (-1);
 	env_len = ft_strlen(env_lst->value);
 	new_quote = ft_malloc(env_len + 1);
 	if (!new_quote)

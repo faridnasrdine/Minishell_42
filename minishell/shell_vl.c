@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:37 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:11:53 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 21:21:32 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@ int	len_till_expansion(char *s, int start_pos)
 {
 	int	i;
 	int	in_quotes;
+	int	len;
 
+	if (!s || start_pos < 0)
+		return (0);
+	len = ft_strlen(s);
+	if (start_pos >= len)
+		return (0);
 	i = start_pos;
 	in_quotes = 0;
 	while (s[i])

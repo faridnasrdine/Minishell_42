@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:54 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:55:22 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 21:33:08 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	exit_status(t_cmd_exec *node, t_cmd_exec **env_lst)
 	blank[1] = '\0';
 	node = lst_new_ele(ft_strdup("?"), blank);
 	node->meaning = '?';
-	node->status = 0;
 	ft_lstadd_front(env_lst, node);
 	return (1);
 }

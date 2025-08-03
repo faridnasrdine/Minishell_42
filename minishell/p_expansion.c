@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 20:17:07 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 22:03:57 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,9 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 			t->strip = (w == 0);
 		else
 			t->strip = 1;
-		return (ft_replace(t, *i, j, env_lst), *i = start_pos
-			+ len_till_expansion(env_lst->value, *i) - 1);
+		if (ft_replace(t, *i, j, env_lst) == -1)
+			return (-1);
+		return (*i = start_pos + len_till_expansion(env_lst->value, *i) - 1, 0);
 	}
 	return (t->strip = !(inside_word), ft_is_found(t, i, j, w));
 }
@@ -164,6 +165,7 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 				return ;
 			}
 			toks->expanded = 1;
+			i++;
 		}
 		else
 			i++;

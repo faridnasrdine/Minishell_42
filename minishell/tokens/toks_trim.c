@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   toks_trim.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:56:06 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:45:43 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 17:32:39 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	toks_split(t_token **toks)
 				tmp->next = split_into_new_ele(arr[i], tmp);
 				tmp = tmp->next;
 			}
-			// if (arr != NULL)
-				// free(arr);
 		}
 		tmp = tmp->next;
 	}
@@ -54,7 +52,6 @@ static void	toks_value_trim(t_token *toks)
 	while (toks != NULL)
 	{
 		str = ft_strtrim(toks->value, " ");
-		// free(toks->value);
 		toks->value = str;
 		toks = toks->next;
 	}
@@ -63,7 +60,6 @@ static void	toks_value_trim(t_token *toks)
 void	toks_trim(t_token **toks)
 {
 	t_token	*tmp1;
-	// t_token	*tmp2;
 
 	tmp1 = *toks;
 	toks_value_trim(*toks);
@@ -74,15 +70,12 @@ void	toks_trim(t_token **toks)
 			&& tmp1 == *toks)
 		{
 			*toks = tmp1->next;
-			// lst_del_tok(tmp1, &free);
 			tmp1 = *toks;
 		}
 		else if ((tmp1->next) && ((ft_strlen(tmp1->next->value) == 0)
 				|| tmp1->next->type == 'd'))
 		{
-			// tmp2 = tmp1->next;
 			tmp1->next = tmp1->next->next;
-			// lst_del_tok(tmp2, &free);
 		}
 		else if (tmp1)
 			tmp1 = tmp1->next;

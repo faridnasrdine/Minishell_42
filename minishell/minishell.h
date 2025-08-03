@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 16:41:29 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 17:30:56 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_cmd
 	struct s_cmd		*next;
 }						t_cmd;
 
-////////////////////////////////parsing
 int						arg_count(t_token **toks, t_cmd *cmd);
 char					*remove_outer_quotes(char *s);
 void					toks_arr(char *line, char *chars, t_token **toks);
@@ -97,7 +96,6 @@ void					quote_del(t_token *toks);
 t_cmd_exec				*search_and_replace_helper(t_cmd_exec *env_lst, int *i,
 							int j, t_token *t);
 
-/////////////////////////////////////////exe
 int						get_exit_code(void);
 void					set_exit_code(int code);
 int						heredoc(t_cmd *cmd, t_cmd_exec **env_lst);
@@ -130,20 +128,9 @@ void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
 int						parent_heredoc(t_cmd *cmd, int *heredoc);
 
-////////////////////////////////////////clean
-// void					cmd_free(t_cmd **cmd);
-// void					lst_clear(t_cmd_exec **lst, void (*del)(void *));
-// void					lst_del(t_cmd_exec *lst, void (*del)(void *));
-// void					lst_del_tok(t_token *lst, void (*del)(void *));
-// void					lst_clear_tok(t_token **lst, void (*del)(void *));
-// void					clear_all(t_cmd **cmds, t_token **tokens);
-// void					cleanup(t_cmd_exec **env_lst, t_cmd **cmd,
-// 							t_cmd *exec_cmd, char **env);
-// void					arr_free(char **arr);
 void					*ft_malloc(size_t size);
 void					free_grabage(void);
 
-/////////////////////////////////////utilis
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
 void					restore_std_fds(t_cmd *tmp);
 void					change_stat(t_cmd_exec **env_lst, int stat);

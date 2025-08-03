@@ -22,7 +22,7 @@ void	func(t_token *t, int *j)
 	else
 	{
 		while (t->value[*j] && !ft_strchr(" \t\"\'/?$=[]:.<>|", t->value[*j])
-			&& ft_isalpha(t->value[*j]))
+				&& ft_isalpha(t->value[*j]))
 			(*j)++;
 		while (t->value[*j] == '_' || ft_isalpha(t->value[*j]))
 			(*j)++;
@@ -37,12 +37,13 @@ static int	should_remove_token(t_token *tok)
 	if (!tok || tok->type == 'r' || tok->type == 'c')
 		return (0);
 	if (!tok->value)
-		return (1);	
+		return (1);
 	if (!tok->value[0])
-		return (1);	
+		return (1);
 	while (tok->value[i])
 	{
-		if (tok->value[i] != ' ' && tok->value[i] != '\t' && tok->value[i] != '\n')
+		if (tok->value[i] != ' ' && tok->value[i] != '\t'
+			&& tok->value[i] != '\n')
 			return (0);
 		i++;
 	}
@@ -56,24 +57,24 @@ void	remove_empty_tokens(t_token **toks)
 	t_token	*next;
 
 	if (!toks || !*toks)
-		return;
+		return ;
 	curr = *toks;
-	prev = NULL;	
+	prev = NULL;
 	while (curr && curr->type != 'c')
 	{
-		next = curr->next;		
+		next = curr->next;
 		if (curr->type == 'r')
 		{
 			prev = curr;
 			curr = next;
-			continue;
-		}		
+			continue ;
+		}
 		if (should_remove_token(curr))
 		{
 			if (prev)
 				prev->next = next;
 			else
-				*toks = next;			
+				*toks = next;
 			curr = next;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:07 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 16:21:36 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 17:32:59 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ static int	parse_pipe(t_token **toks, t_cmd *last)
 	while (last->next != NULL)
 		last = last->next;
 	last->pipe = 1;
-	// tmp = *toks;
 	*toks = (*toks)->next;
-	// lst_del_tok(tmp, &free);
 	if (pipe(fd) == -1)
 		return (-1);
 	cmd_init(&new_cmd);

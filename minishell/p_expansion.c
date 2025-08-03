@@ -157,7 +157,7 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 			if (toks->value[i + 1] == '?')
 			{
 				if (search_and_replace(toks, &i, env_lst, 0) == -1)
-					return ;	
+					return ;
 			}
 			if (search_and_replace(toks, &i, env_lst, 0) == -1)
 			{

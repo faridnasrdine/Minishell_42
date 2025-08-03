@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_lst_to_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:35:02 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:33:38 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 17:31:33 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static void	ft_empty(t_cmd_exec *env_lst, int *i, char **arr)
 		tmp1 = ft_strdup(env_lst->name);
 		tmp2 = ft_strdup("=\"\"");
 		arr[*i] = ft_strjoin(tmp1, tmp2);
-		// free(tmp1);
-		// free(tmp2);
 	}
 	else
 		arr[*i] = ft_strdup(env_lst->name);
@@ -56,10 +54,8 @@ static void	find_and_join(t_cmd_exec *env_lst, int quote, char **arr, int *i)
 		{
 			tmp = ft_strjoin(env_lst->name, "=\"");
 			arr[*i] = ft_strjoin(tmp, env_lst->value);
-			// free(tmp);
 			tmp = arr[*i];
 			arr[*i] = ft_strjoin(tmp, "\"");
-			// free(tmp);
 		}
 		else
 			ft_empty(env_lst, i, arr);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:55:48 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 17:59:24 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:21:48 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	double_quotes(char *line, int *i, int *count, char *chars)
 		{
 			ft_putstr_fd("Error: found not closed quote\n", 2);
 			(*count) = -300;
+			return ;
 		}
 		(*i)++;
 		if (line[*i] == '\0' || ft_strchr(chars, line[*i]) != 0)

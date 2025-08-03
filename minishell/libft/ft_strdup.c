@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 11:41:38 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/03 12:07:42 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:28:34 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 	char	*copy;
 
-	if (!s)
-		return (NULL);
 	len = ft_strlen(s);
 	i = 0;
 	copy = (char *)ft_malloc(len + 1);

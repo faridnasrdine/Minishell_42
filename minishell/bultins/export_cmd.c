@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:51:26 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 11:54:39 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:36:37 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_cmd_exec	*env_var_update(t_cmd_exec **env_lst, char *before_eql,
 	{
 		if (ft_strncmp(tmp->name, before_eql, ft_strlen(tmp->name) + 1) == 0)
 		{
-			tmp->value = NULL;
+			free(tmp->value);
 			tmp->value = ft_strdup(after_eql);
 			tmp->meaning = meaning;
 			break ;

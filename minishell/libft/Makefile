@@ -6,7 +6,7 @@
 #    By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/01 18:29:38 by aoussama          #+#    #+#              #
-#    Updated: 2025/08/03 13:38:00 by nafarid          ###   ########.fr        #
+#    Updated: 2025/05/31 13:43:42 by nafarid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,11 @@ OBJS = ${SRC:.c=.o}
 
 all: ${LIB}
 
-%.o: %.c
-	@${CC} ${CFLAGS} -c $< -o $@
+.o: .c
+	${CC} ${CFLAGS} -c $< -o $@
 
 ${LIB}: ${OBJS}
-	@ar rc ${LIB} ${OBJS}
+	ar rc ${LIB} ${OBJS}
 
 clean:
 	@rm -f ${OBJS}

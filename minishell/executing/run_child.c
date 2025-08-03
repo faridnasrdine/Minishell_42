@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/03 11:47:06 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:28:45 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,20 @@ static void	proc_handle_sigquit(int sig)
 
 static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 {
+	int		i;
 	char	**env;
 
 	env = env_lst_to_arr(*env_lst, 'e', 0);
 	check_if_dir(exec_cmd, env_lst, env);
 	if (!exec_cmd->path)
 		exec_cmd->path = ft_strdup("");
-	execve(exec_cmd->path, exec_cmd->args, env);	
-	perror("Minishell");
-	free_grabage();
-	exit(127);
+	i = execve(exec_cmd->path, exec_cmd->args, env);
+	if (i == -1)
+	{
+		perror("Minishell");
+		free_grabage();
+		exit(127);
+	}
 }
 
 static void	fun(t_cmd *exec_cmd, int *exit_code)
@@ -73,21 +77,12 @@ void	child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id)
 	else if (exec_cmd->builtin != 1)
 	{
 		not_built(env_lst, exec_cmd);
-		exit_code = 1;
+		// exit_code = 1;
 	}
 	else
 	{
 		exit_code = exec_run(exec_cmd, env_lst);
-		if (exec_cmd->std_out_dup1 != -1)
-		{
-			dup2(exec_cmd->std_out_dup1, 1);
-			close(exec_cmd->std_out_dup1);
-		}
-		if (exec_cmd->std_in_dup1 != -1)
-		{
-			dup2(exec_cmd->std_in_dup1, 0);
-			close(exec_cmd->std_in_dup1);
-		}
+		restore_std_fds(exec_cmd);
 		free_grabage();
 		exit(exit_code);
 	}

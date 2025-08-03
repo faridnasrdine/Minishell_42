@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 10:27:01 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:32:10 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
 	{
 		if (sig == SIGINT)
 			ft_putchar_fd('\n', 1);
-		*stat_code = sig + 128;
+		if (sig != SIGPIPE)
+			*stat_code = sig + 128;
 		change_stat(env_lst, *stat_code);
 	}
 }

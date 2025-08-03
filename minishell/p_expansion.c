@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 10:06:55 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:21:31 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	char	*new_str;
 	int		j;
 	int		inside_word;
-	int		start_pos;
 
-	start_pos = *i;
 	j = *i + 1;
 	func(t, &j);
 	new_str = ft_substr(t->value, *i + 1, j - *i - 1);
@@ -114,10 +112,7 @@ static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 			t->strip = (w == 0);
 		else
 			t->strip = 1;
-		if (ft_replace(t, *i, j, env_lst) == -1)
-			return (-1);
-		*i = start_pos + ft_strlen(env_lst->value) - 1;
-		return (0);
+		return (ft_replace(t, *i, j, env_lst));
 	}
 	return (t->strip = !(inside_word), ft_is_found(t, i, j, w));
 }
@@ -157,7 +152,7 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 			if (toks->value[i] == '\"')
 				i++;
 		}
-		else if (toks->value[i] == '$')
+		else if (toks->value[i] == '$' && toks->value[i + 1])
 		{
 			if (search_and_replace(toks, &i, env_lst, 0) == -1)
 			{

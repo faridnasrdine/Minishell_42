@@ -6,19 +6,11 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 18:23:45 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/02 11:24:51 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	handle_ctrl_c_heredoc(int sig)
-{
-	(void)sig;
-	write(1, "\n", 1);
-	set_exit_code(130);
-	close(0);
-}
 
 static int	handle_exit_status(int exit_stat, int *heredoc, t_cmd *cmd)
 {
@@ -62,7 +54,7 @@ int	parent_heredoc(t_cmd *cmd, int *heredoc)
 	close(heredoc[1]);
 	ret = handle_exit_status(exit_stat, heredoc, cmd);
 	if (ret != -1)
-		return (close(heredoc[0]), ret);
+		return (ret);
 	set_cmd_stdin(cmd, heredoc[0]);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/21 14:41:13 by nafarid           #+#    #+#              #
-#    Updated: 2025/08/03 13:40:48 by nafarid          ###   ########.fr        #
+#    Updated: 2025/08/02 11:32:34 by nafarid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ all: $(NAME)
 
 $(NAME) : $(OBJS)
 	@cd $(LIBFT_DIR) && $(MAKE) -s
-	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(FLAGS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(FLAGS)
 
-%.o :%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+.o :.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@cd $(LIBFT_DIR) && $(MAKE) -s clean

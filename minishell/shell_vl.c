@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:37 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/02 18:17:25 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/01 09:27:19 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,15 @@ static void	shell_up(int lvl, t_cmd_exec *tmp, char *str)
 		lvl = 1;
 	}
 	if (lvl == 1000)
+	{
+		// free(tmp->value);
 		tmp->value = ft_strdup("");
+	}
 	else
+	{
+		// free(tmp->value);
 		tmp->value = ft_itoa(lvl);
+	}
 }
 
 void	shell_vl(t_cmd_exec **env_lst)

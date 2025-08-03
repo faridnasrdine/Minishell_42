@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:57:31 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 18:03:07 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	heredoc(t_cmd *cmd, t_cmd_exec **env_lst)
 	if (i == -1)
 		exit(1);
 	pid = fork();
+	cmd->redir_error = 3;
 	if (!pid)
 		child_heredoc(cmd, env_lst, heredoc);
 	else

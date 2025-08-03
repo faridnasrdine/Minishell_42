@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/03 16:32:10 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 18:03:25 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ void	exec(t_cmd **cmd, t_cmd_exec **env_lst)
 	(*cmd)->path = find_cmd(*cmd, *env_lst);
 	if ((*cmd)->path && (*cmd)->builtin == 1 && (*cmd)->next == NULL)
 		exec_built(*cmd, env_lst, 0);
-	else
+	else if ((*cmd)->redir_error != 3)
 		exec_in_process(cmd, env_lst);
 }

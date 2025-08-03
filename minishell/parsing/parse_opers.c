@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:59:52 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:32:11 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 18:04:20 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	parsing_in(t_cmd *cmd, t_cmd_exec **env_lst)
 		if (cmd->std_in != 0)
 			close(cmd->std_in);
 		cmd->std_in = fd;
+		cmd->redir_error = 3;
 	}
 	else if (!ft_strncmp(cmd->op, "<<", 3))
 		return (heredoc(cmd, env_lst));
@@ -48,6 +49,7 @@ static int	parsing_out(t_cmd *cmd)
 		if (cmd->std_out != 1)
 			close(cmd->std_out);
 		cmd->std_out = fd;
+		cmd->redir_error = 3;
 	}
 	return (0);
 }
@@ -69,6 +71,7 @@ static int	parsing_redirs(t_token **toks, t_cmd *cmd, t_token **tmp,
 		if (cmd->std_out != 1)
 			close(cmd->std_out);
 		cmd->std_out = fd;
+		cmd->redir_error = 3;
 	}
 	else if (ft_strncmp(cmd->op, ">>", 3) == 0)
 	{

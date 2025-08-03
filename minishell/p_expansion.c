@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 16:21:31 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 17:22:09 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,11 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 		}
 		else if (toks->value[i] == '$' && toks->value[i + 1])
 		{
+			if (toks->value[i + 1] == '?')
+			{
+				if (search_and_replace(toks, &i, env_lst, 0) == -1)
+					return ;	
+			}
 			if (search_and_replace(toks, &i, env_lst, 0) == -1)
 			{
 				toks->expanded = 1;

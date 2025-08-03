@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/03 16:28:45 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:41:16 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 	char	**env;
 
 	env = env_lst_to_arr(*env_lst, 'e', 0);
-	check_if_dir(exec_cmd, env_lst, env);
+	check_if_dir(exec_cmd);
 	if (!exec_cmd->path)
 		exec_cmd->path = ft_strdup("");
 	i = execve(exec_cmd->path, exec_cmd->args, env);

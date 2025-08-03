@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   run_child_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 22:44:03 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 17:19:51 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 16:42:09 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_if_dir(t_cmd *exec_cmd, t_cmd_exec **env_lst, char **env)
+void	check_if_dir(t_cmd *exec_cmd)
 {
 	struct stat	sb;
 
-	(void)env_lst;
-	(void)env;
+	if (!ft_strcmp(exec_cmd->args[0], "sudo"))
+	{
+		ft_putstr_fd("Minishell: : command not found\n", 2);
+		free_grabage();
+		exit(127);
+	}
 	if (!stat(exec_cmd->path, &sb))
 	{
 		if (S_ISDIR(sb.st_mode))

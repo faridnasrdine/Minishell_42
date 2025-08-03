@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_new_ele.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:20:05 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/01 09:26:54 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:56:16 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cmd_exec	*lst_new_ele(char *name, char *value)
 	new_ele->name = name;
 	new_ele->value = value;
 	new_ele->meaning = 'e';
+	new_ele->status = 0;
 	new_ele->next = NULL;
 	return (new_ele);
 }

@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:33:31 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 20:17:07 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 	k = 0;
 	while (toks->value[k])
 	{
-		if ((!toks->value[k + 1] && toks->value[k] == '$')
-			|| (toks->value[k] == '$' && toks->value[k + 1] == '.'))
+		if (toks->value[k] == '$' && ft_strchr(".=\0", toks->value[k + 1]))
 			toks->strip = 0;
 		k++;
 	}
-	if (toks->strip && toks->value[i - 1] != '=')
+	if (toks->strip)
 		value = erase_spaces(env_lst->value);
 	else
 		value = ft_strdup(env_lst->value);
@@ -152,20 +151,19 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 			if (toks->value[i] == '\"')
 				i++;
 		}
-		else if (toks->value[i] == '$' && toks->value[i + 1])
+		else if (toks->value[i] == '$' && toks->value[i + 1] != '\0')
 		{
 			if (toks->value[i + 1] == '?')
 			{
 				if (search_and_replace(toks, &i, env_lst, 0) == -1)
 					return ;
 			}
-			if (search_and_replace(toks, &i, env_lst, 0) == -1)
+			else if (search_and_replace(toks, &i, env_lst, 0) == -1)
 			{
 				toks->expanded = 1;
 				return ;
 			}
 			toks->expanded = 1;
-			i++;
 		}
 		else
 			i++;

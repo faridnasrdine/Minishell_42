@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/03 19:37:44 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/03 19:52:30 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int ac, char **av, char **env)
 	t_token		*tok;
 	int			status;
 
+	status = 0;
 	if (start(ac, av, env, &env_lst) == 1)
 		return (0);
 	while (1)

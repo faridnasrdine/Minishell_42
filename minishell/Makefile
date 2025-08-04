@@ -22,7 +22,7 @@ SRC = main.c bultins/echo_cmd.c \
 		
 OBJS = $(SRC:.c=.o)
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 LIBFT_DIR = libft
 FLAGS = -lreadline
 LIB = $(LIBFT_DIR)/libft.a

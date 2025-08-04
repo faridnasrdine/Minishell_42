@@ -47,7 +47,7 @@ static t_cmd_exec	*env_var_update(t_cmd_exec **env_lst, char *before_eql,
 	{
 		if (ft_strncmp(tmp->name, before_eql, ft_strlen(tmp->name) + 1) == 0)
 		{
-			free(tmp->value);
+			tmp->value = NULL;
 			tmp->value = ft_strdup(after_eql);
 			tmp->meaning = meaning;
 			break ;

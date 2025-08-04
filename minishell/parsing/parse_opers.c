@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_opers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:59:52 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 02:31:40 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:12:48 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	parsing_in(t_cmd *cmd, t_cmd_exec **env_lst)
 		fd = open(cmd->op_value, O_RDONLY);
 		if (fd < 0)
 		{
+			perror("Minishell");
 			cmd->redir_error = 1;
 			return (-1);
 		}
@@ -42,6 +43,7 @@ static int	parsing_out(t_cmd *cmd)
 		fd = open(cmd->op_value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd < 0)
 		{
+			perror("Minishell");
 			cmd->redir_error = 1;
 			return (-1);
 		}
@@ -65,7 +67,7 @@ static int	parsing_redirs(t_token **toks, t_cmd *cmd, t_token **tmp,
 	{
 		fd = open(cmd->op_value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd < 0)
-			return (cmd->redir_error = 1, -1);
+			return (perror("Minishell"),cmd->redir_error = 1, -1);
 		if (cmd->std_out != 1)
 			close(cmd->std_out);
 		cmd->std_out = fd;

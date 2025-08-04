@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 03:15:55 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:00:13 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,6 @@ void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
 {
 	if (tmp->redir_error && tmp->redir_error != 3)
 	{
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(tmp->op_value, 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
 		free_grabage();
 		exit(1);
 	}

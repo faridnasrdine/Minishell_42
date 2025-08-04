@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:49:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 16:21:09 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 15:09:13 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,9 @@ void	exec_built(t_cmd *cmd, t_cmd_exec **env_lst, int child_par)
 {
 	int	exit_code;
 
+	
 	if (cmd->redir_error)
 	{
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(cmd->op_value, 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
 		change_stat(env_lst, 1);
 		return ;
 	}

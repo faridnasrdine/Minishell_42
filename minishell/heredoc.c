@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 11:15:25 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/04 20:36:18 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
 {
 	if (get_exit_code() == 130)
 	{
+		// restore_std_fds(cmd);
 		free_grabage();
 		close(fd);
 		exit(1);
@@ -47,6 +48,7 @@ static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
 		ft_putstr_fd("line 1 delimited by end-of-file (wanted `", 2);
 		ft_putstr_fd(cmd->op_value, 2);
 		ft_putstr_fd("')\n", 2);
+		restore_std_fds(cmd);
 		free_grabage();
 		close(fd);
 		exit(0);
@@ -97,6 +99,8 @@ int	heredoc(t_cmd *cmd, t_cmd_exec **env_lst)
 	int	heredoc[2];
 	int	i;
 
+	if (cmd->std_out != 1)
+		close(cmd->std_out);
 	i = pipe(heredoc);
 	if (i == -1)
 		exit(1);

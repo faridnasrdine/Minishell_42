@@ -33,7 +33,8 @@ main.o
 Makefile
 minishell
 minishell.h
-out
+minishell_tester
+o.txt
 parsing
 p_expansion.c
 p_expansion.o
@@ -47,4 +48,3 @@ utils.c
 utils.o
 word_split.c
 word_split.o
-z

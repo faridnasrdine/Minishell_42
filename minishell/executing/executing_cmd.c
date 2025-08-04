@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 03:35:24 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 20:40:08 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
 			ft_putchar_fd('\n', 1);
 		*stat_code = sig + 128;
 		change_stat(env_lst, *stat_code);
+	}
+}
+
+void	cleanup_parent_fds(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		restore_std_fds(cmd);
+		cmd = cmd->next;
 	}
 }
 
@@ -68,13 +77,25 @@ static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids)
 	while (tmp)
 	{
 		if (tmp->std_in != 0)
+		{
 			close(tmp->std_in);
+			tmp->std_in = 0;
+		}
 		if (tmp->std_out != 1)
+		{
 			close(tmp->std_out);
+			tmp->std_out = 1;
+		}
 		if (tmp->pipe_out != 0)
+		{
 			close(tmp->pipe_out);
+			tmp->pipe_out = 0;
+		}
 		if (tmp->pipe_in != 0)
+		{
 			close(tmp->pipe_in);
+			tmp->pipe_in = 0;
+		}
 		tmp = tmp->next;
 	}
 	waiting(env_lst, cmd, idx, pids);

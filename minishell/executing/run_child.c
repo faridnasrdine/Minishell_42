@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 03:37:19 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 20:38:39 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	fun(t_cmd *exec_cmd, int *exit_code)
 		*exit_code = 0;
 	else if (!exec_cmd->path_error)
 		*exit_code = 0;
-	else if ((ft_strcmp(exec_cmd->args[0], ">>")))
+	else if (exec_cmd->args[0])
 	{
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(exec_cmd->args[0], 2);

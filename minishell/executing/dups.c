@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:46 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 23:49:53 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 00:11:01 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	restore_std_fds(void)
 	fd = 3;
 	while (fd < 1024)
 	{
-		close(fd++);
+		close(fd);
+		fd++;
 	}
 }

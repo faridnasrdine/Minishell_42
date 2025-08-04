@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 23:46:35 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 00:12:43 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id)
 	if (!exec_cmd->path)
 	{
 		fun(exec_cmd, &exit_code);
-		// restore_std_fds();
+		restore_std_fds();
 		free_grabage();
 		exit(exit_code);
 	}

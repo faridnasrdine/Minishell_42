@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 22:53:35 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 00:12:14 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
 	(void)fd;
 	if (get_exit_code() == 130)
 	{
+		restore_std_fds();
 		free_grabage();
 		exit(0);
 	}
@@ -87,6 +88,7 @@ static void	child_heredoc(t_cmd *cmd, t_cmd_exec **env_lst, int *heredoc)
 	close(heredoc[0]);
 	go_heredoc(cmd, *env_lst, heredoc[1]);
 	close(heredoc[1]);
+	restore_std_fds();
 	free_grabage();
 	exit(0);
 }
@@ -97,8 +99,6 @@ int	heredoc(t_cmd *cmd, t_cmd_exec **env_lst)
 	int	heredoc[2];
 	int	i;
 
-	if (cmd->std_out != 1)
-		close(cmd->std_out);
 	i = pipe(heredoc);
 	if (i == -1)
 		exit((perror("Minishell: "), 1));

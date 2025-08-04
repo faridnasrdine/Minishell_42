@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 02:35:11 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 03:37:19 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ void	child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id)
 		exit(exit_code);
 	}
 	else if (exec_cmd->builtin != 1)
-	{
 		not_built(env_lst, exec_cmd);
-		// exit_code = 1;
-	}
 	else
 	{
 		exit_code = exec_run(exec_cmd, env_lst);

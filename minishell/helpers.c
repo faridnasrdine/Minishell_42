@@ -6,11 +6,32 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 21:37:43 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 03:45:27 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	handle_double_quotes(t_token *toks, int *i, t_cmd_exec *env_lst)
+{
+	(*i)++;
+	while (toks->value[*i] && toks->value[*i] != '\"')
+	{
+		if (toks->value[*i] == '$')
+		{
+			if (search_and_replace(toks, i, env_lst, 1) == -1)
+			{
+				toks->expanded = 1;
+				return (-1);
+			}
+			toks->expanded = 1;
+		}
+		(*i)++;
+	}
+	if (toks->value[*i] == '\"')
+		(*i)++;
+	return (0);
+}
 
 void	func(t_token *t, int *j)
 {

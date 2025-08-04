@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   arr_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 11:41:38 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/01 09:28:34 by nafarid          ###   ########.fr       */
+/*   Created: 2025/06/26 22:18:53 by houssam           #+#    #+#             */
+/*   Updated: 2025/08/01 09:33:10 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s)
-{
-	size_t	len;
-	size_t	i;
-	char	*copy;
-
-	len = ft_strlen(s);
-	i = 0;
-	copy = (char *)ft_malloc(len + 1);
-	if (copy == NULL)
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		copy[i] = s[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
-}
-// int main()
+// void	arr_free(char **arr)
 // {
-//  char o[] = "sallm";
-//  char *p = ft_strdup(o);
-//  if(p == NULL)
-//   return (0);
-//  printf("%s",p);
+// 	int	i;
+
+// 	i = -1;
+// 	if (arr)
+// 	{
+// 		while (arr[++i])
+// 			free(arr[i]);
+// 		free(arr);
+// 	}
+// 	arr = NULL;
 // }

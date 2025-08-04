@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 22:03:57 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 03:52:06 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	ft_is_found(t_token *toks, int *i, int j, int quote)
 	return (res);
 }
 
-static int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
+int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 {
 	char	*new_str;
 	int		j;
@@ -135,22 +135,8 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 		}
 		else if (toks->value[i] == '\"')
 		{
-			i++;
-			while (toks->value[i] && toks->value[i] != '\"')
-			{
-				if (toks->value[i] == '$')
-				{
-					if (search_and_replace(toks, &i, env_lst, 1) == -1)
-					{
-						toks->expanded = 1;
-						return ;
-					}
-					toks->expanded = 1;
-				}
-				i++;
-			}
-			if (toks->value[i] == '\"')
-				i++;
+			if (handle_double_quotes(toks, &i, env_lst) == -1)
+				return ;
 		}
 		else if (toks->value[i] == '$' && toks->value[i + 1] != '\0')
 		{

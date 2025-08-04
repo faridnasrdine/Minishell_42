@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 02:34:26 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 03:35:24 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,38 @@ static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
 	{
 		if (sig == SIGINT)
 			ft_putchar_fd('\n', 1);
-		if (sig != SIGPIPE)
-			*stat_code = sig + 128;
+		*stat_code = sig + 128;
 		change_stat(env_lst, *stat_code);
 	}
 }
 
-static void	waiting(t_cmd_exec **env_lst, t_cmd **cmd)
+static void	waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids)
 {
 	int	exit_stat;
 	int	stat_code;
+	int	i;
 
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-	while (wait(&exit_stat) != -1 || errno != ECHILD)
+	i = -1;
+	while (++i < idx)
 	{
-		if (WIFSIGNALED(exit_stat) != 0)
-			waiting_helper(env_lst, cmd, &exit_stat, &stat_code);
-		else if (WIFEXITED(exit_stat))
+		waitpid(pids[i], &exit_stat, 0);
+		if (i == idx - 1)
 		{
-			stat_code = WEXITSTATUS(exit_stat);
-			change_stat(env_lst, stat_code);
+			if (WIFSIGNALED(exit_stat) != 0)
+				waiting_helper(env_lst, cmd, &exit_stat, &stat_code);
+			else if (WIFEXITED(exit_stat))
+			{
+				stat_code = WEXITSTATUS(exit_stat);
+				change_stat(env_lst, stat_code);
+			}
 		}
 	}
 	ft_signals();
 }
 
-static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst)
+static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids)
 {
 	t_cmd	*tmp;
 
@@ -72,7 +77,7 @@ static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst)
 			close(tmp->pipe_in);
 		tmp = tmp->next;
 	}
-	waiting(env_lst, cmd);
+	waiting(env_lst, cmd, idx, pids);
 }
 
 static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
@@ -80,25 +85,34 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 	int		my_pid;
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
+	pid_t	*pids;
+	int		num_cmd;
+	int		idx;
 
 	tmp = *cmd;
 	tmp2 = tmp;
 	my_pid = 1;
+	idx = 0;
+	num_cmd = count_cmds(tmp);
+	pids = ft_malloc(sizeof(pid_t) * num_cmd);
+	if (!pids)
+		exit(EXIT_FAILURE);
 	while (tmp && my_pid != 0)
 	{
 		if (tmp->id == 0 || tmp2->pipe == 1)
 			my_pid = fork();
 		if (!my_pid)
 			check_dir_exe(tmp, env_lst, cmd);
-		else if (tmp)
+		else if (tmp && my_pid > 0)
 		{
+			pids[idx++] = my_pid;
 			restore_std_fds(tmp);
 			tmp2 = tmp;
 			tmp = tmp->next;
 		}
 	}
 	if (my_pid != 0)
-		parent_proc(cmd, env_lst);
+		parent_proc(cmd, env_lst, idx, pids);
 }
 
 void	exec(t_cmd **cmd, t_cmd_exec **env_lst)

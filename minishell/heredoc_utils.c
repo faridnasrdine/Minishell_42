@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/02 11:24:51 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/04 22:31:52 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	handle_exit_status(int exit_stat, int *heredoc, t_cmd *cmd)
 		if (code == 1)
 		{
 			close(heredoc[0]);
-			return (-3);
+			return (0);
 		}
 		else if (code == 0)
 		{

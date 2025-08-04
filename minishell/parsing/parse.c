@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:01:26 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:27:44 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 23:35:26 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	parsing_line(char *line, t_token **toks, t_cmd_exec **env_lst)
 
 	cmd = NULL;
 	*toks = NULL;
-	ft_strlcpy(chars, "<>|&;() \t\n", 11);
+	ft_strlcpy(chars, "<>| \t\n", 11);
 	count = tokens_count(line, chars);
 	if (count > 0)
 	{

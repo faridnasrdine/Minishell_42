@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 20:36:18 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 22:53:35 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ static char	*line_expansion(char *line, t_cmd_exec *env_lst)
 
 static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
 {
+	(void)fd;
 	if (get_exit_code() == 130)
 	{
-		// restore_std_fds(cmd);
 		free_grabage();
-		close(fd);
-		exit(1);
+		exit(0);
 	}
 	if (!line)
 	{
@@ -48,9 +47,8 @@ static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
 		ft_putstr_fd("line 1 delimited by end-of-file (wanted `", 2);
 		ft_putstr_fd(cmd->op_value, 2);
 		ft_putstr_fd("')\n", 2);
-		restore_std_fds(cmd);
+		restore_std_fds();
 		free_grabage();
-		close(fd);
 		exit(0);
 	}
 }
@@ -103,9 +101,8 @@ int	heredoc(t_cmd *cmd, t_cmd_exec **env_lst)
 		close(cmd->std_out);
 	i = pipe(heredoc);
 	if (i == -1)
-		exit(1);
+		exit((perror("Minishell: "), 1));
 	pid = fork();
-	cmd->redir_error = 3;
 	if (!pid)
 		child_heredoc(cmd, env_lst, heredoc);
 	else

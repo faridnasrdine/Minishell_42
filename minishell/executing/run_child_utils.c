@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 22:44:03 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 20:09:58 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/05 00:01:21 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	check_if_dir(t_cmd *exec_cmd)
 			ft_putstr_fd(exec_cmd->path, 2);
 			ft_putstr_fd(": is a directory\n", 2);
 			free_grabage();
+			exit(126);
+		}
+		else if (S_ISREG(sb.st_mode) && access(exec_cmd->path, X_OK))
+		{
+			perror("Minishell: ");
 			exit(126);
 		}
 	}

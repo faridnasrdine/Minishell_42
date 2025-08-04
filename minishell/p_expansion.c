@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 03:52:06 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 22:58:04 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,7 @@ int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 			t->strip = (w == 0);
 		else
 			t->strip = 1;
-		if (ft_replace(t, *i, j, env_lst) == -1)
-			return (-1);
+		ft_replace(t, *i, j, env_lst);
 		return (*i = start_pos + len_till_expansion(env_lst->value, *i) - 1, 0);
 	}
 	return (t->strip = !(inside_word), ft_is_found(t, i, j, w));

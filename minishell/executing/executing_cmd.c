@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 20:40:08 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 22:54:41 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
 			ft_putchar_fd('\n', 1);
 		*stat_code = sig + 128;
 		change_stat(env_lst, *stat_code);
-	}
-}
-
-void	cleanup_parent_fds(t_cmd *cmd)
-{
-	while (cmd)
-	{
-		restore_std_fds(cmd);
-		cmd = cmd->next;
 	}
 }
 
@@ -107,15 +98,13 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
 	pid_t	*pids;
-	int		num_cmd;
 	int		idx;
 
 	tmp = *cmd;
 	tmp2 = tmp;
 	my_pid = 1;
 	idx = 0;
-	num_cmd = count_cmds(tmp);
-	pids = ft_malloc(sizeof(pid_t) * num_cmd);
+	pids = ft_malloc(sizeof(pid_t) * count_cmds(tmp));
 	if (!pids)
 		exit(EXIT_FAILURE);
 	while (tmp && my_pid != 0)
@@ -127,7 +116,7 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 		else if (tmp && my_pid > 0)
 		{
 			pids[idx++] = my_pid;
-			restore_std_fds(tmp);
+			// restore_std_fds(tmp);
 			tmp2 = tmp;
 			tmp = tmp->next;
 		}

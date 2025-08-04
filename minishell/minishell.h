@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 03:45:01 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 22:52:29 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,11 @@ void					*ft_malloc(size_t size);
 void					free_grabage(void);
 
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
-void					restore_std_fds(t_cmd *tmp);
+void					restore_std_fds(void);
 void					change_stat(t_cmd_exec **env_lst, int stat);
 void					word_split(t_token **toks, t_cmd_exec *env_lst);
 void					ft_lstadd_front(t_cmd_exec **lst, t_cmd_exec *new);
 void					ft_lstadd_back(t_cmd_exec **lst, t_cmd_exec *new);
-void					shell_vl(t_cmd_exec **env_lst);
 t_cmd_exec				*ft_lstlast(t_cmd_exec *lst);
 void					remove_empty_tokens(t_token **toks);
 void					quote_count(t_token *toks);

@@ -12,11 +12,11 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include "../minishell.h"
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include "../minishell.h"
 
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

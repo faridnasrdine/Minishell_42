@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:49:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 15:09:13 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/04 23:47:25 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	exec_built(t_cmd *cmd, t_cmd_exec **env_lst, int child_par)
 {
 	int	exit_code;
 
-	
 	if (cmd->redir_error)
 	{
 		change_stat(env_lst, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 20:12:40 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/04 23:55:07 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,6 @@ static int	built(t_cmd *cmd)
 	return (i);
 }
 
-char	*check_is_path_fail(t_cmd *cmd)
-{
-	char	*path;
-
-	path = ft_strjoin("./", cmd->args[0]);
-	if (!path)
-		return (NULL);
-	if (access(path, X_OK) == 0)
-		return (path);
-	if (access(path, F_OK) == 0)
-		return (NULL);
-	return (NULL);
-}
-
 char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 {
 	char	*path;
@@ -113,7 +99,6 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 		path = find_path(env_lst, cmd->args[0]);
 		if (!path)
 		{
-			path = check_is_path_fail(cmd);
 			if (path)
 				cmd->args[0] = path;
 		}

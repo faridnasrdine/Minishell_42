@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_opers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:59:52 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 20:15:12 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/05 04:46:26 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	parsing_in(t_cmd *cmd, t_cmd_exec **env_lst)
 		fd = open(cmd->op_value, O_RDONLY);
 		if (fd < 0)
 		{
-			perror("Minishell");
+			perror("Minishell: ");
 			cmd->redir_error = 1;
 			return (-1);
 		}
@@ -67,7 +67,7 @@ static int	parsing_redirs(t_token **toks, t_cmd *cmd, t_token **tmp,
 	{
 		fd = open(cmd->op_value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd < 0)
-			return (perror("Minishell"),cmd->redir_error = 1, -1);
+			return (perror("Minishell"), cmd->redir_error = 1, -1);
 		if (cmd->std_out != 1)
 			close(cmd->std_out);
 		cmd->std_out = fd;

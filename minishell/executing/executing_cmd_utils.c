@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:47:17 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 23:55:07 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 04:47:06 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
 {
 	if (tmp->redir_error && tmp->redir_error != 3)
 	{
+		restore_std_fds();
 		free_grabage();
 		exit(1);
 	}

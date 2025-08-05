@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 22:31:52 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 04:41:33 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 static int	handle_exit_status(int exit_stat, int *heredoc, t_cmd *cmd)
 {
 	int	code;
+	int	sig;
 
 	if (WIFEXITED(exit_stat))
 	{
 		code = WEXITSTATUS(exit_stat);
-		if (code == 1)
+		sig = WIFSIGNALED(exit_stat);
+		if (sig == SIGINT)
 		{
 			close(heredoc[0]);
-			return (0);
+			return (-3);
 		}
 		else if (code == 0)
 		{
@@ -49,7 +51,6 @@ int	parent_heredoc(t_cmd *cmd, int *heredoc)
 	int	exit_stat;
 	int	ret;
 
-	signal(SIGINT, SIG_IGN);
 	wait(&exit_stat);
 	close(heredoc[1]);
 	ret = handle_exit_status(exit_stat, heredoc, cmd);

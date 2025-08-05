@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:39:47 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 23:28:45 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 04:56:20 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int	ft_exit(t_cmd *cmd, t_cmd_exec **env_lst)
 		run_exit(*env_lst);
 	}
 	else
+	{
 		run_exit(*env_lst);
+		ft_putstr_fd("exit\n", 2);
+	}
 	return (0);
 }

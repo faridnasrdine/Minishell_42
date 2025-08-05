@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 22:52:29 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 14:19:30 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
 void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
 int						parent_heredoc(t_cmd *cmd, int *heredoc);
+void					parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids);
+pid_t					*allocate_pid_array(t_cmd *cmd);
+void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids);
 
 void					*ft_malloc(size_t size);
 void					free_grabage(void);

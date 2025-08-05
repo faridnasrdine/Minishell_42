@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/04 22:54:41 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 14:19:13 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
 	}
 }
 
-static void	waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids)
+void	waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids)
 {
 	int	exit_stat;
 	int	stat_code;
@@ -60,53 +60,17 @@ static void	waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids)
 	ft_signals();
 }
 
-static void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids)
-{
-	t_cmd	*tmp;
-
-	tmp = *cmd;
-	while (tmp)
-	{
-		if (tmp->std_in != 0)
-		{
-			close(tmp->std_in);
-			tmp->std_in = 0;
-		}
-		if (tmp->std_out != 1)
-		{
-			close(tmp->std_out);
-			tmp->std_out = 1;
-		}
-		if (tmp->pipe_out != 0)
-		{
-			close(tmp->pipe_out);
-			tmp->pipe_out = 0;
-		}
-		if (tmp->pipe_in != 0)
-		{
-			close(tmp->pipe_in);
-			tmp->pipe_in = 0;
-		}
-		tmp = tmp->next;
-	}
-	waiting(env_lst, cmd, idx, pids);
-}
-
-static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
+static int	fork_and_execute(t_cmd **cmd, t_cmd_exec **env_lst, pid_t *pids)
 {
 	int		my_pid;
 	t_cmd	*tmp;
 	t_cmd	*tmp2;
-	pid_t	*pids;
 	int		idx;
 
 	tmp = *cmd;
 	tmp2 = tmp;
 	my_pid = 1;
 	idx = 0;
-	pids = ft_malloc(sizeof(pid_t) * count_cmds(tmp));
-	if (!pids)
-		exit(EXIT_FAILURE);
 	while (tmp && my_pid != 0)
 	{
 		if (tmp->id == 0 || tmp2->pipe == 1)
@@ -116,13 +80,21 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 		else if (tmp && my_pid > 0)
 		{
 			pids[idx++] = my_pid;
-			// restore_std_fds(tmp);
 			tmp2 = tmp;
 			tmp = tmp->next;
 		}
 	}
-	if (my_pid != 0)
-		parent_proc(cmd, env_lst, idx, pids);
+	return (idx);
+}
+
+static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
+{
+	pid_t	*pids;
+	int		process_count;
+
+	pids = allocate_pid_array(*cmd);
+	process_count = fork_and_execute(cmd, env_lst, pids);
+	parent_proc(cmd, env_lst, process_count, pids);
 }
 
 void	exec(t_cmd **cmd, t_cmd_exec **env_lst)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: houssam <houssam@student.42.fr>            +#+  +:+       +#+         #
+#    By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/21 14:41:13 by nafarid           #+#    #+#              #
-#    Updated: 2025/08/04 03:33:40 by houssam          ###   ########.fr        #
+#    Updated: 2025/08/05 14:19:51 by nafarid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,11 @@ SRC = main.c bultins/echo_cmd.c \
 		argument_count.c word_split.c lstadd_front.c lstadd_back.c heredoc.c cleaning/lst_clear.c signals.c lst_new_ele.c arr_free.c tokens/toks_trim.c \
 		executing/run_child.c executing/dups.c executing/executing_utils.c bultins/unset_cmd.c bultins/exit_cmd.c \
 		tokens/lstadd_back_token.c env_lst_to_arr.c tokens/lst_last_token.c shell_vl.c ft_lstlast.c utils.c handle_dollar_cmd.c helpers.c \
-		executing/run_child_utils.c cleaning/cleanup.c heredoc_utils.c
+		executing/run_child_utils.c cleaning/cleanup.c heredoc_utils.c executing/executing_utils2.c
 		
 OBJS = $(SRC:.c=.o)
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 LIBFT_DIR = libft
 FLAGS = -lreadline
 LIB = $(LIBFT_DIR)/libft.a

@@ -134,9 +134,11 @@ void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
 void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
 int						parent_heredoc(t_cmd *cmd, int *heredoc);
-void					parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids);
+void					parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx,
+							int *pids);
 pid_t					*allocate_pid_array(t_cmd *cmd);
-void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids);
+void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx,
+							int *pids);
 
 void					*ft_malloc(size_t size);
 void					free_grabage(void);

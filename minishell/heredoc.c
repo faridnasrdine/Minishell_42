@@ -6,7 +6,7 @@
 /*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 22:21:01 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/05 00:12:14 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/05 04:25:44 by hounejja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ static char	*line_expansion(char *line, t_cmd_exec *env_lst)
 	return (str);
 }
 
-static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd, int fd)
+static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd)
 {
-	(void)fd;
 	if (get_exit_code() == 130)
 	{
 		restore_std_fds();
@@ -62,7 +61,7 @@ static void	go_heredoc(t_cmd *cmd, t_cmd_exec *env_lst, int fd_doc)
 	while (1)
 	{
 		line = readline("heredoc> ");
-		handle_ctrl_d_heredoc(line, cmd, fd_doc);
+		handle_ctrl_d_heredoc(line, cmd);
 		if (!ft_strncmp(line, cmd->op_value, ft_strlen(cmd->op_value))
 			&& ft_strlen(line) == ft_strlen(cmd->op_value))
 			break ;

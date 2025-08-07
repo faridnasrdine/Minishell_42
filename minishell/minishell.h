@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/07 10:45:11 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:30:25 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,6 @@ int						toks_to_struct(t_token **toks, t_cmd **cmd,
 int						parsing_opers(t_token **toks, t_cmd *cmd,
 							t_cmd_exec **env_lst);
 void					quote_del(t_token *toks);
-t_cmd_exec				*search_and_replace_helper(t_cmd_exec *env_lst, int *i,
-							int j, t_token *t);
-
 int						get_exit_code(void);
 void					set_exit_code(int code);
 int						heredoc(t_cmd *cmd, t_cmd_exec **env_lst);

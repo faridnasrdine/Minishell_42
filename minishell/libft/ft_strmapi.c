@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 22:22:23 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/05 17:35:37 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/28 10:20:22 by nafarid           #+#    #+#             */
+/*   Updated: 2025/08/07 19:50:57 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,35 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	lens;
-	size_t	i;
-	char	*res;
+	char			*map1;
+	unsigned int	len;
+	unsigned int	i;
 
-	if (!s)
+	if (!s || !f)
 		return (NULL);
-	lens = ft_strlen(s);
+	len = ft_strlen(s);
+	map1 = ft_malloc(sizeof(char) * len + 1);
+	if (map1 == NULL)
+		return (NULL);
 	i = 0;
-	res = (char *)malloc((lens + 1) * sizeof(char));
-	if (res == NULL)
-		return (NULL);
-	while (s[i])
+	while (i < len)
 	{
-		res[i] = (*f)(i, s[i]);
+		map1[i] = f(i, s[i]);
 		i++;
 	}
-	res[i] = '\0';
-	return (res);
+	map1[i] = '\0';
+	return (map1);
 }
+// char my_toupper(unsigned int i, char c)
+// {
+//     (void)i;
+//     if (c >= 'a' && c <= 'z')
+//         return c - 32;
+// }
+// #include <stdio.h>
+// int main()
+// {
+//     char s[] = "hello";
+//     char *result = ft_strmapi(s, my_toupper);
+//     printf("%s\n", result);
+// }

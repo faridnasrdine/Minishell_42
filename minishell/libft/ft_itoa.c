@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 15:45:11 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/01 09:28:11 by nafarid          ###   ########.fr       */
+/*   Created: 2024/10/27 14:15:05 by nafarid           #+#    #+#             */
+/*   Updated: 2025/08/07 19:48:29 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count(int n)
+static int	ft_len_int(int n)
 {
 	int	count;
 
@@ -20,10 +20,13 @@ static int	ft_count(int n)
 	if (n == 0)
 		return (1);
 	if (n < 0)
+	{
 		count++;
+		n = -n;
+	}
 	while (n != 0)
 	{
-		n /= 10;
+		n = n / 10;
 		count++;
 	}
 	return (count);
@@ -31,29 +34,33 @@ static int	ft_count(int n)
 
 char	*ft_itoa(int n)
 {
-	char	*reslt;
-	int		len;
-	long	j;
+	long	np;
+	int		i;
+	char	*result;
 
-	j = n;
-	len = ft_count(j);
-	reslt = (char *)ft_malloc((len + 1) * sizeof(char));
-	if (!reslt)
+	np = n;
+	i = ft_len_int(np);
+	result = ft_malloc(sizeof(char) * (i + 1));
+	if (!result)
 		return (NULL);
-	reslt[len] = '\0';
-	len--;
-	if (j == 0)
-		reslt[len] = '0';
-	if (j < 0)
+	result[i--] = '\0';
+	if (np == 0)
+		result[0] = '0';
+	if (np < 0)
 	{
-		reslt[0] = '-';
-		j *= -1;
+		np = -np;
+		result[0] = '-';
 	}
-	while (j > 0)
+	while (np > 0)
 	{
-		reslt[len] = (j % 10) + 48;
-		j = j / 10;
-		len--;
+		result[i] = (np % 10) + 48;
+		np = np / 10;
+		i--;
 	}
-	return (reslt);
+	return (result);
 }
+// int main(void)
+// {
+// 	int n = 0;
+// 	printf("%s\n", ft_itoa(n));
+// }

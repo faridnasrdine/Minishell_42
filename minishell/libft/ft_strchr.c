@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 10:26:06 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/04 20:23:26 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/23 16:45:56 by nafarid           #+#    #+#             */
+/*   Updated: 2024/10/31 10:27:03 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		if (s[i] == (char)c)
 		{
@@ -26,6 +26,14 @@ char	*ft_strchr(const char *s, int c)
 		i++;
 	}
 	if (s[i] == (char)c)
+	{
 		return ((char *)s + i);
-	return (NULL);
+	}
+	return (0);
 }
+// int	main(void)
+// {
+// 	char	s[] = "helloooo";
+
+// 	printf("%s", ft_strchr(s, 'o'));
+// }

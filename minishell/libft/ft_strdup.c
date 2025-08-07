@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 11:41:38 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/04 21:42:51 by hounejja         ###   ########.fr       */
+/*   Created: 2024/10/25 17:11:14 by nafarid           #+#    #+#             */
+/*   Updated: 2025/08/07 19:50:34 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,32 @@
 
 char	*ft_strdup(const char *s)
 {
-	size_t	len;
-	size_t	i;
-	char	*copy;
+	size_t	len_s;
+	char	*result;
+	int		i;
 
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
 	i = 0;
-	copy = (char *)ft_malloc(len + 1);
-	if (copy == NULL)
-		return (NULL);
-	while (s[i] != '\0')
+	len_s = ft_strlen(s);
+	result = ft_malloc(sizeof(char) * len_s + 1);
+	if (result == NULL)
 	{
-		copy[i] = s[i];
+		return (NULL);
+	}
+	while (s[i])
+	{
+		result[i] = s[i];
 		i++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	result[i] = '\0';
+	return (result);
 }
+// int	main(void)
+// {
+// 	char	*str;
+// 	char	*result;
+
+// 	str = "Helloworld";
+// 	result = ft_strdup(str);
+// 	printf("%s\n", result);
+// 	return (0);
+// }

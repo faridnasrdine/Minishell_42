@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 11:59:56 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/01 09:29:12 by nafarid          ###   ########.fr       */
+/*   Created: 2024/10/25 18:00:30 by nafarid           #+#    #+#             */
+/*   Updated: 2025/08/07 19:51:16 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,29 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned int	i;
-	char			*res;
-	size_t			s_len;
-	size_t			lend;
+	size_t	len_s;
+	char	*result;
+	size_t	substr_len;
 
 	if (!s)
 		return (NULL);
-	i = 0;
-	s_len = ft_strlen(s);
-	if (start > s_len)
+	len_s = ft_strlen(s);
+	if (start >= len_s)
 		return (ft_strdup(""));
-	if (len < s_len - start)
-		lend = len;
-	else
-		lend = s_len - start;
-	res = (char *)ft_malloc((lend + 1) * sizeof(char));
-	if (res == NULL)
+	substr_len = len;
+	if (len_s - start < len)
+		substr_len = len_s - start;
+	result = ft_malloc(sizeof(char) * substr_len + 1);
+	if (result == NULL)
+	{
 		return (NULL);
-	while (i < lend)
-		res[i++] = s[start++];
-	res[i] = '\0';
-	return (res);
+	}
+	ft_strlcpy(result, s + start, len + 1);
+	return (result);
 }
+// int main()
+// {
+// 	char s1[] = "helloll";
+// 	char *r = ft_substr(s1, 4, 9);
+// 	printf("%s\n", r);
+// }

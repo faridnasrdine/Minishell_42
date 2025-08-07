@@ -3,27 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 13:45:44 by aoussama          #+#    #+#             */
-/*   Updated: 2025/08/07 15:55:18 by houssam          ###   ########.fr       */
+/*   Created: 2024/10/26 11:21:35 by nafarid           #+#    #+#             */
+/*   Updated: 2025/08/07 19:50:43 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*reslt;
-	size_t	j;
+	int		len1;
+	int		len2;
+	char	*result;
 
 	if (!s1 || !s2)
 		return (NULL);
-	j = ft_strlen(s1) + ft_strlen(s2);
-	reslt = (char *)ft_malloc((j + 1) * sizeof(char));
-	if (reslt == NULL)
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	result = ft_malloc(sizeof(char) * len1 + len2 + 1);
+	if (result == NULL)
+	{
 		return (NULL);
-	ft_strlcpy(reslt, s1, ft_strlen(s1) + 1);
-	ft_strlcat(reslt, s2, j + 1);
-	return (reslt);
+	}
+	ft_strlcpy(result, s1, len1 + 1);
+	ft_strlcat(result, s2, len2 + len1 + 1);
+	return (result);
 }
+// int main()
+// {
+// 	char j[] = "hello";
+// 	char h[] = "world";
+// 	printf("%s\n", ft_strjoin(j, h));
+// }

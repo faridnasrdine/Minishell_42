@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 13:33:05 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/04 10:02:12 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/24 10:08:08 by nafarid           #+#    #+#             */
+/*   Updated: 2024/11/06 16:02:44 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int	len;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	len = ft_strlen(s);
+	while (len > 0)
 	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
-		i--;
+		if (s[len] == (char)c)
+		{
+			break ;
+		}
+		len--;
 	}
-	return (NULL);
+	if (s[len] == (char)c)
+	{
+		return ((char *)s + len);
+	}
+	return (0);
 }
-// int main()
+// #include <stdio.h>
+// int	main(void)
 // {
-// 	char h[] = "soplamm ohhphh";
-// 	char *l = ft_strrchr(h,'p');
-// 	if(l)
-// 	{
-// 		printf("%s\n", l);
-// 	}else
-// 		printf("mkynch");
+// 	char	s[] = "helloooo";
+
+// 	printf("%s\n", ft_strrchr(s, 'l'));
 // }

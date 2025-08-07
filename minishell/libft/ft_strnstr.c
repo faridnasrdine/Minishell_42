@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 17:51:30 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/07 15:03:09 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/24 16:37:35 by nafarid           #+#    #+#             */
+/*   Updated: 2024/11/06 19:59:56 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,35 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	size_t	e;
 
-	if (len == 0)
+	if (big == NULL && len == 0)
+		return (0);
+	if (*little == '\0')
 		return ((char *)big);
 	i = 0;
-	e = ft_strlen(little);
-	if (little[i] == '\0')
-		return ((char *)(big));
-	while (big[i] != '\0' && len > i)
+	while (big[i] && i < len)
 	{
 		j = 0;
-		while (i + j < len && big[i + j] == little[j] && little[j] != '\0')
+		while ((i + j) < len && big[i + j] == little[j]
+			&& little[j] && big[i + j])
 		{
 			j++;
 		}
-		if (e == j)
-		{
+		if (ft_strlen(little) == j)
 			return ((char *)(big + i));
-		}
 		i++;
 	}
 	return (0);
 }
+// #include <stdio.h>
+// int	main(void)
+// {
+// 	const char	*big = "Hello, welcome to the world";
+// 	const char	*little = "w";
+// 	size_t		len;
+// 	char		*result;
+
+// 	len = 10;
+// 	result = ft_strnstr(big, little, len);
+// 	printf("%s \n", result);
+// }

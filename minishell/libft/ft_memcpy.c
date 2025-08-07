@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 18:16:20 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/07 14:50:45 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/23 09:45:00 by nafarid           #+#    #+#             */
+/*   Updated: 2024/11/04 21:52:27 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest_str, const void *src_str, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t				i;
-	unsigned char		*d;
-	unsigned const char	*s;
+	size_t		i;
+	char		*dst;
+	const char	*ptr;
 
-	if (src_str == NULL && dest_str == NULL)
+	if (!src && !dest)
 		return (NULL);
 	i = 0;
-	d = (unsigned char *)dest_str;
-	s = (unsigned char *)src_str;
+	ptr = (const char *)src;
+	dst = (char *)dest;
 	while (i < n)
 	{
-		d[i] = s[i];
+		dst[i] = ptr[i];
 		i++;
 	}
-	return (d);
+	return (dest);
 }
+// #include <stdio.h>
+// int main()
+// {
+// 	char p[] = "hello ";
+// 	char d[10];
+// 	printf("%s\n", ft_memcpy(d, p, 4));
+// }

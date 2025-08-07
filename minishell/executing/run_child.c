@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_child.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/05 00:12:43 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/07 20:19:15 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@ static void	not_built(t_cmd_exec **env_lst, t_cmd *exec_cmd)
 
 static void	fun(t_cmd *exec_cmd, int *exit_code)
 {
+	char	*tmp;
+
 	if (exec_cmd->path_error == 4)
 		*exit_code = 0;
 	else if (!exec_cmd->path_error)
 		*exit_code = 0;
 	else if (exec_cmd->args[0])
 	{
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(exec_cmd->args[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		tmp = ft_strjoin("Minishell: ", (exec_cmd->args[0]));
+		tmp = ft_strjoin(tmp, ": command not found\n");
+		ft_putstr_fd(tmp, 2);
+		tmp = NULL;
 		*exit_code = 127;
 	}
 }

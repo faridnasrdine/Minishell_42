@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:00:16 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 14:09:01 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 20:18:41 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*ft_malloc(size_t size)
 	get_garbage_collecter(ptr);
 	if (!ptr)
 	{
-		perror("Minishell: Memory allocation failed!\n");
+		perror("Minishell: Memory allocation failed!");
 		free_grabage();
 		exit(1);
 	}

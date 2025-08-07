@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 13:20:55 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/07 15:09:17 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/28 11:27:38 by nafarid           #+#    #+#             */
+/*   Updated: 2024/11/06 21:58:53 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,14 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	unsigned int	i;
 
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i] != '\0')
+	if (!s || !f)
 	{
-		f(i, s + i);
+		return ;
+	}
+	i = 0;
+	while (s[i])
+	{
+		f(i, &s[i]);
 		i++;
 	}
 }
-
-// void ft_up(unsigned int i,char *c)
-// {
-// 	if (i % 2 == 0)
-// 	{
-// 		c[i] -= 32;
-// 	}
-
-// }
-// int main()
-// {
-// 	char p[] = "oussama";
-// 	ft_striteri(p,ft_up);
-// 	printf("%s\n",p);
-// }

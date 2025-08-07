@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoussama <aoussama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 10:03:49 by aoussama          #+#    #+#             */
-/*   Updated: 2024/11/02 11:23:01 by aoussama         ###   ########.fr       */
+/*   Created: 2024/10/22 11:30:36 by nafarid           #+#    #+#             */
+/*   Updated: 2024/10/25 21:19:53 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_isalpha(int c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ((c >= 97 && c <= 122) || (c >= 65 && c <= 90))
 	{
 		return (1);
 	}

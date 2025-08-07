@@ -3,31 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 14:54:02 by aoussama          #+#    #+#             */
-/*   Updated: 2025/07/05 23:01:37 by houssam          ###   ########.fr       */
+/*   Created: 2024/10/22 16:27:57 by nafarid           #+#    #+#             */
+/*   Updated: 2024/10/28 16:31:40 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t n)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	j;
+	size_t	len;
 
+	len = ft_strlen(src);
+	if (size == 0)
+		return (len);
 	i = 0;
-	j = 0;
-	while (src[j])
-		j++;
-	if (n < 1)
-		return (j);
-	while ((i < n - 1) && src[i] != '\0')
+	while (src[i] && i < size - 1)
 	{
-		dest[i] = src[i];
+		dst[i] = src[i];
 		i++;
 	}
-	dest[i] = '\0';
-	return (j);
+	dst[i] = '\0';
+	return (len);
 }
+// int	main(void)
+// {
+// 	char	p[] = "hello   ";
+// 	char	d[3];
+
+// 	ft_strlcpy(d, p, 2);
+// 	printf("%d\n", ft_strlcpy(d, p, 3));
+// 	printf("%s\n", d);
+// }

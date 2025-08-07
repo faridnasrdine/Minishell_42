@@ -6,33 +6,20 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:37 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/07 15:39:55 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:47:08 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int handle_single_quotes(t_token *toks, int i)
+int	handle_single_quotes(t_token *toks, int i)
 {
-    if (!toks || !toks->value || !toks->quote || strlen(toks->value) != strlen(toks->quote))
-        return (i + 1);
-
-    if (toks->value[i] == '\'')
-    {
-        toks->quote[i] = '1'; // Mark opening quote
-        i++;
-        while (toks->value[i] && toks->value[i] != '\'')
-        {
-            toks->quote[i] = '0'; // Mark non-quoted characters
-            i++;
-        }
-        if (toks->value[i] == '\'')
-        {
-            toks->quote[i] = '1'; // Mark closing quote
-            i++;
-        }
-    }
-    return (i + 1);
+	i++;
+	while (toks->value[i] != '\'' && toks->value[i])
+		i++;
+	if (toks->value[i] == '\'')
+		i++;
+	return (i);
 }
 
 int	handle_dollar_sign(t_token *toks, int i, t_cmd_exec *env_lst)

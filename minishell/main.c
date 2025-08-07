@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/05 04:53:54 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:58:21 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		cmd = readline("<minishell> ");
 		if (!cmd)
-			exit((ft_putstr_fd("\nexit\n", 1), free_grabage(), status));
+			exit((printf("\nexit\n"), free_grabage(), get_exit_code()));
 		if (*cmd)
 			add_history(cmd);
 		if (get_exit_code() == 130)

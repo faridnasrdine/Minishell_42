@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:52:23 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/07 15:50:10 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:55:50 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	quote_del(t_token *toks)
 		{
 			toks->value[i] = '\0';
 			new_value = ft_strjoin(toks->value, toks->value + i + 1);
-			if (!new_value)
-				return ;
 			toks->quote[i] = '\0';
 			new_quote = ft_strjoin(toks->quote, toks->quote + i + 1);
-			if (!new_quote)
+			if (!new_quote || !new_value)
 				return ;
 			toks->value = new_value;
 			toks->quote = new_quote;

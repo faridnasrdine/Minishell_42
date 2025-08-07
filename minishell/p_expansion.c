@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:30 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 22:58:04 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/07 15:19:02 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 		if (split_token_into_nodes(toks) == -1)
 			return (-1);
 	}
-	if (copy_quotes(toks, env_lst, i, j) == -1)
+	else if (copy_quotes(toks, env_lst, i, j) == -1)
 		return (-1);
 	return (0);
 }
@@ -99,11 +99,11 @@ int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	func(t, &j);
 	new_str = ft_substr(t->value, *i + 1, j - *i - 1);
 	if (!new_str || !new_str[0])
-		return ((*i)++, 0);
+		return (-1);
 	while (env_lst && ft_strncmp(env_lst->name, new_str, ft_strlen(new_str)
 			+ 1))
 		env_lst = env_lst->next;
-	inside_word = (*i > 0 && !ft_strchr(" \t/$.<>|", t->value[*i - 1]));
+	inside_word = (*i > 0 && !ft_strchr(" \t\'/$.<>|", t->value[*i - 1]));
 	if (env_lst)
 	{
 		if (inside_word)
@@ -125,13 +125,7 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 	while (toks->value && toks->value[i])
 	{
 		if (toks->value[i] == '\'')
-		{
-			i++;
-			while (toks->value[i] != '\'' && toks->value[i])
-				i++;
-			if (toks->value[i] == '\'')
-				i++;
-		}
+			i = handle_single_quotes(toks, i);
 		else if (toks->value[i] == '\"')
 		{
 			if (handle_double_quotes(toks, &i, env_lst) == -1)
@@ -139,18 +133,9 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 		}
 		else if (toks->value[i] == '$' && toks->value[i + 1] != '\0')
 		{
-			if (toks->value[i + 1] == '?')
-			{
-				if (search_and_replace(toks, &i, env_lst, 0) == -1)
-					return ;
-			}
-			else if (search_and_replace(toks, &i, env_lst, 0) == -1)
-			{
-				toks->expanded = 1;
+			i = handle_dollar_sign(toks, i, env_lst);
+			if (1 == -1)
 				return ;
-			}
-			toks->expanded = 1;
-			i++;
 		}
 		else
 			i++;

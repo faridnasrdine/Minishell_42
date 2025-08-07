@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:46:16 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/05 14:19:30 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:45:11 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ typedef struct s_cmd
 }						t_cmd;
 
 int						arg_count(t_token **toks, t_cmd *cmd);
+int						handle_single_quotes(t_token *toks, int i);
+int						handle_dollar_sign(t_token *toks, int i,
+							t_cmd_exec *env_lst);
 int						count_cmds(t_cmd *cmd);
 int						search_and_replace(t_token *t, int *i,
 							t_cmd_exec *env_lst, int w);
@@ -146,7 +149,6 @@ void					free_grabage(void);
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
 void					restore_std_fds(void);
 void					change_stat(t_cmd_exec **env_lst, int stat);
-void					word_split(t_token **toks, t_cmd_exec *env_lst);
 void					ft_lstadd_front(t_cmd_exec **lst, t_cmd_exec *new);
 void					ft_lstadd_back(t_cmd_exec **lst, t_cmd_exec *new);
 t_cmd_exec				*ft_lstlast(t_cmd_exec *lst);

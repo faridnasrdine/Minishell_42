@@ -6,11 +6,50 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 20:34:37 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 03:49:58 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 15:39:55 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int handle_single_quotes(t_token *toks, int i)
+{
+    if (!toks || !toks->value || !toks->quote || strlen(toks->value) != strlen(toks->quote))
+        return (i + 1);
+
+    if (toks->value[i] == '\'')
+    {
+        toks->quote[i] = '1'; // Mark opening quote
+        i++;
+        while (toks->value[i] && toks->value[i] != '\'')
+        {
+            toks->quote[i] = '0'; // Mark non-quoted characters
+            i++;
+        }
+        if (toks->value[i] == '\'')
+        {
+            toks->quote[i] = '1'; // Mark closing quote
+            i++;
+        }
+    }
+    return (i + 1);
+}
+
+int	handle_dollar_sign(t_token *toks, int i, t_cmd_exec *env_lst)
+{
+	if (toks->value[i + 1] == '?')
+	{
+		search_and_replace(toks, &i, env_lst, 0);
+		return (-1);
+	}
+	else if (search_and_replace(toks, &i, env_lst, 0) == -1)
+	{
+		toks->expanded = 1;
+		return (-1);
+	}
+	toks->expanded = 1;
+	return (i + 1);
+}
 
 int	len_till_expansion(char *s, int start_pos)
 {
@@ -27,9 +66,9 @@ int	len_till_expansion(char *s, int start_pos)
 	in_quotes = 0;
 	while (s[i])
 	{
-		if (s[i] == '"' && !in_quotes)
+		if (s[i] == '\"' && !in_quotes)
 			in_quotes = 1;
-		else if (s[i] == '"' && in_quotes)
+		else if (s[i] == '\"' && in_quotes)
 			in_quotes = 0;
 		else if (!in_quotes && (s[i] == ' ' || s[i] == '\t'))
 			break ;

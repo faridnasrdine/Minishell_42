@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hounejja <hounejja@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 21:21:45 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/04 21:58:05 by hounejja         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:53:12 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,27 @@
 
 int	handle_double_quotes(t_token *toks, int *i, t_cmd_exec *env_lst)
 {
+	int	delta;
+
 	(*i)++;
 	while (toks->value[*i] && toks->value[*i] != '\"')
 	{
 		if (toks->value[*i] == '$')
 		{
-			if (search_and_replace(toks, i, env_lst, 1) == -1)
+			delta = search_and_replace(toks, i, env_lst, 1);
+			if (delta == -1)
 			{
-				toks->expanded = 1;
+				toks->expanded = 2;
 				return (-1);
 			}
-			toks->expanded = 1;
+			*i += delta;
+			toks->expanded = 2;
 		}
-		(*i)++;
+		else
+			(*i)++;
 	}
+	if (!toks->value[*i])
+		return (-1);
 	if (toks->value[*i] == '\"')
 		(*i)++;
 	return (0);
@@ -85,24 +92,17 @@ void	remove_empty_tokens(t_token **toks)
 	{
 		next = curr->next;
 		if (curr->type == 'r')
-		{
 			prev = curr;
-			curr = next;
-			continue ;
-		}
-		if (should_remove_token(curr))
+		else if (should_remove_token(curr))
 		{
 			if (prev)
 				prev->next = next;
 			else
 				*toks = next;
-			curr = next;
 		}
 		else
-		{
 			prev = curr;
-			curr = next;
-		}
+		curr = next;
 	}
 }
 

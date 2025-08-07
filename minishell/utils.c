@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 12:59:12 by houssam           #+#    #+#             */
-/*   Updated: 2025/08/03 19:34:07 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 11:47:07 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_quote_removal(t_token **toks)
 	t_token	*tmp;
 
 	tmp = *toks;
+	if (!tmp || !tmp->value || !tmp->quote)
+		return ;
 	while (tmp && tmp->type != 'c')
 	{
 		if (tmp->type != 'r')

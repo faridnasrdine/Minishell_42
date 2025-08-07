@@ -6,11 +6,20 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 15:58:21 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/07 16:23:53 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	check_ctrl_c(t_cmd_exec *env_lst)
+{
+	if (get_exit_code() == 130)
+	{
+		change_stat(&env_lst, get_exit_code());
+		set_exit_code(0);
+	}
+}
 
 static void	ft_handle_sigint(int sig)
 {
@@ -71,11 +80,7 @@ int	main(int ac, char **av, char **env)
 			exit((printf("\nexit\n"), free_grabage(), get_exit_code()));
 		if (*cmd)
 			add_history(cmd);
-		if (get_exit_code() == 130)
-		{
-			change_stat(&env_lst, get_exit_code());
-			set_exit_code(0);
-		}
+		check_ctrl_c(env_lst);
 		parsing_line(cmd, &tok, &env_lst);
 		if (check_stat(env_lst, &status) == 1)
 			break ;

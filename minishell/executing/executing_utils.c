@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:08:24 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:08:26 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 14:07:15 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ char	*ft_strjoin_sep(char *path, char *cmd, char c)
 int	exec_run(t_cmd *cmd, t_cmd_exec **env_lst)
 {
 	if (!ft_strncmp(cmd->path, "pwd", 4))
-		return (pwd(env_lst));
+		return (ft_pwd(env_lst));
 	else if (!ft_strncmp(cmd->path, "env", 4))
-		return (env(env_lst));
+		return (ft_env(env_lst));
 	else if (!ft_strncmp(cmd->path, "unset", 6))
-		return (unset(cmd, env_lst));
+		return (ft_unset(cmd, env_lst));
 	else if (!ft_strncmp(cmd->path, "export", 7))
 		return (ft_export(cmd, env_lst));
 	else if (!ft_strncmp(cmd->path, "echo", 5))

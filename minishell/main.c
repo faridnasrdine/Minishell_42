@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:02 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 11:43:54 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 13:44:40 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,7 @@ int	main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		cmd = readline("<Minishell> ");
 		if (!cmd)
-		{
-			if (get_exit_code() == 130)
-				exit((printf("\nexit\n"), free_grabage(), get_exit_code()));
-			else
-				exit((printf("\nexit\n"), free_grabage(), status));
-		}
+			ft_exitt(&status);
 		if (*cmd)
 			add_history(cmd);
 		check_ctrl_c(env_lst);

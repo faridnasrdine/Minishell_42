@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:07:35 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:07:38 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 14:06:23 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_from_envir(t_cmd_exec *env_lst)
 	return (0);
 }
 
-int	pwd(t_cmd_exec **env_lst)
+int	ft_pwd(t_cmd_exec **env_lst)
 {
 	char	*path;
 	char	*tmp;

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:30 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 11:44:24 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 14:07:31 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ void					set_exit_code(int code);
 int						heredoc(t_cmd *cmd, t_cmd_exec **env_lst);
 void					handle_ctrl_c_heredoc(int sig);
 int						ft_cd(t_cmd *cmd, t_cmd_exec **env_lst);
-int						pwd(t_cmd_exec **env_lst);
-int						unset(t_cmd *cmd, t_cmd_exec **env_lst);
+int						ft_pwd(t_cmd_exec **env_lst);
+int						ft_unset(t_cmd *cmd, t_cmd_exec **env_lst);
 int						ft_echo(t_cmd *cmd, t_cmd_exec **env_lst);
-int						env(t_cmd_exec **env_lst);
+int						ft_env(t_cmd_exec **env_lst);
 int						ft_exit(t_cmd *cmd, t_cmd_exec **env_lst);
 char					*check_dir(t_cmd_exec **env_lst, char *path);
 int						ft_export(t_cmd *cmd, t_cmd_exec **env_lst);
@@ -139,6 +139,7 @@ void					parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx,
 pid_t					*allocate_pid_array(t_cmd *cmd);
 void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx,
 							int *pids);
+void					ft_exitt(int *status);
 
 void					*ft_malloc(size_t size);
 void					free_grabage(void);

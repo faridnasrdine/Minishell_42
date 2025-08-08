@@ -6,13 +6,13 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:07:04 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:07:07 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 14:06:37 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	env(t_cmd_exec **env_lst)
+int	ft_env(t_cmd_exec **env_lst)
 {
 	int		i;
 	char	**env;

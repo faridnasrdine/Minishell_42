@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:07:43 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 11:16:07 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 14:06:15 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	unset_vars(t_cmd *cmd, t_cmd_exec **env_lst)
 	}
 }
 
-int	unset(t_cmd *cmd, t_cmd_exec **env_lst)
+int	ft_unset(t_cmd *cmd, t_cmd_exec **env_lst)
 {
 	if (env_lst && cmd != NULL)
 	{

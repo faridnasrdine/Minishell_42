@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:14:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:14:48 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 13:44:51 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ void	ft_lstadd_front(t_cmd_exec **lst, t_cmd_exec *new)
 		new->next = *lst;
 		*lst = new;
 	}
+}
+
+void	ft_exitt(int *status)
+{
+	if (get_exit_code() == 130)
+		exit((printf("\nexit\n"), free_grabage(), get_exit_code()));
+	else
+		exit((printf("\nexit\n"), free_grabage(), *status));
 }

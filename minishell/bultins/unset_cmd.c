@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:07:43 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:07:46 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 11:16:07 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,44 +45,35 @@ static void	pwd_fake(t_cmd_exec *env_lst)
 	}
 }
 
-static void	unset_vars(t_cmd *cmd, t_cmd_exec **env_lst, int *res)
+static void	unset_vars(t_cmd *cmd, t_cmd_exec **env_lst)
 {
 	int	i;
 
 	i = 0;
 	while (cmd->args[++i])
 	{
-		if (!check_var_name(cmd->args[i], res, env_lst))
+		if (!ft_strncmp(cmd->args[i], "PWD", 4))
+			pwd_fake(*env_lst);
+		else if (!ft_strncmp(cmd->args[i], (*env_lst)->name,
+				ft_strlen(cmd->args[i]) + 1) && cmd->args[i][0] != '?')
 		{
-			if (!ft_strncmp(cmd->args[i], "PWD", 4))
-				pwd_fake(*env_lst);
-			else if (!ft_strncmp(cmd->args[i], (*env_lst)->name,
-					ft_strlen(cmd->args[i]) + 1))
-			{
-				*env_lst = (*env_lst)->next;
-				continue ;
-			}
-			else
-				find_and_del(cmd, env_lst, i);
+			*env_lst = (*env_lst)->next;
+			continue ;
 		}
+		else
+			find_and_del(cmd, env_lst, i);
 	}
 }
 
 int	unset(t_cmd *cmd, t_cmd_exec **env_lst)
 {
-	int	res;
-
-	res = 0;
 	if (env_lst && cmd != NULL)
 	{
 		if (!cmd->args[1])
 			change_stat(env_lst, 0);
 		else
-			unset_vars(cmd, env_lst, &res);
+			unset_vars(cmd, env_lst);
 	}
-	if (!res)
-		change_stat(env_lst, 0);
-	else
-		change_stat(env_lst, 1);
+	change_stat(env_lst, 0);
 	return (0);
 }

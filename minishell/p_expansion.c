@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:15:39 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 09:48:11 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 		else if (toks->value[i] == '$' && toks->value[i + 1] != '\0')
 		{
 			i = handle_dollar_sign(toks, i, env_lst);
-			if (1 == -1)
+			if (i == -1)
 				return ;
 		}
 		else

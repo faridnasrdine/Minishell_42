@@ -6,46 +6,15 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:00:18 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/05 14:18:01 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 09:14:23 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	close_open_fd(t_cmd *tmp)
-{
-	if (tmp->std_in != 0)
-	{
-		close(tmp->std_in);
-		tmp->std_in = 0;
-	}
-	if (tmp->std_out != 1)
-	{
-		close(tmp->std_out);
-		tmp->std_out = 1;
-	}
-	if (tmp->pipe_out != 0)
-	{
-		close(tmp->pipe_out);
-		tmp->pipe_out = 0;
-	}
-	if (tmp->pipe_in != 0)
-	{
-		close(tmp->pipe_in);
-		tmp->pipe_in = 0;
-	}
-}
-
 void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids)
 {
-	t_cmd	*tmp;
-
-	tmp = *cmd;
-	while (tmp)
-	{
-		close_open_fd(tmp);
-		tmp = tmp->next;
-	}
+	restore_std_fds();
 	waiting(env_lst, cmd, idx, pids);
 }
 

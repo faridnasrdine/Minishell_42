@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:16:02 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:16:04 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 10:54:20 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	g_exit_code = 0;
 static void	ft_sigint_ctrl_c(int sig)
 {
 	(void)sig;
-	write(1, "\n", 1);
+	write(2, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();

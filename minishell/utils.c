@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:16:12 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:16:14 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 10:39:51 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_quote_removal(t_token **toks)
 void	handle_ctrl_c_heredoc(int sig)
 {
 	(void)sig;
-	write(1, "\n", 1);
+	write(2, "\n", 1);
 	set_exit_code(130);
 	close(0);
 }

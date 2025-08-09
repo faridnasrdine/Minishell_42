@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:00:16 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:18:41 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 16:00:13 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	*ft_malloc(size_t size)
 	void	*ptr;
 
 	ptr = malloc(size);
-	get_garbage_collecter(ptr);
 	if (!ptr)
 	{
 		perror("Minishell: Memory allocation failed!");
 		free_grabage();
-		exit(1);
+		exit(2);
 	}
+	get_garbage_collecter(ptr);
 	return (ptr);
 }
 

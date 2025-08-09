@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:30 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 14:07:31 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 10:57:10 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ pid_t					*allocate_pid_array(t_cmd *cmd);
 void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx,
 							int *pids);
 void					ft_exitt(int *status);
+char					*file_random(void);
 
 void					*ft_malloc(size_t size);
 void					free_grabage(void);

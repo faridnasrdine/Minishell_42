@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:14:17 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 11:45:05 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 10:56:46 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,25 @@ static void	child_heredoc(t_cmd *cmd, t_cmd_exec **env_lst, int *heredoc)
 
 int	heredoc(t_cmd *cmd, t_cmd_exec **env_lst)
 {
-	int	pid;
-	int	heredoc[2];
-	int	i;
+	int		pid;
+	int		fd[2];
+	char	*herdoc_file;
 
-	i = pipe(heredoc);
-	if (i == -1)
-		exit((perror("Minishell: "), 1));
+	herdoc_file = file_random();
+	fd[1] = open(herdoc_file, O_CREAT | O_WRONLY, 0664);
+	if (fd[1] == -1)
+		return (1);
+	fd[0] = open(herdoc_file, O_CREAT | O_RDONLY, 0664);
+	if (fd[0] == -1)
+	{
+		close(fd[1]);
+		return (1);
+	}
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (!pid)
-		child_heredoc(cmd, env_lst, heredoc);
+		child_heredoc(cmd, env_lst, fd);
 	else
-		return (parent_heredoc(cmd, heredoc));
+		return (parent_heredoc(cmd, fd));
 	return (0);
 }

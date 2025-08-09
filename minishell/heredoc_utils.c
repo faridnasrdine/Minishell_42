@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 11:24:55 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 10:56:53 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,28 @@ int	parent_heredoc(t_cmd *cmd, int *heredoc)
 		return (ret);
 	set_cmd_stdin(cmd, heredoc[0]);
 	return (0);
+}
+
+char	*file_random(void)
+{
+	char	buffer[10];
+	char	c;
+	int		i;
+	int		j;
+	int		fd;
+
+	i = 0;
+	j = 0;
+	fd = open("/dev/random", O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	while (i < 10)
+	{
+		read(fd, &c, 1);
+		if (ft_isalnum(c))
+			buffer[i++] = c;
+	}
+	buffer[i] = '\0';
+	close(fd);
+	return (ft_strjoin("/tmp/", buffer));
 }

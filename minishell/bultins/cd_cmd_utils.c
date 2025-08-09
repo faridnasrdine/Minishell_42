@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:06:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:06:41 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/08 15:48:49 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ static char	*construct_path(char *env_pwd, char *path)
 
 	len = ft_strlen(env_pwd) + ft_strlen(path) + 2;
 	new_pwd = ft_malloc(sizeof(char) * len);
-	if (!new_pwd)
-		return (NULL);
 	ft_strlcpy(new_pwd, env_pwd, ft_strlen(env_pwd) + 1);
 	if (env_pwd[ft_strlen(env_pwd) - 1] != '/')
 		ft_strlcat(new_pwd, "/", len);

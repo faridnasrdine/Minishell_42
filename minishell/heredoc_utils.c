@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 10:56:53 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 11:10:17 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ char	*file_random(void)
 	char	buffer[10];
 	char	c;
 	int		i;
-	int		j;
 	int		fd;
 
 	i = 0;
-	j = 0;
 	fd = open("/dev/random", O_RDONLY);
 	if (fd == -1)
 		return (NULL);

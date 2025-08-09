@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:30 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 10:57:10 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 13:16:38 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void					quote_del(t_token *toks);
 int						get_exit_code(void);
 void					set_exit_code(int code);
 int						heredoc(t_cmd *cmd, t_cmd_exec **env_lst);
-void					handle_ctrl_c_heredoc(int sig);
 int						ft_cd(t_cmd *cmd, t_cmd_exec **env_lst);
 int						ft_pwd(t_cmd_exec **env_lst);
 int						ft_unset(t_cmd *cmd, t_cmd_exec **env_lst);
@@ -133,7 +132,7 @@ int						exec_run(t_cmd *cmd, t_cmd_exec **env_lst);
 void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
 void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
-int						parent_heredoc(t_cmd *cmd, int *heredoc);
+int						parent_heredoc(pid_t pid, t_cmd *cmd, int *heredoc);
 void					parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx,
 							int *pids);
 pid_t					*allocate_pid_array(t_cmd *cmd);
@@ -141,6 +140,7 @@ void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx,
 							int *pids);
 void					ft_exitt(int *status);
 char					*file_random(void);
+void					handle_ctrl_c_heredoc(int sig);
 
 void					*ft_malloc(size_t size);
 void					free_grabage(void);

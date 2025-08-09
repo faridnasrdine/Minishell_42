@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:14:46 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 13:44:51 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 11:03:18 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_lstadd_front(t_cmd_exec **lst, t_cmd_exec *new)
 void	ft_exitt(int *status)
 {
 	if (get_exit_code() == 130)
-		exit((printf("\nexit\n"), free_grabage(), get_exit_code()));
+		exit((ft_putstr_fd("\nexit\n", 2), free_grabage(), get_exit_code()));
 	else
-		exit((printf("\nexit\n"), free_grabage(), *status));
+		exit((ft_putstr_fd("\nexit\n", 2), free_grabage(), *status));
 }

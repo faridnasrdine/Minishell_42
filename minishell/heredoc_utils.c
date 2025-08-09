@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 11:10:17 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 13:13:04 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,16 @@ static void	set_cmd_stdin(t_cmd *cmd, int fd)
 	ft_signals();
 }
 
-int	parent_heredoc(t_cmd *cmd, int *heredoc)
+int	parent_heredoc(pid_t pid, t_cmd *cmd, int *heredoc)
 {
 	int	exit_stat;
 	int	ret;
 
-	wait(&exit_stat);
+	waitpid(pid, &exit_stat, 0);
+	if (WIFEXITED(exit_stat))
+		set_exit_code(WEXITSTATUS(exit_stat));
+	if (WIFSIGNALED(exit_stat))
+		set_exit_code(WTERMSIG(exit_stat) + 128);
 	close(heredoc[1]);
 	ret = handle_exit_status(exit_stat, heredoc, cmd);
 	if (ret != -1)
@@ -80,4 +84,13 @@ char	*file_random(void)
 	buffer[i] = '\0';
 	close(fd);
 	return (ft_strjoin("/tmp/", buffer));
+}
+
+void	handle_ctrl_c_heredoc(int sig)
+{
+	(void)sig;
+	write(2, "\n", 1);
+	restore_std_fds();
+	free_grabage();
+	exit(130);
 }

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:14:17 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 10:56:46 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 13:12:51 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ static char	*line_expansion(char *line, t_cmd_exec *env_lst)
 
 static void	handle_ctrl_d_heredoc(char *line, t_cmd *cmd)
 {
-	if (get_exit_code() == 130)
-	{
-		restore_std_fds();
-		free_grabage();
-		exit(0);
-	}
 	if (!line)
 	{
 		ft_putstr_fd("\nMinishell: warning: here-document at ", 2);
@@ -113,6 +107,6 @@ int	heredoc(t_cmd *cmd, t_cmd_exec **env_lst)
 	if (!pid)
 		child_heredoc(cmd, env_lst, fd);
 	else
-		return (parent_heredoc(cmd, fd));
+		return (parent_heredoc(pid, cmd, fd));
 	return (0);
 }

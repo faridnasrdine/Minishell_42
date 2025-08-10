@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:10:02 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:01:22 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 14:12:38 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	parsing_opers(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 			stat = parsing_redirs(toks, cmd, &tmp, env_lst);
 			{
 				if (get_exit_code() == 130)
-					return (-2);
+					return ((restore_std_fds()), -2);
 			}
 		}
 		else

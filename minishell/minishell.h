@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:30 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 11:53:33 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 14:22:40 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ int						check_var_name(char *str, int *res,
 							t_cmd_exec **env_lst);
 void					child_proc(t_cmd **cmd, t_cmd_exec **env_lst, int id);
 char					*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst);
-void					exec_built(t_cmd *cmd, t_cmd_exec **env_lst,
-							int child_par);
 void					ft_signals(void);
 void					func(t_token *t, int *j);
 void					dups(t_cmd *tmp);

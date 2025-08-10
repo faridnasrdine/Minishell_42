@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 10:05:44 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 14:22:20 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	exec(t_cmd **cmd, t_cmd_exec **env_lst)
 {
 	(*cmd)->path = find_cmd(*cmd, *env_lst);
 	if ((*cmd)->path && (*cmd)->builtin == 1 && (*cmd)->next == NULL)
-		exec_built(*cmd, env_lst, 0);
+		exec_run_par(*cmd, env_lst);
 	else
 		exec_in_process(cmd, env_lst);
 }

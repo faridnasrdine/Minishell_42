@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:08:24 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 14:07:15 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 14:22:08 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,4 @@ void	exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst)
 	dups(cmd);
 	exec_run(cmd, env_lst);
 	close_dups(cmd);
-}
-
-void	exec_built(t_cmd *cmd, t_cmd_exec **env_lst, int child_par)
-{
-	int	exit_code;
-
-	if (cmd->redir_error)
-	{
-		change_stat(env_lst, 1);
-		return ;
-	}
-	if (!child_par)
-		exec_run_par(cmd, env_lst);
-	else if (child_par == 1)
-	{
-		exit_code = exec_run(cmd, env_lst);
-		exit(exit_code);
-	}
 }

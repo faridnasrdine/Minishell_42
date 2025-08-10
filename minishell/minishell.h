@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:30 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:37:07 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 14:35:00 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ typedef struct s_cmd
 }						t_cmd;
 
 int						arg_count(t_token **toks, t_cmd *cmd);
-int						handle_single_quotes(t_token *toks, int i);
-int						handle_dollar_sign(t_token *toks, int i,
+int						handle_single_quotes(t_token *toks, int *i);
+int						handle_dollar_sign(t_token *toks, int *i,
 							t_cmd_exec *env_lst);
 int						count_cmds(t_cmd *cmd);
 int						search_and_replace(t_token *t, int *i,
 							t_cmd_exec *env_lst, int w);
 int						handle_double_quotes(t_token *toks, int *i,
 							t_cmd_exec *env_lst);
-int						len_till_expansion(char *s, int start_pos);
+int						len_till_expansion(char *s);
 void					ft_quote_removal(t_token **toks);
 void					toks_arr(char *line, char *chars, t_token **toks);
 void					check_if_should_split(t_token *toks);
@@ -141,7 +141,6 @@ void					ft_exitt(int *status);
 char					*file_random(void);
 void					handle_ctrl_c_heredoc(int sig);
 void					ft_handle_sigint(int sig);
-
 void					*ft_malloc(size_t size);
 void					free_grabage(void);
 char					*check_is_path_fail(t_cmd *cmd);

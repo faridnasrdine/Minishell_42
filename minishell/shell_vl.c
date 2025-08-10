@@ -3,53 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   shell_vl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
+/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:49 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:15:54 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 14:34:48 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_single_quotes(t_token *toks, int i)
+int	handle_single_quotes(t_token *toks, int *i)
 {
 	i++;
-	while (toks->value[i] != '\'' && toks->value[i])
+	while (toks->value[*i] != '\'' && toks->value[*i])
 		i++;
-	if (toks->value[i] == '\'')
+	if (toks->value[*i] == '\'' && toks->value[*i + 1])
 		i++;
-	return (i);
+	return (0);
 }
 
-int	handle_dollar_sign(t_token *toks, int i, t_cmd_exec *env_lst)
+int	handle_dollar_sign(t_token *toks, int *i, t_cmd_exec *env_lst)
 {
-	if (toks->value[i + 1] == '?')
+	if (toks->value[*i + 1] == '?')
 	{
-		search_and_replace(toks, &i, env_lst, 0);
+		search_and_replace(toks, i, env_lst, 0);
 		return (-1);
 	}
-	else if (search_and_replace(toks, &i, env_lst, 0) == -1)
+	else
 	{
-		toks->expanded = 1;
-		return (-1);
+		if (search_and_replace(toks, i, env_lst, 0) == -1)
+		{
+			toks->expanded = 1;
+			return (-1);
+		}
 	}
 	toks->expanded = 1;
-	return (i + 1);
+	return (0);
 }
 
-int	len_till_expansion(char *s, int start_pos)
+int	len_till_expansion(char *s)
 {
 	int	i;
 	int	in_quotes;
-	int	len;
 
-	if (!s || start_pos < 0)
-		return (0);
-	len = ft_strlen(s);
-	if (start_pos >= len)
-		return (0);
-	i = start_pos;
+	i = 0;
 	in_quotes = 0;
 	while (s[i])
 	{
@@ -61,7 +58,7 @@ int	len_till_expansion(char *s, int start_pos)
 			break ;
 		i++;
 	}
-	return (i - start_pos);
+	return (i);
 }
 
 void	build_new_tok_val(t_token *toks, char *value, int i, int j)

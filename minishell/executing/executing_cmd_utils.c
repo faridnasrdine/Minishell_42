@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:08:10 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:08:12 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 21:34:37 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 		path = find_path(env_lst, cmd->args[0]);
 		if (!path)
 		{
+			path = check_is_path_fail(cmd);
 			if (path)
 				cmd->args[0] = path;
 		}

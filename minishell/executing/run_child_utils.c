@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:08:43 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:08:47 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 21:35:22 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,16 @@ t_cmd	*close_pipes(t_cmd **cmd, int id)
 		tmp = tmp->next;
 	dups(tmp);
 	return (tmp);
+}
+
+char	*check_is_path_fail(t_cmd *cmd)
+{
+	char	*path;
+
+	path = ft_strjoin("./", cmd->args[0]);
+	if (access(path, X_OK) == 0)
+		return (path);
+	if (access(path, F_OK) == 0)
+		return (NULL);
+	return (NULL);
 }

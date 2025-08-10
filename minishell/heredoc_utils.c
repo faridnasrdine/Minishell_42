@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 13:13:04 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 21:13:15 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	parent_heredoc(pid_t pid, t_cmd *cmd, int *heredoc)
 	waitpid(pid, &exit_stat, 0);
 	if (WIFEXITED(exit_stat))
 		set_exit_code(WEXITSTATUS(exit_stat));
-	if (WIFSIGNALED(exit_stat))
-		set_exit_code(WTERMSIG(exit_stat) + 128);
 	close(heredoc[1]);
 	ret = handle_exit_status(exit_stat, heredoc, cmd);
 	if (ret != -1)
@@ -77,7 +75,8 @@ char	*file_random(void)
 		return (NULL);
 	while (i < 10)
 	{
-		read(fd, &c, 1);
+		if (read(fd, &c, 1) <= 0)
+			return (close(fd), NULL);
 		if (ft_isalnum(c))
 			buffer[i++] = c;
 	}

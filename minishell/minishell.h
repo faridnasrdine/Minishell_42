@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:30 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 13:16:38 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 11:53:33 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int						handle_double_quotes(t_token *toks, int *i,
 							t_cmd_exec *env_lst);
 int						len_till_expansion(char *s, int start_pos);
 void					ft_quote_removal(t_token **toks);
-char					*remove_outer_quotes(char *s);
 void					toks_arr(char *line, char *chars, t_token **toks);
 void					check_if_should_split(t_token *toks);
 int						parsing_line(char *line, t_token **toks,
@@ -133,18 +132,19 @@ void					exec_run_par(t_cmd *cmd, t_cmd_exec **env_lst);
 void					check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst,
 							t_cmd **cmd);
 int						parent_heredoc(pid_t pid, t_cmd *cmd, int *heredoc);
-void					parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx,
+void					parent_proc(t_cmd_exec **env_lst, int idx,
 							int *pids);
 pid_t					*allocate_pid_array(t_cmd *cmd);
-void					waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx,
+void					waiting(t_cmd_exec **env_lst, int idx,
 							int *pids);
 void					ft_exitt(int *status);
 char					*file_random(void);
 void					handle_ctrl_c_heredoc(int sig);
+void					ft_handle_sigint(int sig);
 
 void					*ft_malloc(size_t size);
 void					free_grabage(void);
-
+char					*check_is_path_fail(t_cmd *cmd);
 int						env_to_lst(char **env, t_cmd_exec **env_lst);
 void					restore_std_fds(void);
 void					change_stat(t_cmd_exec **env_lst, int stat);

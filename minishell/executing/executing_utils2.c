@@ -6,16 +6,16 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:00:18 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 09:14:23 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 10:05:33 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parent_proc(t_cmd **cmd, t_cmd_exec **env_lst, int idx, int *pids)
+void	parent_proc(t_cmd_exec **env_lst, int idx, int *pids)
 {
 	restore_std_fds();
-	waiting(env_lst, cmd, idx, pids);
+	waiting(env_lst, idx, pids);
 }
 
 pid_t	*allocate_pid_array(t_cmd *cmd)

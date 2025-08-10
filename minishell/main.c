@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:02 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 10:54:38 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 11:53:21 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	check_ctrl_c(t_cmd_exec *env_lst)
 	}
 }
 
-static void	ft_handle_sigint(int sig)
+void	ft_handle_sigint(int sig)
 {
 	(void)sig;
 	write(2, "\n", 1);

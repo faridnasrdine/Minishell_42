@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:11:35 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:11:37 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/09 21:14:05 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static void	toks_split(t_token **toks)
 	int		i;
 
 	tmp = *toks;
-	i = -1;
 	while (tmp)
 	{
 		if (tmp->type == 'o' && (ft_strchr(tmp->value, ' ') != 0))
 		{
 			arr = ft_split(tmp->value, ' ');
 			tmp->type = 'd';
+			i = -1;
 			while (arr[++i] != NULL)
 			{
 				tmp->next = split_into_new_ele(arr[i], tmp);

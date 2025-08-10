@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:06:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/08 15:48:49 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 11:14:11 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,13 @@ char	*check_dir(t_cmd_exec **env_lst, char *path)
 	char	*env_pwd;
 
 	tmp = getcwd(NULL, 0);
-	new_pwd = ft_strdup(tmp);
-	free(tmp);
+	if (!tmp)
+		new_pwd = NULL;
+	else
+	{
+		new_pwd = ft_strdup(tmp);
+		free(tmp);
+	}
 	if (!new_pwd)
 	{
 		env_pwd = get_env_pwd(*env_lst);

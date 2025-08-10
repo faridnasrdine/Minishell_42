@@ -6,18 +6,16 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:07 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/05 14:19:13 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 10:05:44 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
-		int *stat_code)
+static void	waiting_helper(t_cmd_exec **env_lst, int *exit_stat, int *stat_code)
 {
 	int	sig;
 
-	(void)cmd;
 	sig = WTERMSIG(*exit_stat);
 	if (sig == SIGQUIT)
 	{
@@ -34,7 +32,7 @@ static void	waiting_helper(t_cmd_exec **env_lst, t_cmd **cmd, int *exit_stat,
 	}
 }
 
-void	waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids)
+void	waiting(t_cmd_exec **env_lst, int idx, int *pids)
 {
 	int	exit_stat;
 	int	stat_code;
@@ -49,7 +47,7 @@ void	waiting(t_cmd_exec **env_lst, t_cmd **cmd, int idx, int *pids)
 		if (i == idx - 1)
 		{
 			if (WIFSIGNALED(exit_stat) != 0)
-				waiting_helper(env_lst, cmd, &exit_stat, &stat_code);
+				waiting_helper(env_lst, &exit_stat, &stat_code);
 			else if (WIFEXITED(exit_stat))
 			{
 				stat_code = WEXITSTATUS(exit_stat);
@@ -94,7 +92,7 @@ static void	exec_in_process(t_cmd **cmd, t_cmd_exec **env_lst)
 
 	pids = allocate_pid_array(*cmd);
 	process_count = fork_and_execute(cmd, env_lst, pids);
-	parent_proc(cmd, env_lst, process_count, pids);
+	parent_proc(env_lst, process_count, pids);
 }
 
 void	exec(t_cmd **cmd, t_cmd_exec **env_lst)

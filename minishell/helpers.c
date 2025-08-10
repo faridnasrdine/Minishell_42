@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:13:02 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:47:25 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/10 15:31:55 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	handle_double_quotes(t_token *toks, int *i, t_cmd_exec *env_lst)
 	(*i)++;
 	while (toks->value[*i] && toks->value[*i] != '\"')
 	{
-		if (toks->value[*i] == '$')
+		if (toks->value[*i] == '$' && ft_isalpha(toks->value[*i + 1]))
 		{
 			if (search_and_replace(toks, i, env_lst, 1) == -1)
 			{
@@ -43,7 +43,7 @@ void	func(t_token *t, int *j)
 	}
 	else
 	{
-		while (t->value[*j] && !ft_strchr(" \t\"\'/?$=[]:.<>|", t->value[*j])
+		while (t->value[*j] && !ft_strchr("\t\"\'/?$=[]:.<>|", t->value[*j])
 			&& ft_isalpha(t->value[*j]))
 			(*j)++;
 		while (t->value[*j] == '_' || ft_isalnum(t->value[*j]))

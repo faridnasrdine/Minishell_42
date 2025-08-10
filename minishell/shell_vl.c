@@ -6,7 +6,7 @@
 /*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:49 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:34:48 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/10 15:15:22 by houssam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	handle_single_quotes(t_token *toks, int *i)
 {
-	i++;
+	(*i)++;
 	while (toks->value[*i] != '\'' && toks->value[*i])
-		i++;
+		(*i)++;
 	if (toks->value[*i] == '\'' && toks->value[*i + 1])
-		i++;
+		(*i)++;
 	return (0);
 }
 

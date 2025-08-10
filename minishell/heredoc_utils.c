@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 11:19:33 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 21:13:15 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/10 13:46:49 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int	parent_heredoc(pid_t pid, t_cmd *cmd, int *heredoc)
 
 	waitpid(pid, &exit_stat, 0);
 	if (WIFEXITED(exit_stat))
+	{
 		set_exit_code(WEXITSTATUS(exit_stat));
+	}
 	close(heredoc[1]);
 	ret = handle_exit_status(exit_stat, heredoc, cmd);
 	if (ret != -1)

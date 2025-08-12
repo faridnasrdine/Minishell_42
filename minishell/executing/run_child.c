@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 13:21:13 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:19:15 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/12 18:32:15 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ static void	fun(t_cmd *exec_cmd, int *exit_code)
 		*exit_code = 0;
 	else if (!exec_cmd->path_error)
 		*exit_code = 0;
+	else if (exec_cmd->path_error == 2)
+	{
+		if (exec_cmd->args[0])
+		{
+			tmp = ft_strjoin("Minishell: ", (exec_cmd->args[0]));
+			tmp = ft_strjoin(tmp, ": No such file or directory\n");
+			ft_putstr_fd(tmp, 2);
+			tmp = NULL;
+		}
+		*exit_code = 127;
+	}
 	else if (exec_cmd->args[0])
 	{
 		tmp = ft_strjoin("Minishell: ", (exec_cmd->args[0]));

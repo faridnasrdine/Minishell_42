@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:08:10 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 21:34:37 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/12 18:31:33 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,33 @@ static int	built(t_cmd *cmd)
 	return (i);
 }
 
+static void	handle_path_error(t_cmd *cmd, t_cmd_exec *env_lst)
+{
+	t_cmd_exec	*env_tmp;
+	int			path_exists;
+
+	env_tmp = env_lst;
+	path_exists = 0;
+	while (env_tmp)
+	{
+		if (!ft_strncmp(env_tmp->name, "PATH", 4))
+		{
+			path_exists = 1;
+			break ;
+		}
+		env_tmp = env_tmp->next;
+	}
+	if (!path_exists)
+		cmd->path_error = 2;
+	else
+	{
+		if (!env_tmp->value || !env_tmp->value[0])
+			cmd->path_error = 2;
+		else
+			cmd->path_error = 1;
+	}
+}
+
 char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 {
 	char	*path;
@@ -98,26 +125,9 @@ char	*find_cmd(t_cmd *cmd, t_cmd_exec *env_lst)
 	{
 		path = find_path(env_lst, cmd->args[0]);
 		if (!path)
-		{
-			path = check_is_path_fail(cmd);
-			if (path)
-				cmd->args[0] = path;
-		}
+			handle_path_error(cmd, env_lst);
 		else
 			cmd->args[0] = path;
 	}
-	if (!path && cmd->path_error != 4)
-		cmd->path_error = 1;
 	return (path);
-}
-
-void	check_dir_exe(t_cmd *tmp, t_cmd_exec **env_lst, t_cmd **cmd)
-{
-	if (tmp->redir_error && tmp->redir_error != 3)
-	{
-		restore_std_fds();
-		free_grabage();
-		exit(1);
-	}
-	child_proc(cmd, env_lst, tmp->id);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:16:12 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:40:48 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/09 12:09:25 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ t_token	*new_ele_tok_node(char **words, int i)
 	curr->type = 'w';
 	curr->value = ft_strdup(words[i]);
 	curr->quote = ft_strdup("0");
-	curr->strip = 1;
-	curr->expanded = 0;
 	curr->next = NULL;
 	if (!curr->value || !curr->quote)
 		return (NULL);
@@ -79,8 +77,6 @@ int	split_token_into_nodes(t_token *tok)
 		return (-1);
 	curr->value = ft_strdup(words[0]);
 	curr->quote = ft_strdup("0");
-	curr->strip = 1;
-	curr->expanded = 0;
 	if (!curr->value || !curr->quote)
 		return (-1);
 	if (ft_split_token_into_nodes_2(curr, words, next) == -1)

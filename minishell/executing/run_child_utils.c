@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:08:43 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/09 21:35:22 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/12 18:29:40 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ char	*check_is_path_fail(t_cmd *cmd)
 		return (path);
 	if (access(path, F_OK) == 0)
 		return (NULL);
+	check_if_dir(cmd);
 	return (NULL);
 }

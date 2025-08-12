@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houssam <houssam@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:15:37 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:38:11 by houssam          ###   ########.fr       */
+/*   Updated: 2025/08/09 18:01:50 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 	char	*value;
 	int		k;
 
-	k = -1;
-	while (toks->value[++k])
+	k = 0;
+	while (toks->value[k])
 	{
 		if (toks->value[k] == '$' && ft_strchr(".=\0", toks->value[k + 1]))
 			toks->strip = 0;
+		k++;
 	}
 	if (toks->strip)
 		value = erase_spaces(env_lst->value);
@@ -35,7 +36,7 @@ static int	ft_replace(t_token *toks, int i, int j, t_cmd_exec *env_lst)
 		if (split_token_into_nodes(toks) == -1)
 			return (-1);
 	}
-	if (copy_quotes(toks, env_lst, i, j) == -1)
+	else if (copy_quotes(toks, env_lst, i, j) == -1)
 		return (-1);
 	return (0);
 }
@@ -97,6 +98,8 @@ int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 	j = *i + 1;
 	func(t, &j);
 	new_str = ft_substr(t->value, *i + 1, j - *i - 1);
+	if (!new_str || !new_str[0])
+		return (-1);
 	while (env_lst && ft_strncmp(env_lst->name, new_str, ft_strlen(new_str)
 			+ 1))
 		env_lst = env_lst->next;
@@ -108,7 +111,7 @@ int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 		else
 			t->strip = 1;
 		ft_replace(t, *i, j, env_lst);
-		return (*i = start_pos + len_till_expansion(env_lst->value) - 1, 0);
+		return (*i = start_pos + len_till_expansion(env_lst->value, *i) - 1, 0);
 	}
 	return (t->strip = !(inside_word), ft_is_found(t, i, j, w));
 }
@@ -116,28 +119,25 @@ int	search_and_replace(t_token *t, int *i, t_cmd_exec *env_lst, int w)
 void	p_expansion(t_token *toks, t_cmd_exec *env_lst)
 {
 	int	i;
-	int	len;
 
 	i = 0;
 	toks->expanded = 0;
-	while (toks->value[i])
+	while (toks->value && toks->value[i])
 	{
 		if (toks->value[i] == '\'')
-			handle_single_quotes(toks, &i);
-		if (toks->value[i] == '\"')
+			i = handle_single_quotes(toks, i);
+		else if (toks->value[i] == '\"')
 		{
 			if (handle_double_quotes(toks, &i, env_lst) == -1)
 				return ;
 		}
-		else if (toks->value[i] == '$' && !ft_strchr("$.=\0", toks->value[i + 1]))
+		else if (toks->value[i] == '$' && !ft_strchr("$\0", toks->value[i + 1]))
 		{
-			if (handle_dollar_sign(toks, &i, env_lst) == -1)
+			i = handle_dollar_sign(toks, i, env_lst);
+			if (i == -1)
 				return ;
 		}
 		else
 			i++;
-		len = (int)ft_strlen(toks->value);
-		if (i > len)
-			i = len;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:10:19 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/07 20:10:21 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/13 11:07:18 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,8 @@ int	toks_to_struct(t_token **toks, t_cmd **cmd, t_cmd_exec **env_lst)
 	if (parsing_cmd(toks, *cmd, env_lst))
 		return (-1);
 	(*cmd)->id = id;
-	while ((*toks))
-	{
-		if ((*toks)->type == 'c')
-			break ;
+	while ((*toks) && (*toks)->type == 'c')
 		*toks = (*toks)->next;
-	}
 	while ((*toks) && ft_strncmp((*toks)->value, "|", 2) == 0)
 	{
 		last = *cmd;
@@ -137,7 +133,8 @@ int	toks_to_struct(t_token **toks, t_cmd **cmd, t_cmd_exec **env_lst)
 		last = *cmd;
 		while (last->next)
 			last = last->next;
-		parsing_cmd(toks, last, env_lst);
+		if (parsing_cmd(toks, last, env_lst) == -1)
+			return (-1);
 		last->id = ++id;
 	}
 	return (0);

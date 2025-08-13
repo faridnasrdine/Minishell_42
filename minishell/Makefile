@@ -6,7 +6,7 @@
 #    By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/21 14:41:13 by nafarid           #+#    #+#              #
-#    Updated: 2025/08/09 13:15:46 by nafarid          ###   ########.fr        #
+#    Updated: 2025/08/13 11:11:14 by nafarid          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,19 +29,19 @@ LIB = $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 $(NAME) : $(OBJS)
-	cd $(LIBFT_DIR) && $(MAKE) -s
-	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(FLAGS)
+	@cd $(LIBFT_DIR) && $(MAKE) -s
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) $(FLAGS)
 
 %.o :%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	cd $(LIBFT_DIR) && $(MAKE) -s clean
-	rm -f $(OBJS)
+	@cd $(LIBFT_DIR) && $(MAKE) -s clean
+	@rm -f $(OBJS)
 
 fclean: clean
-	cd $(LIBFT_DIR) && $(MAKE) -s fclean
-	rm -f $(NAME)
+	@cd $(LIBFT_DIR) && $(MAKE) -s fclean
+	@rm -f $(NAME)
 
 re: fclean all
 

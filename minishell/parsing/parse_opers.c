@@ -6,7 +6,7 @@
 /*   By: nafarid <nafarid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 20:10:02 by nafarid           #+#    #+#             */
-/*   Updated: 2025/08/10 14:12:38 by nafarid          ###   ########.fr       */
+/*   Updated: 2025/08/13 11:07:28 by nafarid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	parsing_opers(t_token **toks, t_cmd *cmd, t_cmd_exec **env_lst)
 		}
 		else
 			return ((ft_putstr_fd("Minishell Syntax error: Undefined"
-						"value after operator\n", 2)), -2);
+						" value after operator\n", 2)), -2);
 	}
 	return (stat);
 }
